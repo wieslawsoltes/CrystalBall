@@ -1,0 +1,26 @@
+services:
+  gateway:
+    build: .
+    env_file: .env
+    restart: unless-stopped
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    tmpfs: [/tmp:size=16m,noexec,nosuid]
+    mem_limit: 256m
+    pids_limit: 100
+    expose: ["8080"]
+    ulimits:
+      core: 0
+  tls:
+    image: caddy:2
+    restart: unless-stopped
+    ports: ["443:443"]
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    security_opt: [no-new-privileges:true]
+volumes:
+  caddy_data:
+  caddy_config:

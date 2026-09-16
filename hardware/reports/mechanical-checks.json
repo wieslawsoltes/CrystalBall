@@ -1,0 +1,232 @@
+{
+  "checked": "BREP boolean intersections and exported STL topology",
+  "intersections": [
+    {
+      "a": "01_base_shell",
+      "b": "02_bottom_cover",
+      "intersection_mm3": 133.654
+    },
+    {
+      "a": "01_base_shell",
+      "b": "15_speaker_cradle",
+      "intersection_mm3": 113.482
+    },
+    {
+      "a": "01_base_shell",
+      "b": "16_pd_module_sled",
+      "intersection_mm3": 110.052
+    },
+    {
+      "a": "01_base_shell",
+      "b": "REF_mic_module",
+      "intersection_mm3": 100.908
+    },
+    {
+      "a": "01_base_shell",
+      "b": "18_microphone_clip",
+      "intersection_mm3": 125.685
+    },
+    {
+      "a": "09_mirror_frame",
+      "b": "10_mirror_retainer",
+      "intersection_mm3": 46.223
+    },
+    {
+      "a": "09_mirror_frame",
+      "b": "11_beamsplitter_OPTICAL",
+      "intersection_mm3": 9.587
+    }
+  ],
+  "meshes": [
+    {
+      "part": "16_pd_module_sled",
+      "watertight": true,
+      "winding_consistent": true,
+      "triangles": 1416,
+      "zmin": 0.0
+    },
+    {
+      "part": "REF_LCD_1770",
+      "watertight": true,
+      "winding_consistent": true,
+      "triangles": 28,
+      "zmin": 0.0
+    },
+    {
+      "part": "REF_mic_module",
+      "watertight": true,
+      "winding_consistent": true,
+      "triangles": 12,
+      "zmin": 0.0
+    },
+    {
+      "part": "17_fit_coupon",
+      "watertight": true,
+      "winding_consistent": true,
+      "triangles": 2456,
+      "zmin": 0.0
+    },
+    {
+      "part": "12_upright_left",
+      "watertight": true,
+      "winding_consistent": true,
+      "triangles": 1304,
+      "zmin": 0.0
+    },
+    {
+      "part": "10_mirror_retainer",
+      "watertight": true,
+      "winding_consistent": true,
+      "triangles": 1392,
+      "zmin": 0.0
+    },
+    {
+      "part": "REF_PD_HUSB238",
+      "watertight": true,
+      "winding_consistent": true,
+      "triangles": 36,
+      "zmin": 0.0
+    },
+    {
+      "part": "09_mirror_frame",
+      "watertight": true,
+      "winding_consistent": true,
+      "triangles": 3488,
+      "zmin": 0.0
+    },
+    {
+      "part": "14_halo_diffuser",
+      "watertight": true,
+      "winding_consistent": true,
+      "triangles": 672,
+      "zmin": 0.0
+    },
+    {
+      "part": "REF_amp_module",
+      "watertight": true,
+      "winding_consistent": true,
+      "triangles": 12,
+      "zmin": 0.0
+    },
+    {
+      "part": "04_optical_globe",
+      "watertight": false,
+      "winding_consistent": true,
+      "triangles": 5578,
+      "zmin": 0.0
+    },
+    {
+      "part": "12_upright_right",
+      "watertight": true,
+      "winding_consistent": true,
+      "triangles": 1304,
+      "zmin": 0.0
+    },
+    {
+      "part": "REF_LCD_active",
+      "watertight": true,
+      "winding_consistent": true,
+      "triangles": 12,
+      "zmin": 0.0
+    },
+    {
+      "part": "REF_esp32_devkit",
+      "watertight": true,
+      "winding_consistent": true,
+      "triangles": 28,
+      "zmin": 0.0
+    },
+    {
+      "part": "REF_speaker_40mm",
+      "watertight": true,
+      "winding_consistent": true,
+      "triangles": 668,
+      "zmin": 0.0
+    },
+    {
+      "part": "01_base_shell",
+      "watertight": true,
+      "winding_consistent": true,
+      "triangles": 8566,
+      "zmin": 0.0
+    },
+    {
+      "part": "REF_carrier_PCB",
+      "watertight": true,
+      "winding_consistent": true,
+      "triangles": 1372,
+      "zmin": 0.0
+    },
+    {
+      "part": "18_microphone_clip",
+      "watertight": true,
+      "winding_consistent": true,
+      "triangles": 48,
+      "zmin": 0.0
+    },
+    {
+      "part": "15_speaker_cradle",
+      "watertight": true,
+      "winding_consistent": true,
+      "triangles": 1436,
+      "zmin": 0.0
+    },
+    {
+      "part": "02_bottom_cover",
+      "watertight": true,
+      "winding_consistent": true,
+      "triangles": 6376,
+      "zmin": 0.0
+    },
+    {
+      "part": "07_retainer_left",
+      "watertight": true,
+      "winding_consistent": true,
+      "triangles": 1020,
+      "zmin": 0.0
+    },
+    {
+      "part": "03_optical_deck",
+      "watertight": true,
+      "winding_consistent": true,
+      "triangles": 8448,
+      "zmin": 0.0
+    },
+    {
+      "part": "06_globe_gasket",
+      "watertight": true,
+      "winding_consistent": true,
+      "triangles": 672,
+      "zmin": 0.0
+    },
+    {
+      "part": "08_retainer_right",
+      "watertight": true,
+      "winding_consistent": true,
+      "triangles": 1020,
+      "zmin": 0.0
+    },
+    {
+      "part": "05_globe_bond_flange",
+      "watertight": true,
+      "winding_consistent": true,
+      "triangles": 672,
+      "zmin": 0.0
+    },
+    {
+      "part": "11_beamsplitter_OPTICAL",
+      "watertight": true,
+      "winding_consistent": true,
+      "triangles": 12,
+      "zmin": 0.0
+    },
+    {
+      "part": "13_halo_rail",
+      "watertight": true,
+      "winding_consistent": true,
+      "triangles": 922,
+      "zmin": 0.0
+    }
+  ],
+  "note": "Vendor components are envelope proxies. Exact terminal, cable, button, insert and tolerance-stack fit requires first article."
+}

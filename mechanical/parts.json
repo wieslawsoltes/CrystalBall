@@ -1,0 +1,650 @@
+[
+  {
+    "name": "01_base_shell",
+    "valid_brep": true,
+    "solid_count": 1,
+    "volume_mm3": 92807.346,
+    "bbox_mm": [
+      148.0,
+      137.0,
+      65.0
+    ],
+    "material": "Black PETG or PA12",
+    "process": "FDM/SLS, no optical surfaces",
+    "note": "3 mm wall; 4.2 mm heat-set pilot must be tuned using fit coupon. No metal-filled finish near antenna.",
+    "assembly_position_mm": [
+      0,
+      0,
+      0
+    ],
+    "explode_mm": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "name": "02_bottom_cover",
+    "valid_brep": true,
+    "solid_count": 1,
+    "volume_mm3": 50767.874,
+    "bbox_mm": [
+      147.4,
+      136.7,
+      9.0
+    ],
+    "material": "Black PETG / PA12",
+    "process": "FDM/SLS",
+    "note": "M3 body screws through counterbores; independent PCB M3x6 self-tap screws enter separate posts from above.",
+    "assembly_position_mm": [
+      0,
+      0,
+      0
+    ],
+    "explode_mm": [
+      0,
+      0,
+      -30
+    ]
+  },
+  {
+    "name": "03_optical_deck",
+    "valid_brep": true,
+    "solid_count": 1,
+    "volume_mm3": 47959.672,
+    "bbox_mm": [
+      147.4,
+      136.7,
+      8.8
+    ],
+    "material": "Black PETG / PA12",
+    "process": "FDM/SLS",
+    "note": "Screen plane nominal Z68.5. Display stand-off length is adjustable using washers; measure actual LCD revision.",
+    "assembly_position_mm": [
+      0,
+      0,
+      0
+    ],
+    "explode_mm": [
+      0,
+      0,
+      45
+    ]
+  },
+  {
+    "name": "04_optical_globe",
+    "valid_brep": true,
+    "solid_count": 1,
+    "volume_mm3": 73404.36,
+    "bbox_mm": [
+      120.0,
+      120.0,
+      100.0
+    ],
+    "material": "Optical PMMA, clear, UV-stabilized",
+    "process": "Optical forming/polishing - NOT FDM",
+    "note": "120 OD, 2 nominal wall, cut at 40 mm below centre. Opening OD89.443 / ID84.000. Supplier optical qualification required.",
+    "assembly_position_mm": [
+      0,
+      0,
+      0
+    ],
+    "explode_mm": [
+      0,
+      0,
+      110
+    ]
+  },
+  {
+    "name": "05_globe_bond_flange",
+    "valid_brep": true,
+    "solid_count": 1,
+    "volume_mm3": 4624.424,
+    "bbox_mm": [
+      100.0,
+      100.0,
+      2.0
+    ],
+    "material": "Clear cast PMMA",
+    "process": "CNC/laser cut; supplier-bond to globe",
+    "note": "100 OD / 84 ID / 2 thick. Bond is structural: test pull-off. No cyanoacrylate vapour near clear surfaces.",
+    "assembly_position_mm": [
+      0,
+      0,
+      0
+    ],
+    "explode_mm": [
+      0,
+      0,
+      80
+    ]
+  },
+  {
+    "name": "06_globe_gasket",
+    "valid_brep": true,
+    "solid_count": 1,
+    "volume_mm3": 1849.77,
+    "bbox_mm": [
+      100.0,
+      100.0,
+      0.8
+    ],
+    "material": "Black silicone, 40-50 Shore A",
+    "process": "Die-cut 0.8 mm sheet",
+    "note": "",
+    "assembly_position_mm": [
+      0,
+      0,
+      0
+    ],
+    "explode_mm": [
+      0,
+      0,
+      62
+    ]
+  },
+  {
+    "name": "07_retainer_left",
+    "valid_brep": true,
+    "solid_count": 1,
+    "volume_mm3": 2574.793,
+    "bbox_mm": [
+      55.85,
+      112.0,
+      2.0
+    ],
+    "material": "Gold-painted PETG / PA12",
+    "process": "FDM/SLS then nonconductive finish",
+    "note": "",
+    "assembly_position_mm": [
+      0,
+      0,
+      0
+    ],
+    "explode_mm": [
+      -20,
+      0,
+      65
+    ]
+  },
+  {
+    "name": "08_retainer_right",
+    "valid_brep": true,
+    "solid_count": 1,
+    "volume_mm3": 2574.793,
+    "bbox_mm": [
+      55.85,
+      112.0,
+      2.0
+    ],
+    "material": "Gold-painted PETG / PA12",
+    "process": "FDM/SLS then nonconductive finish",
+    "note": "",
+    "assembly_position_mm": [
+      0,
+      0,
+      0
+    ],
+    "explode_mm": [
+      20,
+      0,
+      65
+    ]
+  },
+  {
+    "name": "09_mirror_frame",
+    "valid_brep": true,
+    "solid_count": 1,
+    "volume_mm3": 1916.658,
+    "bbox_mm": [
+      76.0,
+      49.819,
+      69.956
+    ],
+    "material": "Matte black PA12 / PETG",
+    "process": "FDM/SLS; smooth glass-contact pads",
+    "note": "Glass rests on edge lip with 0.2 mm silicone pads. Rotation 45-55 deg normal use; clamp with M3 pivot screws.",
+    "assembly_position_mm": [
+      0,
+      0,
+      0
+    ],
+    "explode_mm": [
+      0,
+      0,
+      75
+    ]
+  },
+  {
+    "name": "10_mirror_retainer",
+    "valid_brep": true,
+    "solid_count": 1,
+    "volume_mm3": 1076.154,
+    "bbox_mm": [
+      74.0,
+      49.163,
+      69.497
+    ],
+    "material": "Matte black PA12 / PETG",
+    "process": "FDM/SLS",
+    "note": "",
+    "assembly_position_mm": [
+      0,
+      0,
+      0
+    ],
+    "explode_mm": [
+      0,
+      10,
+      87
+    ]
+  },
+  {
+    "name": "11_beamsplitter_OPTICAL",
+    "valid_brep": true,
+    "solid_count": 1,
+    "volume_mm3": 5600.0,
+    "bbox_mm": [
+      70.0,
+      46.705,
+      66.106
+    ],
+    "material": "70R/30T coated optical glass, rear AR",
+    "process": "Optical fabrication - NOT FDM",
+    "note": "70x80x1 mm, visible band, specify usable incidence 45-55 degrees. Coating uniformity, wedge/ghosting and polarization to vendor review.",
+    "assembly_position_mm": [
+      0,
+      0,
+      0
+    ],
+    "explode_mm": [
+      0,
+      5,
+      81
+    ]
+  },
+  {
+    "name": "12_upright_left",
+    "valid_brep": true,
+    "solid_count": 1,
+    "volume_mm3": 967.899,
+    "bbox_mm": [
+      4.0,
+      14.0,
+      44.0
+    ],
+    "material": "Matte black PA12 / PETG",
+    "process": "FDM/SLS",
+    "note": "M2x6 foot screws, M3 pivot clamp. No overlong screws into LCD envelope.",
+    "assembly_position_mm": [
+      0,
+      0,
+      0
+    ],
+    "explode_mm": [
+      -8,
+      0,
+      50
+    ]
+  },
+  {
+    "name": "12_upright_right",
+    "valid_brep": true,
+    "solid_count": 1,
+    "volume_mm3": 967.899,
+    "bbox_mm": [
+      4.0,
+      14.0,
+      44.0
+    ],
+    "material": "Matte black PA12 / PETG",
+    "process": "FDM/SLS",
+    "note": "M2x6 foot screws, M3 pivot clamp. No overlong screws into LCD envelope.",
+    "assembly_position_mm": [
+      0,
+      0,
+      0
+    ],
+    "explode_mm": [
+      8,
+      0,
+      50
+    ]
+  },
+  {
+    "name": "13_halo_rail",
+    "valid_brep": true,
+    "solid_count": 1,
+    "volume_mm3": 6500.814,
+    "bbox_mm": [
+      118.0,
+      118.0,
+      10.0
+    ],
+    "material": "Black PETG / PA12",
+    "process": "FDM/SLS",
+    "note": "Use flexible strip, not a 60 mm rigid ring: that would obstruct the display. Locate the no-LED gap on +Y.",
+    "assembly_position_mm": [
+      0,
+      0,
+      0
+    ],
+    "explode_mm": [
+      0,
+      0,
+      48
+    ]
+  },
+  {
+    "name": "14_halo_diffuser",
+    "valid_brep": true,
+    "solid_count": 1,
+    "volume_mm3": 3905.628,
+    "bbox_mm": [
+      112.4,
+      112.4,
+      8.0
+    ],
+    "material": "Opal silicone or translucent TPU",
+    "process": "Cast/mould or FDM optical trial",
+    "note": "Only peripheral glow; no mist, lasers or true volumetric image. Black out operator-facing quadrant after optical calibration.",
+    "assembly_position_mm": [
+      0,
+      0,
+      0
+    ],
+    "explode_mm": [
+      0,
+      0,
+      58
+    ]
+  },
+  {
+    "name": "15_speaker_cradle",
+    "valid_brep": true,
+    "solid_count": 1,
+    "volume_mm3": 4850.211,
+    "bbox_mm": [
+      60.0,
+      44.0,
+      33.0
+    ],
+    "material": "Black PETG / PA12",
+    "process": "FDM/SLS",
+    "note": "40 mm speaker envelope; strap retention. Mount to matching blind deck holes at X=-8/+40, Y=-40 with M3x6 self-tapping screws. Strap through cradle secures speaker; qualify purchased speaker envelope.",
+    "assembly_position_mm": [
+      0,
+      0,
+      0
+    ],
+    "explode_mm": [
+      18,
+      -15,
+      20
+    ]
+  },
+  {
+    "name": "16_pd_module_sled",
+    "valid_brep": true,
+    "solid_count": 1,
+    "volume_mm3": 2269.664,
+    "bbox_mm": [
+      26.0,
+      34.0,
+      6.0
+    ],
+    "material": "Black PETG / PA12",
+    "process": "FDM/SLS",
+    "note": "Tray screws at (19/39,57) to case bosses. Foam tape plus cable tie retains PD board; adjust strip thickness to align USB centre Z32.0 with 12x7 case slot. Vendor PCB hole pattern is NOT claimed exact.",
+    "assembly_position_mm": [
+      0,
+      0,
+      0
+    ],
+    "explode_mm": [
+      20,
+      15,
+      15
+    ]
+  },
+  {
+    "name": "17_fit_coupon",
+    "valid_brep": true,
+    "solid_count": 1,
+    "volume_mm3": 10881.909,
+    "bbox_mm": [
+      68.0,
+      28.0,
+      6.0
+    ],
+    "material": "Same material and print profile as enclosure",
+    "process": "FDM/SLS",
+    "note": "Not an assembly part. Print first. Verify inserts, M2/M3 holes and beamsplitter thickness slots.",
+    "assembly_position_mm": [
+      0,
+      0,
+      -100
+    ],
+    "explode_mm": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "name": "REF_carrier_PCB",
+    "valid_brep": true,
+    "solid_count": 1,
+    "volume_mm3": 14348.528,
+    "bbox_mm": [
+      100.0,
+      90.0,
+      1.6
+    ],
+    "material": "FR-4 2 oz copper",
+    "process": "Purchased PCB",
+    "note": "Board outline/mounting holes only. Pads and copper in KiCad/Gerbers.",
+    "assembly_position_mm": [
+      0,
+      0,
+      0
+    ],
+    "explode_mm": [
+      0,
+      0,
+      10
+    ]
+  },
+  {
+    "name": "REF_esp32_devkit",
+    "valid_brep": true,
+    "solid_count": 1,
+    "volume_mm3": 3845.754,
+    "bbox_mm": [
+      25.4,
+      62.74,
+      4.6
+    ],
+    "material": "Purchased module",
+    "process": "Envelope proxy",
+    "note": "Envelope orientation only; board antenna keepout is authoritative in PCB files.",
+    "assembly_position_mm": [
+      0,
+      0,
+      0
+    ],
+    "explode_mm": [
+      0,
+      0,
+      25
+    ]
+  },
+  {
+    "name": "REF_LCD_1770",
+    "valid_brep": true,
+    "solid_count": 1,
+    "volume_mm3": 20275.919,
+    "bbox_mm": [
+      81.28,
+      62.484,
+      6.1
+    ],
+    "material": "Adafruit 1770",
+    "process": "Envelope proxy",
+    "note": "LCD optical plane and connector clearance require measurement. Display is 320x240 landscape.",
+    "assembly_position_mm": [
+      0,
+      0,
+      0
+    ],
+    "explode_mm": [
+      0,
+      0,
+      36
+    ]
+  },
+  {
+    "name": "REF_LCD_active",
+    "valid_brep": true,
+    "solid_count": 1,
+    "volume_mm3": 497.664,
+    "bbox_mm": [
+      57.6,
+      43.2,
+      0.2
+    ],
+    "material": "TFT active area",
+    "process": "Envelope proxy",
+    "note": "",
+    "assembly_position_mm": [
+      0,
+      0,
+      0
+    ],
+    "explode_mm": [
+      0,
+      0,
+      36
+    ]
+  },
+  {
+    "name": "REF_speaker_40mm",
+    "valid_brep": true,
+    "solid_count": 1,
+    "volume_mm3": 21111.503,
+    "bbox_mm": [
+      40.0,
+      40.0,
+      20.0
+    ],
+    "material": "8 ohm 2W speaker",
+    "process": "Envelope proxy",
+    "note": "",
+    "assembly_position_mm": [
+      0,
+      0,
+      0
+    ],
+    "explode_mm": [
+      18,
+      -15,
+      25
+    ]
+  },
+  {
+    "name": "REF_amp_module",
+    "valid_brep": true,
+    "solid_count": 1,
+    "volume_mm3": 720.0,
+    "bbox_mm": [
+      20.0,
+      18.0,
+      2.0
+    ],
+    "material": "Adafruit 3006",
+    "process": "Envelope proxy",
+    "note": "",
+    "assembly_position_mm": [
+      0,
+      0,
+      0
+    ],
+    "explode_mm": [
+      20,
+      0,
+      15
+    ]
+  },
+  {
+    "name": "REF_mic_module",
+    "valid_brep": true,
+    "solid_count": 1,
+    "volume_mm3": 424.18,
+    "bbox_mm": [
+      16.7,
+      2.0,
+      12.7
+    ],
+    "material": "Adafruit 3421",
+    "process": "Envelope proxy",
+    "note": "Mount bottom acoustic port facing +Y at (-37,60,52), using a 1.3 mm closed-cell foam gasket to panel. Do not cover port with adhesive. Secure board with nonconductive tie through carrier.",
+    "assembly_position_mm": [
+      0,
+      0,
+      0
+    ],
+    "explode_mm": [
+      -15,
+      12,
+      15
+    ]
+  },
+  {
+    "name": "18_microphone_clip",
+    "valid_brep": true,
+    "solid_count": 1,
+    "volume_mm3": 603.0,
+    "bbox_mm": [
+      22.0,
+      4.5,
+      17.0
+    ],
+    "material": "Black PETG / PA12",
+    "process": "FDM/SLS",
+    "note": "Foam tape to panel; guide the microphone port to the 2 mm panel bore. Clip supports board edges, not MEMS package. Insulate back side; no conductive screws near microphone pins.",
+    "assembly_position_mm": [
+      0,
+      0,
+      0
+    ],
+    "explode_mm": [
+      -12,
+      12,
+      18
+    ]
+  },
+  {
+    "name": "REF_PD_HUSB238",
+    "valid_brep": true,
+    "solid_count": 1,
+    "volume_mm3": 963.9,
+    "bbox_mm": [
+      18.0,
+      31.5,
+      3.4
+    ],
+    "material": "Adafruit 5807",
+    "process": "Envelope proxy",
+    "note": "USB mouth centre is adjusted to the case Z32 slot with thin foam shims after measuring delivered module. No assumed mounting-hole pattern.",
+    "assembly_position_mm": [
+      0,
+      0,
+      0
+    ],
+    "explode_mm": [
+      20,
+      15,
+      20
+    ]
+  }
+]

@@ -1,0 +1,3 @@
+(version 1)
+(rule "All copper clearance" (constraint clearance (min 0.20mm)))
+(rule "Copper to edge" (constraint edge_clearance (min 0.50mm)))

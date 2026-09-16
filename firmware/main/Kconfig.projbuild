@@ -1,0 +1,30 @@
+menu "Aether Orb"
+config ORB_MIRROR_X
+    bool "Mirror display horizontally (adjust using optical calibration)"
+    default y
+config ORB_MIRROR_Y
+    bool "Mirror display vertically"
+    default n
+config ORB_MIC_SHIFT
+    int "I2S signed 32-bit sample right shift before int16 conversion"
+    range 8 20
+    default 14
+    help
+        Confirm SPH0645 timing/alignment on the actual microphone with a scope
+        and a 1 kHz tone. This setting is gain/alignment, not a replacement for
+        correct I2S timing. Do not release hardware until the audio gate passes.
+config ORB_RECORD_SECONDS
+    int "Maximum push-to-talk capture seconds"
+    range 1 8
+    default 8
+config ORB_CALIBRATION_BOOT
+    bool "Display calibration grid instead of connecting to gateway"
+    default n
+config ORB_PUBLIC_TTS
+    bool "Public synthesized speech (privacy lost, explicit disclosure required)"
+    default n
+config ORB_AUTO_ERASE_SECONDS
+    int "Erase response after seconds"
+    range 15 300
+    default 120
+endmenu

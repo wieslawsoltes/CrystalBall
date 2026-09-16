@@ -1,0 +1,12 @@
+{
+  "generator": "Aether geometry DRC (not KiCad)",
+  "clearance_rule_mm": 0.2,
+  "min_measured_clearance_mm": 0.234207,
+  "errors": [],
+  "unconnected_nets": [],
+  "pads": 115,
+  "tracks": 1426,
+  "vias": 54,
+  "nets": 49,
+  "note": "Independent KiCad parsing, ERC/DRC and fab CAM acceptance remain mandatory."
+}

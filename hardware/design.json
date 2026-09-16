@@ -1,0 +1,2004 @@
+{
+  "project": "Aether Orb",
+  "revision": "A",
+  "board_mm": [
+    100.0,
+    90.0
+  ],
+  "pinmap": {
+    "MIC_BCLK": 4,
+    "MIC_WS": 5,
+    "MIC_SD": 6,
+    "LCD_BL": 7,
+    "LCD_RST": 8,
+    "LCD_DC": 9,
+    "LCD_CS": 10,
+    "LCD_MOSI": 11,
+    "LCD_SCK": 12,
+    "NEXT": 13,
+    "PTT": 14,
+    "AMP_SD": 15,
+    "AMP_BCLK": 16,
+    "AMP_WS": 17,
+    "AMP_DIN": 18,
+    "LED_DATA": 21,
+    "REC_LED": 47
+  },
+  "parts": [
+    {
+      "ref": "J1",
+      "value": "DevKitC-1 socket J1",
+      "footprint": "Socket_1x22_P2.54",
+      "x": 14.0,
+      "y": 16,
+      "pads": [
+        {
+          "number": "1",
+          "x": 0,
+          "y": 0.0,
+          "net": "3V3",
+          "diameter": 1.8,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "rect",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "2",
+          "x": 0,
+          "y": 2.54,
+          "net": "3V3",
+          "diameter": 1.8,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "3",
+          "x": 0,
+          "y": 5.08,
+          "net": "NC_EN",
+          "diameter": 1.8,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "4",
+          "x": 0,
+          "y": 7.62,
+          "net": "MIC_BCLK",
+          "diameter": 1.8,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "5",
+          "x": 0,
+          "y": 10.16,
+          "net": "MIC_WS",
+          "diameter": 1.8,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "6",
+          "x": 0,
+          "y": 12.7,
+          "net": "MIC_SD",
+          "diameter": 1.8,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "7",
+          "x": 0,
+          "y": 15.24,
+          "net": "LCD_BL",
+          "diameter": 1.8,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "8",
+          "x": 0,
+          "y": 17.78,
+          "net": "AMP_SD",
+          "diameter": 1.8,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "9",
+          "x": 0,
+          "y": 20.32,
+          "net": "AMP_BCLK",
+          "diameter": 1.8,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "10",
+          "x": 0,
+          "y": 22.86,
+          "net": "AMP_WS",
+          "diameter": 1.8,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "11",
+          "x": 0,
+          "y": 25.4,
+          "net": "AMP_DIN",
+          "diameter": 1.8,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "12",
+          "x": 0,
+          "y": 27.94,
+          "net": "LCD_RST",
+          "diameter": 1.8,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "13",
+          "x": 0,
+          "y": 30.48,
+          "net": "NC_GPIO3",
+          "diameter": 1.8,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "14",
+          "x": 0,
+          "y": 33.02,
+          "net": "NC_GPIO46",
+          "diameter": 1.8,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "15",
+          "x": 0,
+          "y": 35.56,
+          "net": "LCD_DC",
+          "diameter": 1.8,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "16",
+          "x": 0,
+          "y": 38.1,
+          "net": "LCD_CS",
+          "diameter": 1.8,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "17",
+          "x": 0,
+          "y": 40.64,
+          "net": "LCD_MOSI",
+          "diameter": 1.8,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "18",
+          "x": 0,
+          "y": 43.18,
+          "net": "LCD_SCK",
+          "diameter": 1.8,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "19",
+          "x": 0,
+          "y": 45.72,
+          "net": "NEXT",
+          "diameter": 1.8,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "20",
+          "x": 0,
+          "y": 48.26,
+          "net": "PTT",
+          "diameter": 1.8,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "21",
+          "x": 0,
+          "y": 50.8,
+          "net": "DEV_5V",
+          "diameter": 1.8,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "22",
+          "x": 0,
+          "y": 53.34,
+          "net": "GND",
+          "diameter": 1.8,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        }
+      ],
+      "body": [
+        -1.4,
+        -1.4,
+        2.8,
+        56.14
+      ],
+      "mpn": "Samtec SSQ-122-03-G-S",
+      "note": "Use genuine ESP32-S3-DevKitC-1-N8R8 v1.1. Remove module before USB flashing.",
+      "source": "https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32s3/esp32-s3-devkitc-1/user_guide_v1.1.html",
+      "fitted": true
+    },
+    {
+      "ref": "J2",
+      "value": "DevKitC-1 socket J3",
+      "footprint": "Socket_1x22_P2.54",
+      "x": 36.86,
+      "y": 16,
+      "pads": [
+        {
+          "number": "1",
+          "x": 0,
+          "y": 0.0,
+          "net": "GND",
+          "diameter": 1.8,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "rect",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "2",
+          "x": 0,
+          "y": 2.54,
+          "net": "NC_TX43",
+          "diameter": 1.8,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "3",
+          "x": 0,
+          "y": 5.08,
+          "net": "NC_RX44",
+          "diameter": 1.8,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "4",
+          "x": 0,
+          "y": 7.62,
+          "net": "NC_GPIO1",
+          "diameter": 1.8,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "5",
+          "x": 0,
+          "y": 10.16,
+          "net": "NC_GPIO2",
+          "diameter": 1.8,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "6",
+          "x": 0,
+          "y": 12.7,
+          "net": "NC_GPIO42",
+          "diameter": 1.8,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "7",
+          "x": 0,
+          "y": 15.24,
+          "net": "NC_GPIO41",
+          "diameter": 1.8,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "8",
+          "x": 0,
+          "y": 17.78,
+          "net": "NC_GPIO40",
+          "diameter": 1.8,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "9",
+          "x": 0,
+          "y": 20.32,
+          "net": "NC_GPIO39",
+          "diameter": 1.8,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "10",
+          "x": 0,
+          "y": 22.86,
+          "net": "NC_GPIO38",
+          "diameter": 1.8,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "11",
+          "x": 0,
+          "y": 25.4,
+          "net": "NC_GPIO37",
+          "diameter": 1.8,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "12",
+          "x": 0,
+          "y": 27.94,
+          "net": "NC_GPIO36",
+          "diameter": 1.8,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "13",
+          "x": 0,
+          "y": 30.48,
+          "net": "NC_GPIO35",
+          "diameter": 1.8,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "14",
+          "x": 0,
+          "y": 33.02,
+          "net": "NC_GPIO0",
+          "diameter": 1.8,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "15",
+          "x": 0,
+          "y": 35.56,
+          "net": "NC_GPIO45",
+          "diameter": 1.8,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "16",
+          "x": 0,
+          "y": 38.1,
+          "net": "NC_GPIO48",
+          "diameter": 1.8,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "17",
+          "x": 0,
+          "y": 40.64,
+          "net": "REC_LED",
+          "diameter": 1.8,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "18",
+          "x": 0,
+          "y": 43.18,
+          "net": "LED_DATA",
+          "diameter": 1.8,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "19",
+          "x": 0,
+          "y": 45.72,
+          "net": "NC_USB20",
+          "diameter": 1.8,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "20",
+          "x": 0,
+          "y": 48.26,
+          "net": "NC_USB19",
+          "diameter": 1.8,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "21",
+          "x": 0,
+          "y": 50.8,
+          "net": "GND",
+          "diameter": 1.8,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "22",
+          "x": 0,
+          "y": 53.34,
+          "net": "GND",
+          "diameter": 1.8,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        }
+      ],
+      "body": [
+        -1.4,
+        -1.4,
+        2.8,
+        56.14
+      ],
+      "mpn": "Samtec SSQ-122-03-G-S",
+      "note": "Use genuine ESP32-S3-DevKitC-1-N8R8 v1.1. Remove module before USB flashing.",
+      "source": "https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32s3/esp32-s3-devkitc-1/user_guide_v1.1.html",
+      "fitted": true
+    },
+    {
+      "ref": "J3",
+      "value": "5V INPUT",
+      "footprint": "Terminal_1x02_P5.08",
+      "x": 68,
+      "y": 78,
+      "pads": [
+        {
+          "number": "1",
+          "x": 0,
+          "y": 0,
+          "net": "VIN5",
+          "diameter": 2.8,
+          "drill": 1.3,
+          "sx": 0,
+          "sy": 0,
+          "shape": "rect",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "2",
+          "x": 5.08,
+          "y": 0,
+          "net": "GND",
+          "diameter": 2.8,
+          "drill": 1.3,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        }
+      ],
+      "body": [
+        -2.6,
+        -4,
+        10.3,
+        8
+      ],
+      "mpn": "Phoenix Contact 1729128",
+      "note": "5.08 mm 2-position terminal; 5 V only. + pin 1; - pin 2. Verify exact holder body.",
+      "source": "https://www.phoenixcontact.com/en-us/products/pcb-terminal-block-mkds-15-2-508-1729128",
+      "fitted": true
+    },
+    {
+      "ref": "F1",
+      "value": "PTC 2.5A",
+      "footprint": "PTC_P5.08",
+      "x": 57,
+      "y": 78,
+      "pads": [
+        {
+          "number": "1",
+          "x": 0,
+          "y": 0,
+          "net": "VIN5",
+          "diameter": 2.4,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "2",
+          "x": 5.08,
+          "y": 0,
+          "net": "FUSED5",
+          "diameter": 2.4,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        }
+      ],
+      "body": [
+        -5.6,
+        -2.1,
+        16.2,
+        4.2
+      ],
+      "mpn": "Littelfuse RXEF250",
+      "note": "Thermal resettable fuse, not a precise electronic current limiter. Check hold-current derating.",
+      "source": "https://www.littelfuse.com/products/polyswitch-resettable-ptcs/radial-leaded/rxef",
+      "fitted": true
+    },
+    {
+      "ref": "Q1",
+      "value": "AO3401A",
+      "footprint": "SOT-23",
+      "x": 59,
+      "y": 67,
+      "pads": [
+        {
+          "number": "1",
+          "x": -0.95,
+          "y": 1,
+          "net": "Q_GATE",
+          "diameter": 0,
+          "drill": 0,
+          "sx": 0.9,
+          "sy": 1.1,
+          "shape": "rect",
+          "kind": "smd"
+        },
+        {
+          "number": "2",
+          "x": 0.95,
+          "y": 1,
+          "net": "5V_SYS",
+          "diameter": 0,
+          "drill": 0,
+          "sx": 0.9,
+          "sy": 1.1,
+          "shape": "rect",
+          "kind": "smd"
+        },
+        {
+          "number": "3",
+          "x": 0,
+          "y": -1,
+          "net": "FUSED5",
+          "diameter": 0,
+          "drill": 0,
+          "sx": 0.9,
+          "sy": 1.1,
+          "shape": "rect",
+          "kind": "smd"
+        }
+      ],
+      "body": [
+        -1.5,
+        -0.65,
+        3,
+        1.3
+      ],
+      "mpn": "AO3401A",
+      "note": "P-channel reverse-input protection. Pin 1 G, pin 2 S, pin 3 D. NOT reverse-current blocking while on.",
+      "source": "https://www.aosmd.com/res/data_sheets/AO3401A.pdf",
+      "fitted": true
+    },
+    {
+      "ref": "R1",
+      "value": "100k",
+      "footprint": "R_0805_2012Metric",
+      "x": 54,
+      "y": 67,
+      "pads": [
+        {
+          "number": "1",
+          "x": -1.0,
+          "y": 0,
+          "net": "Q_GATE",
+          "diameter": 0,
+          "drill": 0,
+          "sx": 1.2,
+          "sy": 1.4,
+          "shape": "rect",
+          "kind": "smd"
+        },
+        {
+          "number": "2",
+          "x": 1.0,
+          "y": 0,
+          "net": "GND",
+          "diameter": 0,
+          "drill": 0,
+          "sx": 1.2,
+          "sy": 1.4,
+          "shape": "rect",
+          "kind": "smd"
+        }
+      ],
+      "body": [
+        -1,
+        -0.65,
+        2,
+        1.3
+      ],
+      "mpn": "RC0805FR-07100KL",
+      "note": "",
+      "source": "",
+      "fitted": true
+    },
+    {
+      "ref": "C1",
+      "value": "1000uF 10V",
+      "footprint": "CP_Radial_D10_P5",
+      "x": 80,
+      "y": 70,
+      "pads": [
+        {
+          "number": "1",
+          "x": 0,
+          "y": 0,
+          "net": "5V_SYS",
+          "diameter": 2.4,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "rect",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "2",
+          "x": 5,
+          "y": 0,
+          "net": "GND",
+          "diameter": 2.4,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        }
+      ],
+      "body": [
+        -2.5,
+        -5,
+        10,
+        10
+      ],
+      "mpn": "Panasonic EEU-FR1A102",
+      "note": "Polarized; + pin 1. Measure PD startup/inrush with this bulk capacitance.",
+      "source": "https://industrial.panasonic.com/ww/products/pt/aluminum-cap/models/EEUFR1A102",
+      "fitted": true
+    },
+    {
+      "ref": "JP1",
+      "value": "RUN POWER",
+      "footprint": "PinHeader_1x02_P2.54",
+      "x": 42,
+      "y": 77,
+      "pads": [
+        {
+          "number": "1",
+          "x": 0,
+          "y": 0,
+          "net": "5V_SYS",
+          "diameter": 1.8,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "2",
+          "x": 2.54,
+          "y": 0,
+          "net": "DEV_5V",
+          "diameter": 1.8,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        }
+      ],
+      "body": [
+        -1.4,
+        -1.4,
+        5.34,
+        2.8
+      ],
+      "mpn": "Samtec TSW-102-07-G-S + 2.54mm shunt",
+      "note": "Fitted shunt for RUN. Remove DevKit completely for USB flashing; do not dual-power.",
+      "source": "",
+      "fitted": true
+    },
+    {
+      "ref": "J4",
+      "value": "LCD",
+      "footprint": "XH_1x08_P2.50",
+      "x": 92,
+      "y": 15,
+      "pads": [
+        {
+          "number": "1",
+          "x": 0,
+          "y": 0.0,
+          "net": "5V_SYS",
+          "diameter": 1.85,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "rect",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "2",
+          "x": 0,
+          "y": 2.5,
+          "net": "GND",
+          "diameter": 1.85,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "3",
+          "x": 0,
+          "y": 5.0,
+          "net": "LCD_SCK_R",
+          "diameter": 1.85,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "4",
+          "x": 0,
+          "y": 7.5,
+          "net": "LCD_MOSI_R",
+          "diameter": 1.85,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "5",
+          "x": 0,
+          "y": 10.0,
+          "net": "LCD_CS",
+          "diameter": 1.85,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "6",
+          "x": 0,
+          "y": 12.5,
+          "net": "LCD_DC",
+          "diameter": 1.85,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "7",
+          "x": 0,
+          "y": 15.0,
+          "net": "LCD_RST",
+          "diameter": 1.85,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "8",
+          "x": 0,
+          "y": 17.5,
+          "net": "LCD_BL",
+          "diameter": 1.85,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        }
+      ],
+      "body": [
+        -2.4,
+        -2.5,
+        5.0,
+        22.5
+      ],
+      "mpn": "JST B8B-XH-A(LF)(SN)",
+      "note": "Vertical keyed XH header; pin 1 is square; qualify exact supplier drawing.",
+      "source": "https://www.jst-mfg.com/product/pdf/eng/eXH.pdf",
+      "fitted": true
+    },
+    {
+      "ref": "R2",
+      "value": "33R",
+      "footprint": "R_0805_2012Metric",
+      "x": 72,
+      "y": 21,
+      "pads": [
+        {
+          "number": "1",
+          "x": -1.0,
+          "y": 0,
+          "net": "LCD_SCK",
+          "diameter": 0,
+          "drill": 0,
+          "sx": 1.2,
+          "sy": 1.4,
+          "shape": "rect",
+          "kind": "smd"
+        },
+        {
+          "number": "2",
+          "x": 1.0,
+          "y": 0,
+          "net": "LCD_SCK_R",
+          "diameter": 0,
+          "drill": 0,
+          "sx": 1.2,
+          "sy": 1.4,
+          "shape": "rect",
+          "kind": "smd"
+        }
+      ],
+      "body": [
+        -1,
+        -0.65,
+        2,
+        1.3
+      ],
+      "mpn": "RC0805FR-0733RL",
+      "note": "",
+      "source": "",
+      "fitted": true
+    },
+    {
+      "ref": "R3",
+      "value": "33R",
+      "footprint": "R_0805_2012Metric",
+      "x": 72,
+      "y": 27,
+      "pads": [
+        {
+          "number": "1",
+          "x": -1.0,
+          "y": 0,
+          "net": "LCD_MOSI",
+          "diameter": 0,
+          "drill": 0,
+          "sx": 1.2,
+          "sy": 1.4,
+          "shape": "rect",
+          "kind": "smd"
+        },
+        {
+          "number": "2",
+          "x": 1.0,
+          "y": 0,
+          "net": "LCD_MOSI_R",
+          "diameter": 0,
+          "drill": 0,
+          "sx": 1.2,
+          "sy": 1.4,
+          "shape": "rect",
+          "kind": "smd"
+        }
+      ],
+      "body": [
+        -1,
+        -0.65,
+        2,
+        1.3
+      ],
+      "mpn": "RC0805FR-0733RL",
+      "note": "",
+      "source": "",
+      "fitted": true
+    },
+    {
+      "ref": "J5",
+      "value": "MIC 3V3",
+      "footprint": "XH_1x06_P2.50",
+      "x": 53,
+      "y": 16,
+      "pads": [
+        {
+          "number": "1",
+          "x": 0,
+          "y": 0.0,
+          "net": "3V3",
+          "diameter": 1.85,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "rect",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "2",
+          "x": 0,
+          "y": 2.5,
+          "net": "GND",
+          "diameter": 1.85,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "3",
+          "x": 0,
+          "y": 5.0,
+          "net": "MIC_BCLK",
+          "diameter": 1.85,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "4",
+          "x": 0,
+          "y": 7.5,
+          "net": "MIC_WS",
+          "diameter": 1.85,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "5",
+          "x": 0,
+          "y": 10.0,
+          "net": "MIC_SD",
+          "diameter": 1.85,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "6",
+          "x": 0,
+          "y": 12.5,
+          "net": "GND",
+          "diameter": 1.85,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        }
+      ],
+      "body": [
+        -2.4,
+        -2.5,
+        5.0,
+        17.5
+      ],
+      "mpn": "JST B6B-XH-A(LF)(SN)",
+      "note": "Vertical keyed XH header; pin 1 is square; qualify exact supplier drawing.",
+      "source": "https://www.jst-mfg.com/product/pdf/eng/eXH.pdf",
+      "fitted": true
+    },
+    {
+      "ref": "J6",
+      "value": "AMP 5V",
+      "footprint": "XH_1x06_P2.50",
+      "x": 92,
+      "y": 44,
+      "pads": [
+        {
+          "number": "1",
+          "x": 0,
+          "y": 0.0,
+          "net": "5V_SYS",
+          "diameter": 1.85,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "rect",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "2",
+          "x": 0,
+          "y": 2.5,
+          "net": "GND",
+          "diameter": 1.85,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "3",
+          "x": 0,
+          "y": 5.0,
+          "net": "AMP_BCLK",
+          "diameter": 1.85,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "4",
+          "x": 0,
+          "y": 7.5,
+          "net": "AMP_WS",
+          "diameter": 1.85,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "5",
+          "x": 0,
+          "y": 10.0,
+          "net": "AMP_DIN",
+          "diameter": 1.85,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "6",
+          "x": 0,
+          "y": 12.5,
+          "net": "AMP_SD",
+          "diameter": 1.85,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        }
+      ],
+      "body": [
+        -2.4,
+        -2.5,
+        5.0,
+        17.5
+      ],
+      "mpn": "JST B6B-XH-A(LF)(SN)",
+      "note": "Vertical keyed XH header; pin 1 is square; qualify exact supplier drawing.",
+      "source": "https://www.jst-mfg.com/product/pdf/eng/eXH.pdf",
+      "fitted": true
+    },
+    {
+      "ref": "R4",
+      "value": "10k",
+      "footprint": "R_0805_2012Metric",
+      "x": 81,
+      "y": 54,
+      "pads": [
+        {
+          "number": "1",
+          "x": -1.0,
+          "y": 0,
+          "net": "AMP_SD",
+          "diameter": 0,
+          "drill": 0,
+          "sx": 1.2,
+          "sy": 1.4,
+          "shape": "rect",
+          "kind": "smd"
+        },
+        {
+          "number": "2",
+          "x": 1.0,
+          "y": 0,
+          "net": "GND",
+          "diameter": 0,
+          "drill": 0,
+          "sx": 1.2,
+          "sy": 1.4,
+          "shape": "rect",
+          "kind": "smd"
+        }
+      ],
+      "body": [
+        -1,
+        -0.65,
+        2,
+        1.3
+      ],
+      "mpn": "RC0805FR-0710KL",
+      "note": "",
+      "source": "",
+      "fitted": true
+    },
+    {
+      "ref": "U1",
+      "value": "SN74AHCT1G125",
+      "footprint": "SOT-23-5",
+      "x": 63,
+      "y": 44,
+      "pads": [
+        {
+          "number": "1",
+          "x": -0.95,
+          "y": 1.1,
+          "net": "GND",
+          "diameter": 0,
+          "drill": 0,
+          "sx": 0.65,
+          "sy": 1.2,
+          "shape": "rect",
+          "kind": "smd"
+        },
+        {
+          "number": "2",
+          "x": 0,
+          "y": 1.1,
+          "net": "LED_DATA",
+          "diameter": 0,
+          "drill": 0,
+          "sx": 0.65,
+          "sy": 1.2,
+          "shape": "rect",
+          "kind": "smd"
+        },
+        {
+          "number": "3",
+          "x": 0.95,
+          "y": 1.1,
+          "net": "GND",
+          "diameter": 0,
+          "drill": 0,
+          "sx": 0.65,
+          "sy": 1.2,
+          "shape": "rect",
+          "kind": "smd"
+        },
+        {
+          "number": "4",
+          "x": 0.95,
+          "y": -1.1,
+          "net": "LED_5V_BUF",
+          "diameter": 0,
+          "drill": 0,
+          "sx": 0.65,
+          "sy": 1.2,
+          "shape": "rect",
+          "kind": "smd"
+        },
+        {
+          "number": "5",
+          "x": -0.95,
+          "y": -1.1,
+          "net": "5V_SYS",
+          "diameter": 0,
+          "drill": 0,
+          "sx": 0.65,
+          "sy": 1.2,
+          "shape": "rect",
+          "kind": "smd"
+        }
+      ],
+      "body": [
+        -1.5,
+        -0.8,
+        3,
+        1.6
+      ],
+      "mpn": "SN74AHCT1G125DBVR",
+      "note": "5V TTL input buffer; /OE grounded. Qualify TI DBV footprint before ordering.",
+      "source": "https://www.ti.com/lit/ds/symlink/sn74ahct1g125.pdf",
+      "fitted": true
+    },
+    {
+      "ref": "C2",
+      "value": "100nF",
+      "footprint": "C_0805_2012Metric",
+      "x": 59,
+      "y": 40,
+      "pads": [
+        {
+          "number": "1",
+          "x": -1,
+          "y": 0,
+          "net": "5V_SYS",
+          "diameter": 0,
+          "drill": 0,
+          "sx": 1.2,
+          "sy": 1.4,
+          "shape": "rect",
+          "kind": "smd"
+        },
+        {
+          "number": "2",
+          "x": 1,
+          "y": 0,
+          "net": "GND",
+          "diameter": 0,
+          "drill": 0,
+          "sx": 1.2,
+          "sy": 1.4,
+          "shape": "rect",
+          "kind": "smd"
+        }
+      ],
+      "body": [
+        -1,
+        -0.65,
+        2,
+        1.3
+      ],
+      "mpn": "GRM21BR71H104KA01L",
+      "note": "",
+      "source": "",
+      "fitted": true
+    },
+    {
+      "ref": "R5",
+      "value": "100k",
+      "footprint": "R_0805_2012Metric",
+      "x": 57,
+      "y": 48,
+      "pads": [
+        {
+          "number": "1",
+          "x": -1.0,
+          "y": 0,
+          "net": "LED_DATA",
+          "diameter": 0,
+          "drill": 0,
+          "sx": 1.2,
+          "sy": 1.4,
+          "shape": "rect",
+          "kind": "smd"
+        },
+        {
+          "number": "2",
+          "x": 1.0,
+          "y": 0,
+          "net": "GND",
+          "diameter": 0,
+          "drill": 0,
+          "sx": 1.2,
+          "sy": 1.4,
+          "shape": "rect",
+          "kind": "smd"
+        }
+      ],
+      "body": [
+        -1,
+        -0.65,
+        2,
+        1.3
+      ],
+      "mpn": "RC0805FR-07100KL",
+      "note": "",
+      "source": "",
+      "fitted": true
+    },
+    {
+      "ref": "R6",
+      "value": "330R",
+      "footprint": "R_0805_2012Metric",
+      "x": 70,
+      "y": 42,
+      "pads": [
+        {
+          "number": "1",
+          "x": -1.0,
+          "y": 0,
+          "net": "LED_5V_BUF",
+          "diameter": 0,
+          "drill": 0,
+          "sx": 1.2,
+          "sy": 1.4,
+          "shape": "rect",
+          "kind": "smd"
+        },
+        {
+          "number": "2",
+          "x": 1.0,
+          "y": 0,
+          "net": "LED_DIN",
+          "diameter": 0,
+          "drill": 0,
+          "sx": 1.2,
+          "sy": 1.4,
+          "shape": "rect",
+          "kind": "smd"
+        }
+      ],
+      "body": [
+        -1,
+        -0.65,
+        2,
+        1.3
+      ],
+      "mpn": "RC0805FR-07330RL",
+      "note": "",
+      "source": "",
+      "fitted": true
+    },
+    {
+      "ref": "J7",
+      "value": "RING 5V",
+      "footprint": "XH_1x03_P2.50",
+      "x": 77,
+      "y": 40,
+      "pads": [
+        {
+          "number": "1",
+          "x": 0,
+          "y": 0.0,
+          "net": "5V_SYS",
+          "diameter": 1.85,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "rect",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "2",
+          "x": 0,
+          "y": 2.5,
+          "net": "GND",
+          "diameter": 1.85,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "3",
+          "x": 0,
+          "y": 5.0,
+          "net": "LED_DIN",
+          "diameter": 1.85,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        }
+      ],
+      "body": [
+        -2.4,
+        -2.5,
+        5.0,
+        10.0
+      ],
+      "mpn": "JST B3B-XH-A(LF)(SN)",
+      "note": "Vertical keyed XH header; pin 1 is square; qualify exact supplier drawing.",
+      "source": "https://www.jst-mfg.com/product/pdf/eng/eXH.pdf",
+      "fitted": true
+    },
+    {
+      "ref": "J8",
+      "value": "PTT",
+      "footprint": "XH_1x02_P2.50",
+      "x": 9,
+      "y": 77,
+      "pads": [
+        {
+          "number": "1",
+          "x": 0,
+          "y": 0.0,
+          "net": "PTT",
+          "diameter": 1.85,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "rect",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "2",
+          "x": 0,
+          "y": 2.5,
+          "net": "GND",
+          "diameter": 1.85,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        }
+      ],
+      "body": [
+        -2.4,
+        -2.5,
+        5.0,
+        7.5
+      ],
+      "mpn": "JST B2B-XH-A(LF)(SN)",
+      "note": "Vertical keyed XH header; pin 1 is square; qualify exact supplier drawing.",
+      "source": "https://www.jst-mfg.com/product/pdf/eng/eXH.pdf",
+      "fitted": true
+    },
+    {
+      "ref": "J9",
+      "value": "PAGE",
+      "footprint": "XH_1x02_P2.50",
+      "x": 20,
+      "y": 77,
+      "pads": [
+        {
+          "number": "1",
+          "x": 0,
+          "y": 0.0,
+          "net": "NEXT",
+          "diameter": 1.85,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "rect",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "2",
+          "x": 0,
+          "y": 2.5,
+          "net": "GND",
+          "diameter": 1.85,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        }
+      ],
+      "body": [
+        -2.4,
+        -2.5,
+        5.0,
+        7.5
+      ],
+      "mpn": "JST B2B-XH-A(LF)(SN)",
+      "note": "Vertical keyed XH header; pin 1 is square; qualify exact supplier drawing.",
+      "source": "https://www.jst-mfg.com/product/pdf/eng/eXH.pdf",
+      "fitted": true
+    },
+    {
+      "ref": "J10",
+      "value": "REC LED",
+      "footprint": "XH_1x02_P2.50",
+      "x": 31,
+      "y": 77,
+      "pads": [
+        {
+          "number": "1",
+          "x": 0,
+          "y": 0.0,
+          "net": "REC_ANODE",
+          "diameter": 1.85,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "rect",
+          "kind": "thru_hole"
+        },
+        {
+          "number": "2",
+          "x": 0,
+          "y": 2.5,
+          "net": "GND",
+          "diameter": 1.85,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        }
+      ],
+      "body": [
+        -2.4,
+        -2.5,
+        5.0,
+        7.5
+      ],
+      "mpn": "JST B2B-XH-A(LF)(SN)",
+      "note": "Vertical keyed XH header; pin 1 is square; qualify exact supplier drawing.",
+      "source": "https://www.jst-mfg.com/product/pdf/eng/eXH.pdf",
+      "fitted": true
+    },
+    {
+      "ref": "R7",
+      "value": "1k",
+      "footprint": "R_0805_2012Metric",
+      "x": 48,
+      "y": 62,
+      "pads": [
+        {
+          "number": "1",
+          "x": -1.0,
+          "y": 0,
+          "net": "REC_LED",
+          "diameter": 0,
+          "drill": 0,
+          "sx": 1.2,
+          "sy": 1.4,
+          "shape": "rect",
+          "kind": "smd"
+        },
+        {
+          "number": "2",
+          "x": 1.0,
+          "y": 0,
+          "net": "REC_ANODE",
+          "diameter": 0,
+          "drill": 0,
+          "sx": 1.2,
+          "sy": 1.4,
+          "shape": "rect",
+          "kind": "smd"
+        }
+      ],
+      "body": [
+        -1,
+        -0.65,
+        2,
+        1.3
+      ],
+      "mpn": "RC0805FR-071KL",
+      "note": "",
+      "source": "",
+      "fitted": true
+    },
+    {
+      "ref": "R8",
+      "value": "10k",
+      "footprint": "R_0805_2012Metric",
+      "x": 46,
+      "y": 53,
+      "pads": [
+        {
+          "number": "1",
+          "x": -1.0,
+          "y": 0,
+          "net": "PTT",
+          "diameter": 0,
+          "drill": 0,
+          "sx": 1.2,
+          "sy": 1.4,
+          "shape": "rect",
+          "kind": "smd"
+        },
+        {
+          "number": "2",
+          "x": 1.0,
+          "y": 0,
+          "net": "3V3",
+          "diameter": 0,
+          "drill": 0,
+          "sx": 1.2,
+          "sy": 1.4,
+          "shape": "rect",
+          "kind": "smd"
+        }
+      ],
+      "body": [
+        -1,
+        -0.65,
+        2,
+        1.3
+      ],
+      "mpn": "RC0805FR-0710KL",
+      "note": "",
+      "source": "",
+      "fitted": true
+    },
+    {
+      "ref": "R9",
+      "value": "10k",
+      "footprint": "R_0805_2012Metric",
+      "x": 46,
+      "y": 58,
+      "pads": [
+        {
+          "number": "1",
+          "x": -1.0,
+          "y": 0,
+          "net": "NEXT",
+          "diameter": 0,
+          "drill": 0,
+          "sx": 1.2,
+          "sy": 1.4,
+          "shape": "rect",
+          "kind": "smd"
+        },
+        {
+          "number": "2",
+          "x": 1.0,
+          "y": 0,
+          "net": "3V3",
+          "diameter": 0,
+          "drill": 0,
+          "sx": 1.2,
+          "sy": 1.4,
+          "shape": "rect",
+          "kind": "smd"
+        }
+      ],
+      "body": [
+        -1,
+        -0.65,
+        2,
+        1.3
+      ],
+      "mpn": "RC0805FR-0710KL",
+      "note": "",
+      "source": "",
+      "fitted": true
+    },
+    {
+      "ref": "C3",
+      "value": "100nF",
+      "footprint": "C_0805_2012Metric",
+      "x": 54,
+      "y": 35,
+      "pads": [
+        {
+          "number": "1",
+          "x": -1,
+          "y": 0,
+          "net": "3V3",
+          "diameter": 0,
+          "drill": 0,
+          "sx": 1.2,
+          "sy": 1.4,
+          "shape": "rect",
+          "kind": "smd"
+        },
+        {
+          "number": "2",
+          "x": 1,
+          "y": 0,
+          "net": "GND",
+          "diameter": 0,
+          "drill": 0,
+          "sx": 1.2,
+          "sy": 1.4,
+          "shape": "rect",
+          "kind": "smd"
+        }
+      ],
+      "body": [
+        -1,
+        -0.65,
+        2,
+        1.3
+      ],
+      "mpn": "GRM21BR71H104KA01L",
+      "note": "",
+      "source": "",
+      "fitted": true
+    },
+    {
+      "ref": "TP1",
+      "value": "5V_SYS",
+      "footprint": "TestPoint_THT_D2",
+      "x": 69,
+      "y": 61,
+      "pads": [
+        {
+          "number": "1",
+          "x": 0,
+          "y": 0,
+          "net": "5V_SYS",
+          "diameter": 2.0,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        }
+      ],
+      "body": [
+        -1,
+        -1,
+        2,
+        2
+      ],
+      "mpn": "Keystone 5000 test loop",
+      "note": "",
+      "source": "",
+      "fitted": true
+    },
+    {
+      "ref": "TP2",
+      "value": "GND",
+      "footprint": "TestPoint_THT_D2",
+      "x": 76,
+      "y": 61,
+      "pads": [
+        {
+          "number": "1",
+          "x": 0,
+          "y": 0,
+          "net": "GND",
+          "diameter": 2.0,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        }
+      ],
+      "body": [
+        -1,
+        -1,
+        2,
+        2
+      ],
+      "mpn": "Keystone 5000 test loop",
+      "note": "",
+      "source": "",
+      "fitted": true
+    },
+    {
+      "ref": "TP3",
+      "value": "3V3",
+      "footprint": "TestPoint_THT_D2",
+      "x": 46,
+      "y": 36,
+      "pads": [
+        {
+          "number": "1",
+          "x": 0,
+          "y": 0,
+          "net": "3V3",
+          "diameter": 2.0,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        }
+      ],
+      "body": [
+        -1,
+        -1,
+        2,
+        2
+      ],
+      "mpn": "Keystone 5000 test loop",
+      "note": "",
+      "source": "",
+      "fitted": true
+    },
+    {
+      "ref": "TP4",
+      "value": "LED_DIN",
+      "footprint": "TestPoint_THT_D2",
+      "x": 71,
+      "y": 49,
+      "pads": [
+        {
+          "number": "1",
+          "x": 0,
+          "y": 0,
+          "net": "LED_DIN",
+          "diameter": 2.0,
+          "drill": 1.0,
+          "sx": 0,
+          "sy": 0,
+          "shape": "circle",
+          "kind": "thru_hole"
+        }
+      ],
+      "body": [
+        -1,
+        -1,
+        2,
+        2
+      ],
+      "mpn": "Keystone 5000 test loop",
+      "note": "",
+      "source": "",
+      "fitted": true
+    }
+  ],
+  "holes": [
+    [
+      4,
+      4
+    ],
+    [
+      96,
+      4
+    ],
+    [
+      4,
+      86
+    ],
+    [
+      96,
+      86
+    ]
+  ],
+  "rf_keepout": [
+    7,
+    0,
+    44,
+    13.5
+  ],
+  "release": "ENGINEERING PROTOTYPE - NOT PRODUCTION RELEASED"
+}

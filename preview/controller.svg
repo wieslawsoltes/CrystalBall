@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1680" height="1188" viewBox="0 0 420 297">
+<rect width="420" height="297" fill="#f8fafc"/>
+<text x="16" y="17" font-family="sans-serif" font-size="6" fill="#132538">01 / Controller sockets and reserved pins</text>
+<text x="16" y="25" font-family="sans-serif" font-size="3" fill="#536675">AETHER ORB / REV A · Net labels connect globally across sheets · Engineering prototype</text>
+<rect x="92" y="55" width="28" height="58.42" rx="1" fill="#e9f0f4" stroke="#23465b" stroke-width=".35"/>
+<text x="106" y="50" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="3.3" fill="#142e40">J1</text>
+<text x="106" y="53.2" text-anchor="middle" font-family="sans-serif" font-size="2.6" fill="#415e6c">DevKitC-1 socket J1</text>
+<text x="85.92" y="58.19" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">3V3</text>
+<path d="M 86.92 57.54 H92" stroke="#2b5060" stroke-width=".25"/><text x="92.8" y="58.19" font-family="monospace" font-size="2.05" fill="#163849">1: 3V3</text>
+<text x="85.92" y="60.73" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">3V3</text>
+<path d="M 86.92 60.08 H92" stroke="#2b5060" stroke-width=".25"/><text x="92.8" y="60.73" font-family="monospace" font-size="2.05" fill="#163849">2: 3V3</text>
+<path d="M 86.22 61.919999999999995 l 1.4 1.4 m -1.4 0 l 1.4 -1.4" stroke="#78858c" stroke-width=".25"/>
+<path d="M 86.92 62.62 H92" stroke="#2b5060" stroke-width=".25"/><text x="92.8" y="63.269999999999996" font-family="monospace" font-size="2.05" fill="#163849">3: NC EN</text>
+<text x="85.92" y="65.81" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">MIC_BCLK</text>
+<path d="M 86.92 65.16 H92" stroke="#2b5060" stroke-width=".25"/><text x="92.8" y="65.81" font-family="monospace" font-size="2.05" fill="#163849">4: MIC_BCLK</text>
+<text x="85.92" y="68.35000000000001" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">MIC_WS</text>
+<path d="M 86.92 67.7 H92" stroke="#2b5060" stroke-width=".25"/><text x="92.8" y="68.35000000000001" font-family="monospace" font-size="2.05" fill="#163849">5: MIC_WS</text>
+<text x="85.92" y="70.89" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">MIC_SD</text>
+<path d="M 86.92 70.24 H92" stroke="#2b5060" stroke-width=".25"/><text x="92.8" y="70.89" font-family="monospace" font-size="2.05" fill="#163849">6: MIC_SD</text>
+<text x="85.92" y="73.43" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">LCD_BL</text>
+<path d="M 86.92 72.78 H92" stroke="#2b5060" stroke-width=".25"/><text x="92.8" y="73.43" font-family="monospace" font-size="2.05" fill="#163849">7: LCD_BL</text>
+<text x="85.92" y="75.97" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">AMP_SD</text>
+<path d="M 86.92 75.32 H92" stroke="#2b5060" stroke-width=".25"/><text x="92.8" y="75.97" font-family="monospace" font-size="2.05" fill="#163849">8: AMP_SD</text>
+<text x="85.92" y="78.51" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">AMP_BCLK</text>
+<path d="M 86.92 77.86 H92" stroke="#2b5060" stroke-width=".25"/><text x="92.8" y="78.51" font-family="monospace" font-size="2.05" fill="#163849">9: AMP_BCLK</text>
+<text x="85.92" y="81.05000000000001" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">AMP_WS</text>
+<path d="M 86.92 80.4 H92" stroke="#2b5060" stroke-width=".25"/><text x="92.8" y="81.05000000000001" font-family="monospace" font-size="2.05" fill="#163849">10: AMP_WS</text>
+<text x="85.92" y="83.59" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">AMP_DIN</text>
+<path d="M 86.92 82.94 H92" stroke="#2b5060" stroke-width=".25"/><text x="92.8" y="83.59" font-family="monospace" font-size="2.05" fill="#163849">11: AMP_DIN</text>
+<text x="85.92" y="86.13000000000001" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">LCD_RST</text>
+<path d="M 86.92 85.48 H92" stroke="#2b5060" stroke-width=".25"/><text x="92.8" y="86.13000000000001" font-family="monospace" font-size="2.05" fill="#163849">12: LCD_RST</text>
+<path d="M 86.22 87.32000000000001 l 1.4 1.4 m -1.4 0 l 1.4 -1.4" stroke="#78858c" stroke-width=".25"/>
+<path d="M 86.92 88.02000000000001 H92" stroke="#2b5060" stroke-width=".25"/><text x="92.8" y="88.67000000000002" font-family="monospace" font-size="2.05" fill="#163849">13: NC GPIO3</text>
+<path d="M 86.22 89.86 l 1.4 1.4 m -1.4 0 l 1.4 -1.4" stroke="#78858c" stroke-width=".25"/>
+<path d="M 86.92 90.56 H92" stroke="#2b5060" stroke-width=".25"/><text x="92.8" y="91.21000000000001" font-family="monospace" font-size="2.05" fill="#163849">14: NC GPIO46</text>
+<text x="85.92" y="93.75" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">LCD_DC</text>
+<path d="M 86.92 93.1 H92" stroke="#2b5060" stroke-width=".25"/><text x="92.8" y="93.75" font-family="monospace" font-size="2.05" fill="#163849">15: LCD_DC</text>
+<text x="85.92" y="96.29" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">LCD_CS</text>
+<path d="M 86.92 95.64 H92" stroke="#2b5060" stroke-width=".25"/><text x="92.8" y="96.29" font-family="monospace" font-size="2.05" fill="#163849">16: LCD_CS</text>
+<text x="85.92" y="98.83000000000001" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">LCD_MOSI</text>
+<path d="M 86.92 98.18 H92" stroke="#2b5060" stroke-width=".25"/><text x="92.8" y="98.83000000000001" font-family="monospace" font-size="2.05" fill="#163849">17: LCD_MOSI</text>
+<text x="85.92" y="101.37" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">LCD_SCK</text>
+<path d="M 86.92 100.72 H92" stroke="#2b5060" stroke-width=".25"/><text x="92.8" y="101.37" font-family="monospace" font-size="2.05" fill="#163849">18: LCD_SCK</text>
+<text x="85.92" y="103.91" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">NEXT</text>
+<path d="M 86.92 103.25999999999999 H92" stroke="#2b5060" stroke-width=".25"/><text x="92.8" y="103.91" font-family="monospace" font-size="2.05" fill="#163849">19: NEXT</text>
+<text x="85.92" y="106.45" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">PTT</text>
+<path d="M 86.92 105.8 H92" stroke="#2b5060" stroke-width=".25"/><text x="92.8" y="106.45" font-family="monospace" font-size="2.05" fill="#163849">20: PTT</text>
+<text x="85.92" y="108.99000000000001" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">DEV_5V</text>
+<path d="M 86.92 108.34 H92" stroke="#2b5060" stroke-width=".25"/><text x="92.8" y="108.99000000000001" font-family="monospace" font-size="2.05" fill="#163849">21: DEV_5V</text>
+<text x="85.92" y="111.53" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">GND</text>
+<path d="M 86.92 110.88 H92" stroke="#2b5060" stroke-width=".25"/><text x="92.8" y="111.53" font-family="monospace" font-size="2.05" fill="#163849">22: GND</text>
+<rect x="210" y="55" width="28" height="58.42" rx="1" fill="#e9f0f4" stroke="#23465b" stroke-width=".35"/>
+<text x="224" y="50" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="3.3" fill="#142e40">J2</text>
+<text x="224" y="53.2" text-anchor="middle" font-family="sans-serif" font-size="2.6" fill="#415e6c">DevKitC-1 socket J3</text>
+<text x="203.92" y="58.19" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">GND</text>
+<path d="M 204.92 57.54 H210" stroke="#2b5060" stroke-width=".25"/><text x="210.8" y="58.19" font-family="monospace" font-size="2.05" fill="#163849">1: GND</text>
+<path d="M 204.22 59.379999999999995 l 1.4 1.4 m -1.4 0 l 1.4 -1.4" stroke="#78858c" stroke-width=".25"/>
+<path d="M 204.92 60.08 H210" stroke="#2b5060" stroke-width=".25"/><text x="210.8" y="60.73" font-family="monospace" font-size="2.05" fill="#163849">2: NC TX43</text>
+<path d="M 204.22 61.919999999999995 l 1.4 1.4 m -1.4 0 l 1.4 -1.4" stroke="#78858c" stroke-width=".25"/>
+<path d="M 204.92 62.62 H210" stroke="#2b5060" stroke-width=".25"/><text x="210.8" y="63.269999999999996" font-family="monospace" font-size="2.05" fill="#163849">3: NC RX44</text>
+<path d="M 204.22 64.46 l 1.4 1.4 m -1.4 0 l 1.4 -1.4" stroke="#78858c" stroke-width=".25"/>
+<path d="M 204.92 65.16 H210" stroke="#2b5060" stroke-width=".25"/><text x="210.8" y="65.81" font-family="monospace" font-size="2.05" fill="#163849">4: NC GPIO1</text>
+<path d="M 204.22 67.0 l 1.4 1.4 m -1.4 0 l 1.4 -1.4" stroke="#78858c" stroke-width=".25"/>
+<path d="M 204.92 67.7 H210" stroke="#2b5060" stroke-width=".25"/><text x="210.8" y="68.35000000000001" font-family="monospace" font-size="2.05" fill="#163849">5: NC GPIO2</text>
+<path d="M 204.22 69.53999999999999 l 1.4 1.4 m -1.4 0 l 1.4 -1.4" stroke="#78858c" stroke-width=".25"/>
+<path d="M 204.92 70.24 H210" stroke="#2b5060" stroke-width=".25"/><text x="210.8" y="70.89" font-family="monospace" font-size="2.05" fill="#163849">6: NC GPIO42</text>
+<path d="M 204.22 72.08 l 1.4 1.4 m -1.4 0 l 1.4 -1.4" stroke="#78858c" stroke-width=".25"/>
+<path d="M 204.92 72.78 H210" stroke="#2b5060" stroke-width=".25"/><text x="210.8" y="73.43" font-family="monospace" font-size="2.05" fill="#163849">7: NC GPIO41</text>
+<path d="M 204.22 74.61999999999999 l 1.4 1.4 m -1.4 0 l 1.4 -1.4" stroke="#78858c" stroke-width=".25"/>
+<path d="M 204.92 75.32 H210" stroke="#2b5060" stroke-width=".25"/><text x="210.8" y="75.97" font-family="monospace" font-size="2.05" fill="#163849">8: NC GPIO40</text>
+<path d="M 204.22 77.16 l 1.4 1.4 m -1.4 0 l 1.4 -1.4" stroke="#78858c" stroke-width=".25"/>
+<path d="M 204.92 77.86 H210" stroke="#2b5060" stroke-width=".25"/><text x="210.8" y="78.51" font-family="monospace" font-size="2.05" fill="#163849">9: NC GPIO39</text>
+<path d="M 204.22 79.7 l 1.4 1.4 m -1.4 0 l 1.4 -1.4" stroke="#78858c" stroke-width=".25"/>
+<path d="M 204.92 80.4 H210" stroke="#2b5060" stroke-width=".25"/><text x="210.8" y="81.05000000000001" font-family="monospace" font-size="2.05" fill="#163849">10: NC GPIO38</text>
+<path d="M 204.22 82.24 l 1.4 1.4 m -1.4 0 l 1.4 -1.4" stroke="#78858c" stroke-width=".25"/>
+<path d="M 204.92 82.94 H210" stroke="#2b5060" stroke-width=".25"/><text x="210.8" y="83.59" font-family="monospace" font-size="2.05" fill="#163849">11: NC GPIO37</text>
+<path d="M 204.22 84.78 l 1.4 1.4 m -1.4 0 l 1.4 -1.4" stroke="#78858c" stroke-width=".25"/>
+<path d="M 204.92 85.48 H210" stroke="#2b5060" stroke-width=".25"/><text x="210.8" y="86.13000000000001" font-family="monospace" font-size="2.05" fill="#163849">12: NC GPIO36</text>
+<path d="M 204.22 87.32000000000001 l 1.4 1.4 m -1.4 0 l 1.4 -1.4" stroke="#78858c" stroke-width=".25"/>
+<path d="M 204.92 88.02000000000001 H210" stroke="#2b5060" stroke-width=".25"/><text x="210.8" y="88.67000000000002" font-family="monospace" font-size="2.05" fill="#163849">13: NC GPIO35</text>
+<path d="M 204.22 89.86 l 1.4 1.4 m -1.4 0 l 1.4 -1.4" stroke="#78858c" stroke-width=".25"/>
+<path d="M 204.92 90.56 H210" stroke="#2b5060" stroke-width=".25"/><text x="210.8" y="91.21000000000001" font-family="monospace" font-size="2.05" fill="#163849">14: NC GPIO0</text>
+<path d="M 204.22 92.39999999999999 l 1.4 1.4 m -1.4 0 l 1.4 -1.4" stroke="#78858c" stroke-width=".25"/>
+<path d="M 204.92 93.1 H210" stroke="#2b5060" stroke-width=".25"/><text x="210.8" y="93.75" font-family="monospace" font-size="2.05" fill="#163849">15: NC GPIO45</text>
+<path d="M 204.22 94.94 l 1.4 1.4 m -1.4 0 l 1.4 -1.4" stroke="#78858c" stroke-width=".25"/>
+<path d="M 204.92 95.64 H210" stroke="#2b5060" stroke-width=".25"/><text x="210.8" y="96.29" font-family="monospace" font-size="2.05" fill="#163849">16: NC GPIO48</text>
+<text x="203.92" y="98.83000000000001" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">REC_LED</text>
+<path d="M 204.92 98.18 H210" stroke="#2b5060" stroke-width=".25"/><text x="210.8" y="98.83000000000001" font-family="monospace" font-size="2.05" fill="#163849">17: REC_LED</text>
+<text x="203.92" y="101.37" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">LED_DATA</text>
+<path d="M 204.92 100.72 H210" stroke="#2b5060" stroke-width=".25"/><text x="210.8" y="101.37" font-family="monospace" font-size="2.05" fill="#163849">18: LED_DATA</text>
+<path d="M 204.22 102.55999999999999 l 1.4 1.4 m -1.4 0 l 1.4 -1.4" stroke="#78858c" stroke-width=".25"/>
+<path d="M 204.92 103.25999999999999 H210" stroke="#2b5060" stroke-width=".25"/><text x="210.8" y="103.91" font-family="monospace" font-size="2.05" fill="#163849">19: NC USB20</text>
+<path d="M 204.22 105.1 l 1.4 1.4 m -1.4 0 l 1.4 -1.4" stroke="#78858c" stroke-width=".25"/>
+<path d="M 204.92 105.8 H210" stroke="#2b5060" stroke-width=".25"/><text x="210.8" y="106.45" font-family="monospace" font-size="2.05" fill="#163849">20: NC USB19</text>
+<text x="203.92" y="108.99000000000001" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">GND</text>
+<path d="M 204.92 108.34 H210" stroke="#2b5060" stroke-width=".25"/><text x="210.8" y="108.99000000000001" font-family="monospace" font-size="2.05" fill="#163849">21: GND</text>
+<text x="203.92" y="111.53" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">GND</text>
+<path d="M 204.92 110.88 H210" stroke="#2b5060" stroke-width=".25"/><text x="210.8" y="111.53" font-family="monospace" font-size="2.05" fill="#163849">22: GND</text>
+<rect x="326" y="60" width="28" height="7.62" rx="1" fill="#e9f0f4" stroke="#23465b" stroke-width=".35"/>
+<text x="340" y="55" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="3.3" fill="#142e40">JP1</text>
+<text x="340" y="58.2" text-anchor="middle" font-family="sans-serif" font-size="2.6" fill="#415e6c">RUN POWER</text>
+<text x="319.92" y="63.19" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">5V_SYS</text>
+<path d="M 320.92 62.54 H326" stroke="#2b5060" stroke-width=".25"/><text x="326.8" y="63.19" font-family="monospace" font-size="2.05" fill="#163849">1: 5V_SYS</text>
+<text x="319.92" y="65.73" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">DEV_5V</text>
+<path d="M 320.92 65.08 H326" stroke="#2b5060" stroke-width=".25"/><text x="326.8" y="65.73" font-family="monospace" font-size="2.05" fill="#163849">2: DEV_5V</text>
+<rect x="326" y="105" width="28" height="5.08" rx="1" fill="#e9f0f4" stroke="#23465b" stroke-width=".35"/>
+<text x="340" y="100" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="3.3" fill="#142e40">TP3</text>
+<text x="340" y="103.2" text-anchor="middle" font-family="sans-serif" font-size="2.6" fill="#415e6c">3V3</text>
+<text x="319.92" y="108.19000000000001" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">3V3</text>
+<path d="M 320.92 107.54 H326" stroke="#2b5060" stroke-width=".25"/><text x="326.8" y="108.19000000000001" font-family="monospace" font-size="2.05" fill="#163849">1: 3V3</text>
+<text x="16" y="255" font-family="sans-serif" font-size="2.9" fill="#3b4b57">Socket pin numbering is the module top view: antenna at the top, USB connectors at the bottom.</text>
+<text x="16" y="260" font-family="sans-serif" font-size="2.9" fill="#3b4b57">Only genuine DevKitC-1 v1.1 N8R8 geometry is qualified by this drawing. No generic ESP32 boards.</text>
+<text x="16" y="265" font-family="sans-serif" font-size="2.9" fill="#3b4b57">GPIO0/3/45/46 (straps), GPIO19/20 (USB), GPIO35/36/37 (PSRAM), GPIO38/48 (RGB variants) are not used.</text>
+<text x="16" y="270" font-family="sans-serif" font-size="2.9" fill="#3b4b57">Remove the controller module from BOTH sockets before USB flashing. Never connect USB and carrier power together.</text>
+</svg>

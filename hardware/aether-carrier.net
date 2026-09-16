@@ -1,0 +1,280 @@
+<?xml version='1.0' encoding='utf-8'?>
+<export version="D">
+  <components>
+    <comp ref="J1">
+      <value>DevKitC-1 socket J1</value>
+      <footprint>Aether:Socket_1x22_P2.54</footprint>
+    </comp>
+    <comp ref="J2">
+      <value>DevKitC-1 socket J3</value>
+      <footprint>Aether:Socket_1x22_P2.54</footprint>
+    </comp>
+    <comp ref="J3">
+      <value>5V INPUT</value>
+      <footprint>Aether:Terminal_1x02_P5.08</footprint>
+    </comp>
+    <comp ref="F1">
+      <value>PTC 2.5A</value>
+      <footprint>Aether:PTC_P5.08</footprint>
+    </comp>
+    <comp ref="Q1">
+      <value>AO3401A</value>
+      <footprint>Aether:SOT-23</footprint>
+    </comp>
+    <comp ref="R1">
+      <value>100k</value>
+      <footprint>Aether:R_0805_2012Metric</footprint>
+    </comp>
+    <comp ref="C1">
+      <value>1000uF 10V</value>
+      <footprint>Aether:CP_Radial_D10_P5</footprint>
+    </comp>
+    <comp ref="JP1">
+      <value>RUN POWER</value>
+      <footprint>Aether:PinHeader_1x02_P2.54</footprint>
+    </comp>
+    <comp ref="J4">
+      <value>LCD</value>
+      <footprint>Aether:XH_1x08_P2.50</footprint>
+    </comp>
+    <comp ref="R2">
+      <value>33R</value>
+      <footprint>Aether:R_0805_2012Metric</footprint>
+    </comp>
+    <comp ref="R3">
+      <value>33R</value>
+      <footprint>Aether:R_0805_2012Metric</footprint>
+    </comp>
+    <comp ref="J5">
+      <value>MIC 3V3</value>
+      <footprint>Aether:XH_1x06_P2.50</footprint>
+    </comp>
+    <comp ref="J6">
+      <value>AMP 5V</value>
+      <footprint>Aether:XH_1x06_P2.50</footprint>
+    </comp>
+    <comp ref="R4">
+      <value>10k</value>
+      <footprint>Aether:R_0805_2012Metric</footprint>
+    </comp>
+    <comp ref="U1">
+      <value>SN74AHCT1G125</value>
+      <footprint>Aether:SOT-23-5</footprint>
+    </comp>
+    <comp ref="C2">
+      <value>100nF</value>
+      <footprint>Aether:C_0805_2012Metric</footprint>
+    </comp>
+    <comp ref="R5">
+      <value>100k</value>
+      <footprint>Aether:R_0805_2012Metric</footprint>
+    </comp>
+    <comp ref="R6">
+      <value>330R</value>
+      <footprint>Aether:R_0805_2012Metric</footprint>
+    </comp>
+    <comp ref="J7">
+      <value>RING 5V</value>
+      <footprint>Aether:XH_1x03_P2.50</footprint>
+    </comp>
+    <comp ref="J8">
+      <value>PTT</value>
+      <footprint>Aether:XH_1x02_P2.50</footprint>
+    </comp>
+    <comp ref="J9">
+      <value>PAGE</value>
+      <footprint>Aether:XH_1x02_P2.50</footprint>
+    </comp>
+    <comp ref="J10">
+      <value>REC LED</value>
+      <footprint>Aether:XH_1x02_P2.50</footprint>
+    </comp>
+    <comp ref="R7">
+      <value>1k</value>
+      <footprint>Aether:R_0805_2012Metric</footprint>
+    </comp>
+    <comp ref="R8">
+      <value>10k</value>
+      <footprint>Aether:R_0805_2012Metric</footprint>
+    </comp>
+    <comp ref="R9">
+      <value>10k</value>
+      <footprint>Aether:R_0805_2012Metric</footprint>
+    </comp>
+    <comp ref="C3">
+      <value>100nF</value>
+      <footprint>Aether:C_0805_2012Metric</footprint>
+    </comp>
+    <comp ref="TP1">
+      <value>5V_SYS</value>
+      <footprint>Aether:TestPoint_THT_D2</footprint>
+    </comp>
+    <comp ref="TP2">
+      <value>GND</value>
+      <footprint>Aether:TestPoint_THT_D2</footprint>
+    </comp>
+    <comp ref="TP3">
+      <value>3V3</value>
+      <footprint>Aether:TestPoint_THT_D2</footprint>
+    </comp>
+    <comp ref="TP4">
+      <value>LED_DIN</value>
+      <footprint>Aether:TestPoint_THT_D2</footprint>
+    </comp>
+  </components>
+  <nets>
+    <net code="1" name="3V3">
+      <node ref="J1" pin="1" />
+      <node ref="J1" pin="2" />
+      <node ref="J5" pin="1" />
+      <node ref="R8" pin="2" />
+      <node ref="R9" pin="2" />
+      <node ref="C3" pin="1" />
+      <node ref="TP3" pin="1" />
+    </net>
+    <net code="2" name="5V_SYS">
+      <node ref="Q1" pin="2" />
+      <node ref="C1" pin="1" />
+      <node ref="JP1" pin="1" />
+      <node ref="J4" pin="1" />
+      <node ref="J6" pin="1" />
+      <node ref="U1" pin="5" />
+      <node ref="C2" pin="1" />
+      <node ref="J7" pin="1" />
+      <node ref="TP1" pin="1" />
+    </net>
+    <net code="3" name="AMP_BCLK">
+      <node ref="J1" pin="9" />
+      <node ref="J6" pin="3" />
+    </net>
+    <net code="4" name="AMP_DIN">
+      <node ref="J1" pin="11" />
+      <node ref="J6" pin="5" />
+    </net>
+    <net code="5" name="AMP_SD">
+      <node ref="J1" pin="8" />
+      <node ref="J6" pin="6" />
+      <node ref="R4" pin="1" />
+    </net>
+    <net code="6" name="AMP_WS">
+      <node ref="J1" pin="10" />
+      <node ref="J6" pin="4" />
+    </net>
+    <net code="7" name="DEV_5V">
+      <node ref="J1" pin="21" />
+      <node ref="JP1" pin="2" />
+    </net>
+    <net code="8" name="FUSED5">
+      <node ref="F1" pin="2" />
+      <node ref="Q1" pin="3" />
+    </net>
+    <net code="9" name="GND">
+      <node ref="J1" pin="22" />
+      <node ref="J2" pin="1" />
+      <node ref="J2" pin="21" />
+      <node ref="J2" pin="22" />
+      <node ref="J3" pin="2" />
+      <node ref="R1" pin="2" />
+      <node ref="C1" pin="2" />
+      <node ref="J4" pin="2" />
+      <node ref="J5" pin="2" />
+      <node ref="J5" pin="6" />
+      <node ref="J6" pin="2" />
+      <node ref="R4" pin="2" />
+      <node ref="U1" pin="1" />
+      <node ref="U1" pin="3" />
+      <node ref="C2" pin="2" />
+      <node ref="R5" pin="2" />
+      <node ref="J7" pin="2" />
+      <node ref="J8" pin="2" />
+      <node ref="J9" pin="2" />
+      <node ref="J10" pin="2" />
+      <node ref="C3" pin="2" />
+      <node ref="TP2" pin="1" />
+    </net>
+    <net code="10" name="LCD_BL">
+      <node ref="J1" pin="7" />
+      <node ref="J4" pin="8" />
+    </net>
+    <net code="11" name="LCD_CS">
+      <node ref="J1" pin="16" />
+      <node ref="J4" pin="5" />
+    </net>
+    <net code="12" name="LCD_DC">
+      <node ref="J1" pin="15" />
+      <node ref="J4" pin="6" />
+    </net>
+    <net code="13" name="LCD_MOSI">
+      <node ref="J1" pin="17" />
+      <node ref="R3" pin="1" />
+    </net>
+    <net code="14" name="LCD_MOSI_R">
+      <node ref="J4" pin="4" />
+      <node ref="R3" pin="2" />
+    </net>
+    <net code="15" name="LCD_RST">
+      <node ref="J1" pin="12" />
+      <node ref="J4" pin="7" />
+    </net>
+    <net code="16" name="LCD_SCK">
+      <node ref="J1" pin="18" />
+      <node ref="R2" pin="1" />
+    </net>
+    <net code="17" name="LCD_SCK_R">
+      <node ref="J4" pin="3" />
+      <node ref="R2" pin="2" />
+    </net>
+    <net code="18" name="LED_5V_BUF">
+      <node ref="U1" pin="4" />
+      <node ref="R6" pin="1" />
+    </net>
+    <net code="19" name="LED_DATA">
+      <node ref="J2" pin="18" />
+      <node ref="U1" pin="2" />
+      <node ref="R5" pin="1" />
+    </net>
+    <net code="20" name="LED_DIN">
+      <node ref="R6" pin="2" />
+      <node ref="J7" pin="3" />
+      <node ref="TP4" pin="1" />
+    </net>
+    <net code="21" name="MIC_BCLK">
+      <node ref="J1" pin="4" />
+      <node ref="J5" pin="3" />
+    </net>
+    <net code="22" name="MIC_SD">
+      <node ref="J1" pin="6" />
+      <node ref="J5" pin="5" />
+    </net>
+    <net code="23" name="MIC_WS">
+      <node ref="J1" pin="5" />
+      <node ref="J5" pin="4" />
+    </net>
+    <net code="24" name="NEXT">
+      <node ref="J1" pin="19" />
+      <node ref="J9" pin="1" />
+      <node ref="R9" pin="1" />
+    </net>
+    <net code="25" name="PTT">
+      <node ref="J1" pin="20" />
+      <node ref="J8" pin="1" />
+      <node ref="R8" pin="1" />
+    </net>
+    <net code="26" name="Q_GATE">
+      <node ref="Q1" pin="1" />
+      <node ref="R1" pin="1" />
+    </net>
+    <net code="27" name="REC_ANODE">
+      <node ref="J10" pin="1" />
+      <node ref="R7" pin="2" />
+    </net>
+    <net code="28" name="REC_LED">
+      <node ref="J2" pin="17" />
+      <node ref="R7" pin="1" />
+    </net>
+    <net code="29" name="VIN5">
+      <node ref="J3" pin="1" />
+      <node ref="F1" pin="1" />
+    </net>
+  </nets>
+</export>

@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1680" height="1188" viewBox="0 0 420 297">
+<rect width="420" height="297" fill="#f8fafc"/>
+<text x="16" y="17" font-family="sans-serif" font-size="6" fill="#132538">03 / Display, audio and operator harnesses</text>
+<text x="16" y="25" font-family="sans-serif" font-size="3" fill="#536675">AETHER ORB / REV A · Net labels connect globally across sheets · Engineering prototype</text>
+<rect x="72" y="50" width="28" height="22.86" rx="1" fill="#e9f0f4" stroke="#23465b" stroke-width=".35"/>
+<text x="86" y="45" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="3.3" fill="#142e40">J4</text>
+<text x="86" y="48.2" text-anchor="middle" font-family="sans-serif" font-size="2.6" fill="#415e6c">LCD</text>
+<text x="65.92" y="53.19" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">5V_SYS</text>
+<path d="M 66.92 52.54 H72" stroke="#2b5060" stroke-width=".25"/><text x="72.8" y="53.19" font-family="monospace" font-size="2.05" fill="#163849">1: 5V_SYS</text>
+<text x="65.92" y="55.73" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">GND</text>
+<path d="M 66.92 55.08 H72" stroke="#2b5060" stroke-width=".25"/><text x="72.8" y="55.73" font-family="monospace" font-size="2.05" fill="#163849">2: GND</text>
+<text x="65.92" y="58.269999999999996" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">LCD_SCK_R</text>
+<path d="M 66.92 57.62 H72" stroke="#2b5060" stroke-width=".25"/><text x="72.8" y="58.269999999999996" font-family="monospace" font-size="2.05" fill="#163849">3: LCD_SCK_R</text>
+<text x="65.92" y="60.809999999999995" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">LCD_MOSI_R</text>
+<path d="M 66.92 60.16 H72" stroke="#2b5060" stroke-width=".25"/><text x="72.8" y="60.809999999999995" font-family="monospace" font-size="2.05" fill="#163849">4: LCD_MOSI_R</text>
+<text x="65.92" y="63.35" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">LCD_CS</text>
+<path d="M 66.92 62.7 H72" stroke="#2b5060" stroke-width=".25"/><text x="72.8" y="63.35" font-family="monospace" font-size="2.05" fill="#163849">5: LCD_CS</text>
+<text x="65.92" y="65.89" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">LCD_DC</text>
+<path d="M 66.92 65.24 H72" stroke="#2b5060" stroke-width=".25"/><text x="72.8" y="65.89" font-family="monospace" font-size="2.05" fill="#163849">6: LCD_DC</text>
+<text x="65.92" y="68.43" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">LCD_RST</text>
+<path d="M 66.92 67.78 H72" stroke="#2b5060" stroke-width=".25"/><text x="72.8" y="68.43" font-family="monospace" font-size="2.05" fill="#163849">7: LCD_RST</text>
+<text x="65.92" y="70.97" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">LCD_BL</text>
+<path d="M 66.92 70.32 H72" stroke="#2b5060" stroke-width=".25"/><text x="72.8" y="70.97" font-family="monospace" font-size="2.05" fill="#163849">8: LCD_BL</text>
+<rect x="164" y="50" width="28" height="17.78" rx="1" fill="#e9f0f4" stroke="#23465b" stroke-width=".35"/>
+<text x="178" y="45" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="3.3" fill="#142e40">J5</text>
+<text x="178" y="48.2" text-anchor="middle" font-family="sans-serif" font-size="2.6" fill="#415e6c">MIC 3V3</text>
+<text x="157.92" y="53.19" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">3V3</text>
+<path d="M 158.92 52.54 H164" stroke="#2b5060" stroke-width=".25"/><text x="164.8" y="53.19" font-family="monospace" font-size="2.05" fill="#163849">1: 3V3</text>
+<text x="157.92" y="55.73" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">GND</text>
+<path d="M 158.92 55.08 H164" stroke="#2b5060" stroke-width=".25"/><text x="164.8" y="55.73" font-family="monospace" font-size="2.05" fill="#163849">2: GND</text>
+<text x="157.92" y="58.269999999999996" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">MIC_BCLK</text>
+<path d="M 158.92 57.62 H164" stroke="#2b5060" stroke-width=".25"/><text x="164.8" y="58.269999999999996" font-family="monospace" font-size="2.05" fill="#163849">3: MIC_BCLK</text>
+<text x="157.92" y="60.809999999999995" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">MIC_WS</text>
+<path d="M 158.92 60.16 H164" stroke="#2b5060" stroke-width=".25"/><text x="164.8" y="60.809999999999995" font-family="monospace" font-size="2.05" fill="#163849">4: MIC_WS</text>
+<text x="157.92" y="63.35" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">MIC_SD</text>
+<path d="M 158.92 62.7 H164" stroke="#2b5060" stroke-width=".25"/><text x="164.8" y="63.35" font-family="monospace" font-size="2.05" fill="#163849">5: MIC_SD</text>
+<text x="157.92" y="65.89" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">GND</text>
+<path d="M 158.92 65.24 H164" stroke="#2b5060" stroke-width=".25"/><text x="164.8" y="65.89" font-family="monospace" font-size="2.05" fill="#163849">6: GND</text>
+<rect x="256" y="50" width="28" height="17.78" rx="1" fill="#e9f0f4" stroke="#23465b" stroke-width=".35"/>
+<text x="270" y="45" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="3.3" fill="#142e40">J6</text>
+<text x="270" y="48.2" text-anchor="middle" font-family="sans-serif" font-size="2.6" fill="#415e6c">AMP 5V</text>
+<text x="249.92" y="53.19" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">5V_SYS</text>
+<path d="M 250.92 52.54 H256" stroke="#2b5060" stroke-width=".25"/><text x="256.8" y="53.19" font-family="monospace" font-size="2.05" fill="#163849">1: 5V_SYS</text>
+<text x="249.92" y="55.73" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">GND</text>
+<path d="M 250.92 55.08 H256" stroke="#2b5060" stroke-width=".25"/><text x="256.8" y="55.73" font-family="monospace" font-size="2.05" fill="#163849">2: GND</text>
+<text x="249.92" y="58.269999999999996" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">AMP_BCLK</text>
+<path d="M 250.92 57.62 H256" stroke="#2b5060" stroke-width=".25"/><text x="256.8" y="58.269999999999996" font-family="monospace" font-size="2.05" fill="#163849">3: AMP_BCLK</text>
+<text x="249.92" y="60.809999999999995" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">AMP_WS</text>
+<path d="M 250.92 60.16 H256" stroke="#2b5060" stroke-width=".25"/><text x="256.8" y="60.809999999999995" font-family="monospace" font-size="2.05" fill="#163849">4: AMP_WS</text>
+<text x="249.92" y="63.35" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">AMP_DIN</text>
+<path d="M 250.92 62.7 H256" stroke="#2b5060" stroke-width=".25"/><text x="256.8" y="63.35" font-family="monospace" font-size="2.05" fill="#163849">5: AMP_DIN</text>
+<text x="249.92" y="65.89" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">AMP_SD</text>
+<path d="M 250.92 65.24 H256" stroke="#2b5060" stroke-width=".25"/><text x="256.8" y="65.89" font-family="monospace" font-size="2.05" fill="#163849">6: AMP_SD</text>
+<rect x="348" y="50" width="28" height="7.62" rx="1" fill="#e9f0f4" stroke="#23465b" stroke-width=".35"/>
+<text x="362" y="45" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="3.3" fill="#142e40">R2</text>
+<text x="362" y="48.2" text-anchor="middle" font-family="sans-serif" font-size="2.6" fill="#415e6c">33R</text>
+<text x="341.92" y="53.19" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">LCD_SCK</text>
+<path d="M 342.92 52.54 H348" stroke="#2b5060" stroke-width=".25"/><text x="348.8" y="53.19" font-family="monospace" font-size="2.05" fill="#163849">1: 1</text>
+<text x="341.92" y="55.73" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">LCD_SCK_R</text>
+<path d="M 342.92 55.08 H348" stroke="#2b5060" stroke-width=".25"/><text x="348.8" y="55.73" font-family="monospace" font-size="2.05" fill="#163849">2: 2</text>
+<rect x="348" y="95" width="28" height="7.62" rx="1" fill="#e9f0f4" stroke="#23465b" stroke-width=".35"/>
+<text x="362" y="90" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="3.3" fill="#142e40">R3</text>
+<text x="362" y="93.2" text-anchor="middle" font-family="sans-serif" font-size="2.6" fill="#415e6c">33R</text>
+<text x="341.92" y="98.19000000000001" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">LCD_MOSI</text>
+<path d="M 342.92 97.54 H348" stroke="#2b5060" stroke-width=".25"/><text x="348.8" y="98.19000000000001" font-family="monospace" font-size="2.05" fill="#163849">1: 1</text>
+<text x="341.92" y="100.73" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">LCD_MOSI_R</text>
+<path d="M 342.92 100.08 H348" stroke="#2b5060" stroke-width=".25"/><text x="348.8" y="100.73" font-family="monospace" font-size="2.05" fill="#163849">2: 2</text>
+<rect x="256" y="130" width="28" height="7.62" rx="1" fill="#e9f0f4" stroke="#23465b" stroke-width=".35"/>
+<text x="270" y="125" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="3.3" fill="#142e40">R4</text>
+<text x="270" y="128.2" text-anchor="middle" font-family="sans-serif" font-size="2.6" fill="#415e6c">10k</text>
+<text x="249.92" y="133.19" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">AMP_SD</text>
+<path d="M 250.92 132.54 H256" stroke="#2b5060" stroke-width=".25"/><text x="256.8" y="133.19" font-family="monospace" font-size="2.05" fill="#163849">1: 1</text>
+<text x="249.92" y="135.73000000000002" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">GND</text>
+<path d="M 250.92 135.08 H256" stroke="#2b5060" stroke-width=".25"/><text x="256.8" y="135.73000000000002" font-family="monospace" font-size="2.05" fill="#163849">2: 2</text>
+<rect x="164" y="130" width="28" height="7.62" rx="1" fill="#e9f0f4" stroke="#23465b" stroke-width=".35"/>
+<text x="178" y="125" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="3.3" fill="#142e40">C3</text>
+<text x="178" y="128.2" text-anchor="middle" font-family="sans-serif" font-size="2.6" fill="#415e6c">100nF</text>
+<text x="157.92" y="133.19" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">3V3</text>
+<path d="M 158.92 132.54 H164" stroke="#2b5060" stroke-width=".25"/><text x="164.8" y="133.19" font-family="monospace" font-size="2.05" fill="#163849">1: 1</text>
+<text x="157.92" y="135.73000000000002" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">GND</text>
+<path d="M 158.92 135.08 H164" stroke="#2b5060" stroke-width=".25"/><text x="164.8" y="135.73000000000002" font-family="monospace" font-size="2.05" fill="#163849">2: 2</text>
+<rect x="72" y="165" width="28" height="7.62" rx="1" fill="#e9f0f4" stroke="#23465b" stroke-width=".35"/>
+<text x="86" y="160" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="3.3" fill="#142e40">J8</text>
+<text x="86" y="163.2" text-anchor="middle" font-family="sans-serif" font-size="2.6" fill="#415e6c">PTT</text>
+<text x="65.92" y="168.19" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">PTT</text>
+<path d="M 66.92 167.54 H72" stroke="#2b5060" stroke-width=".25"/><text x="72.8" y="168.19" font-family="monospace" font-size="2.05" fill="#163849">1: PTT</text>
+<text x="65.92" y="170.73000000000002" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">GND</text>
+<path d="M 66.92 170.08 H72" stroke="#2b5060" stroke-width=".25"/><text x="72.8" y="170.73000000000002" font-family="monospace" font-size="2.05" fill="#163849">2: GND</text>
+<rect x="164" y="185" width="28" height="7.62" rx="1" fill="#e9f0f4" stroke="#23465b" stroke-width=".35"/>
+<text x="178" y="180" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="3.3" fill="#142e40">J9</text>
+<text x="178" y="183.2" text-anchor="middle" font-family="sans-serif" font-size="2.6" fill="#415e6c">PAGE</text>
+<text x="157.92" y="188.19" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">NEXT</text>
+<path d="M 158.92 187.54 H164" stroke="#2b5060" stroke-width=".25"/><text x="164.8" y="188.19" font-family="monospace" font-size="2.05" fill="#163849">1: NEXT</text>
+<text x="157.92" y="190.73000000000002" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">GND</text>
+<path d="M 158.92 190.08 H164" stroke="#2b5060" stroke-width=".25"/><text x="164.8" y="190.73000000000002" font-family="monospace" font-size="2.05" fill="#163849">2: GND</text>
+<rect x="256" y="185" width="28" height="7.62" rx="1" fill="#e9f0f4" stroke="#23465b" stroke-width=".35"/>
+<text x="270" y="180" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="3.3" fill="#142e40">J10</text>
+<text x="270" y="183.2" text-anchor="middle" font-family="sans-serif" font-size="2.6" fill="#415e6c">REC LED</text>
+<text x="249.92" y="188.19" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">REC_ANODE</text>
+<path d="M 250.92 187.54 H256" stroke="#2b5060" stroke-width=".25"/><text x="256.8" y="188.19" font-family="monospace" font-size="2.05" fill="#163849">1: REC_ANODE</text>
+<text x="249.92" y="190.73000000000002" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">GND</text>
+<path d="M 250.92 190.08 H256" stroke="#2b5060" stroke-width=".25"/><text x="256.8" y="190.73000000000002" font-family="monospace" font-size="2.05" fill="#163849">2: GND</text>
+<rect x="348" y="145" width="28" height="7.62" rx="1" fill="#e9f0f4" stroke="#23465b" stroke-width=".35"/>
+<text x="362" y="140" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="3.3" fill="#142e40">R7</text>
+<text x="362" y="143.2" text-anchor="middle" font-family="sans-serif" font-size="2.6" fill="#415e6c">1k</text>
+<text x="341.92" y="148.19" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">REC_LED</text>
+<path d="M 342.92 147.54 H348" stroke="#2b5060" stroke-width=".25"/><text x="348.8" y="148.19" font-family="monospace" font-size="2.05" fill="#163849">1: 1</text>
+<text x="341.92" y="150.73000000000002" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">REC_ANODE</text>
+<path d="M 342.92 150.08 H348" stroke="#2b5060" stroke-width=".25"/><text x="348.8" y="150.73000000000002" font-family="monospace" font-size="2.05" fill="#163849">2: 2</text>
+<rect x="72" y="220" width="28" height="7.62" rx="1" fill="#e9f0f4" stroke="#23465b" stroke-width=".35"/>
+<text x="86" y="215" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="3.3" fill="#142e40">R8</text>
+<text x="86" y="218.2" text-anchor="middle" font-family="sans-serif" font-size="2.6" fill="#415e6c">10k</text>
+<text x="65.92" y="223.19" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">PTT</text>
+<path d="M 66.92 222.54 H72" stroke="#2b5060" stroke-width=".25"/><text x="72.8" y="223.19" font-family="monospace" font-size="2.05" fill="#163849">1: 1</text>
+<text x="65.92" y="225.73000000000002" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">3V3</text>
+<path d="M 66.92 225.08 H72" stroke="#2b5060" stroke-width=".25"/><text x="72.8" y="225.73000000000002" font-family="monospace" font-size="2.05" fill="#163849">2: 2</text>
+<rect x="348" y="215" width="28" height="7.62" rx="1" fill="#e9f0f4" stroke="#23465b" stroke-width=".35"/>
+<text x="362" y="210" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="3.3" fill="#142e40">R9</text>
+<text x="362" y="213.2" text-anchor="middle" font-family="sans-serif" font-size="2.6" fill="#415e6c">10k</text>
+<text x="341.92" y="218.19" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">NEXT</text>
+<path d="M 342.92 217.54 H348" stroke="#2b5060" stroke-width=".25"/><text x="348.8" y="218.19" font-family="monospace" font-size="2.05" fill="#163849">1: 1</text>
+<text x="341.92" y="220.73000000000002" text-anchor="end" font-family="monospace" font-size="2.2" fill="#0e665c">3V3</text>
+<path d="M 342.92 220.08 H348" stroke="#2b5060" stroke-width=".25"/><text x="348.8" y="220.73000000000002" font-family="monospace" font-size="2.05" fill="#163849">2: 2</text>
+<text x="16" y="255" font-family="sans-serif" font-size="2.9" fill="#3b4b57">J4 goes to Adafruit 1770 ILI9341 in SPI mode: close IM1/IM2/IM3 as specified in the module guide.</text>
+<text x="16" y="260" font-family="sans-serif" font-size="2.9" fill="#3b4b57">J5: SPH0645 microphone; 3.3 V ONLY. SEL to GND, left slot. Unplug the whole harness for hardware isolation.</text>
+<text x="16" y="265" font-family="sans-serif" font-size="2.9" fill="#3b4b57">J6: Adafruit 3006 MAX98357A. Speaker connects directly to amp +/-. Neither output may connect to ground.</text>
+<text x="16" y="270" font-family="sans-serif" font-size="2.9" fill="#3b4b57">J8/J9 momentary NO to GND. J10 LED anode pin 1, cathode pin 2. R7 is already on the carrier.</text>
+</svg>
