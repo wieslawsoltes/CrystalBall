@@ -1,0 +1,14 @@
+**
+!gateway/
+!gateway/pyproject.toml
+!gateway/app/
+!gateway/app/*.py
+!web/
+!web/index.html
+!web/style.css
+!web/src/
+!web/src/*.js
+!web/src/*.wgsl
+!web/assets/
+!web/assets/*.json
+!web/assets/*.svg

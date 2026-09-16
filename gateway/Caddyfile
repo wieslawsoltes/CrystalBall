@@ -1,11 +1,13 @@
-# Put a LAN DNS A/AAAA record for this hostname on the router.
-# No public exposure is required. Do not enable HTTP plaintext device access.
-orb-gateway.home.arpa {
+# LAN DNS must resolve ORB_HOST to this host. Trust the root CA explicitly.
+# No access logs: credentials and transcripts must not be logged.
+https://{$ORB_HOST:orb-gateway.home.arpa} {
     tls internal
     request_body {
         max_size 260KB
     }
-    reverse_proxy gateway:8080
+    reverse_proxy gateway:8080 {
+        flush_interval -1
+    }
     header {
         Cache-Control "no-store"
         X-Content-Type-Options "nosniff"

@@ -1,20 +1,35 @@
 services:
   gateway:
-    build: .
+    build:
+      context: ..
+      dockerfile: gateway/Dockerfile
     env_file: .env
     restart: unless-stopped
     read_only: true
     cap_drop: [ALL]
     security_opt: [no-new-privileges:true]
     tmpfs: [/tmp:size=16m,noexec,nosuid]
+    volumes:
+      - orb_budget:/var/lib/orb
     mem_limit: 256m
     pids_limit: 100
     expose: ["8080"]
     ulimits:
       core: 0
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8080/healthz', timeout=3).read()"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
   tls:
     image: caddy:2
+    environment:
+      ORB_HOST: ${ORB_HOST:-orb-gateway.home.arpa}
     restart: unless-stopped
+    depends_on:
+      gateway:
+        condition: service_healthy
     ports: ["443:443"]
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
@@ -22,5 +37,6 @@ services:
       - caddy_config:/config
     security_opt: [no-new-privileges:true]
 volumes:
+  orb_budget:
   caddy_data:
   caddy_config:
