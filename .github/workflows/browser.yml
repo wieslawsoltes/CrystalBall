@@ -48,9 +48,13 @@ jobs:
           test -s verification/browser/report.json
           test -s verification/browser/05-mobile.png
           test -s verification/browser/06-fallback.png
+          python tests/renderer_browser.py
+          python -c "import json; assert json.load(open('verification/renderer/report.json'))['passed']"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: browser-visual-and-integration-evidence
-          path: verification/browser/
+          path: |
+            verification/browser/
+            verification/renderer/
           if-no-files-found: error
