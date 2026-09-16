@@ -2,7 +2,7 @@ name: Engineering verification
 on:
   push:
     branches: [main]
-    paths: ['firmware/**', 'hardware/**', 'gateway/**', 'web/**', 'factory/**', 'tools/**', 'tests/**', 'ci/verify_*', 'ci/test_publication.py', 'manufacturing/*plan.json', '.github/workflows/verify.yml']
+    paths: ['firmware/**', 'hardware/**', 'gateway/**', 'web/**', 'factory/**', 'tools/**', 'tests/**', 'ci/verify_*', 'ci/test_*.py', 'manufacturing/*plan.json', '.github/workflows/verify.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -20,7 +20,12 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - run: python -m pip install './gateway[test]'
+      - name: Build and inspect the actual installable gateway
+        run: |
+          python ci/test_gateway_wheel.py
+          python -m pip wheel --no-deps --no-cache-dir --wheel-dir /tmp/orb-wheel ./gateway
+          python ci/verify_gateway_wheel.py /tmp/orb-wheel/aether_orb_gateway-*.whl
+          python -m pip install "$(echo /tmp/orb-wheel/aether_orb_gateway-*.whl)[test]"
       - name: Python, JavaScript and sanitized host-C tests
         run: |
           mkdir -p verification/units

@@ -17,3 +17,6 @@ _site/
 handoff-package/
 factory/private/
 *.private.pem
+# Python build output must never shadow the current source during wheel creation.
+gateway/build/
+*.egg-info/

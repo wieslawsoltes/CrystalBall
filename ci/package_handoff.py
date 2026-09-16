@@ -9,8 +9,10 @@ def main():
     names = subprocess.check_output(['git','ls-files','-z'],cwd=ROOT).decode().split('\0')
     for name in filter(None,names):
         path=Path(name)
-        if 'private' in path.parts or path.name == '.env' or path.suffix in ('.key','.pem') or path.name in ('nvs.bin','nvs.csv'):
-            raise RuntimeError(f'Private provisioning material is tracked; packaging stopped: {name}')
+        if (any(x in path.parts for x in ('private', '.venv', '__pycache__', 'node_modules'))
+            or any(x.endswith('.egg-info') for x in path.parts) or name.startswith('gateway/build/')
+            or path.name == '.env' or path.suffix in ('.key','.pem') or path.name in ('nvs.bin','nvs.csv')):
+            raise RuntimeError(f'Private or generated build material is tracked; packaging stopped: {name}')
     commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
     folder=ROOT/'handoff-package';folder.mkdir(exist_ok=True)
     archive=folder/'CrystalBall-RevB-Engineering-Handoff.zip'
