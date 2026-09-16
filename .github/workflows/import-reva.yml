@@ -1,0 +1,39 @@
+name: Preserve exact Rev A baseline
+on:
+  push:
+    branches: [main]
+    paths: ['.imports/**', 'ci/import_reva.py', '.github/workflows/import-reva.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: exact-reva-import
+  cancel-in-progress: false
+jobs:
+  import:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Install exact generator versions
+        run: python -m pip install 'cadquery==2.8.0' 'cadquery-ocp==7.9.3.1.1' 'numpy==2.3.5' 'shapely==2.1.2'
+      - name: Reconstruct and verify all 63 files
+        run: python ci/import_reva.py
+      - name: Commit verified original files directly to main
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add firmware gateway hardware mechanical preview tools provenance
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'import: preserve 63 supplied Rev A files byte-for-byte (SHA-256 verified)'
+          git push origin HEAD:main
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reva-import-provenance
+          path: provenance/reva/
