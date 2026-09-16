@@ -1,0 +1,111 @@
+name: Voice recovery and qualification tools
+on:
+  push:
+    branches: [main]
+    paths: ['ci/batches/2026-09-16/**', 'ci/apply_qualification_batch.py', '.github/workflows/qualification.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: qualification-source-batch
+  cancel-in-progress: false
+defaults:
+  run:
+    shell: bash
+jobs:
+  implement:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Apply hash-bound source changes once
+        run: python ci/apply_qualification_batch.py
+      - name: Install test and document dependencies
+        run: python -m pip install './gateway[test]' 'reportlab==4.4.3' 'playwright==1.57.0'
+      - name: Gateway, factory and asynchronous voice unit tests
+        run: |
+          mkdir -p verification/qualification
+          git rev-parse HEAD >verification/qualification/PARENT.txt
+          python -m pytest gateway/tests factory/tests -q | tee verification/qualification/python.txt
+          npm --prefix web test | tee verification/qualification/node.txt
+          gcc -std=c11 -Wall -Wextra -Werror -fsanitize=address,undefined -I firmware/main tests/core_test.c firmware/main/core.c -o /tmp/orb-core
+          /tmp/orb-core | tee verification/qualification/firmware-host.txt
+      - name: Validate browser against isolated mock provider
+        run: |
+          python -m playwright install --with-deps chromium
+          PYTHONPATH=gateway python -m uvicorn --app-dir tests mock_gateway:app --host 127.0.0.1 --port 8088 --no-access-log >verification/qualification/gateway.log 2>&1 &
+          ready=0
+          for i in $(seq 1 30); do
+            if curl -fsS http://127.0.0.1:8088/healthz; then ready=1; break; fi
+            sleep 1
+          done
+          test "$ready" = 1
+          python tests/browser.py 2>&1 | tee verification/qualification/browser.txt
+          python -c "import json; r=json.load(open('verification/browser/report.json')); assert r['passed'] and len(r['checks'])==12 and not r['errors']"
+      - name: Commit tested source batches directly to main
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          python - <<'PY'
+          import json,subprocess
+          from pathlib import Path
+          batches={
+              'recovery':'feat: persist voice-call recovery, guard asynchronous cancellation and configure Pages pairing',
+              'qualification':'feat: verify signed release evidence and evaluate uncertainty-bounded first articles'
+          }
+          for name,message in batches.items():
+              marker=Path(f'provenance/{name}-2026-09-16.json')
+              paths=list(json.loads(marker.read_text())['files'])+[str(marker)]
+              subprocess.run(['git','add','--',*paths],check=True)
+              if subprocess.run(['git','diff','--cached','--quiet']).returncode:
+                  subprocess.run(['git','commit','-m',message],check=True)
+          PY
+          git push origin HEAD:main
+      - name: Verify published-path assets from committed sources
+        run: |
+          python ci/stage_pages.py
+          python ci/test_pages.py
+      - name: Regenerate handbook and retain blocked production gate
+        run: |
+          python tools/manufacturing.py
+          set +e
+          python factory/release_gate.py --output manufacturing/generated/release-status.json >verification/qualification/release-gate.txt
+          code=$?
+          set -e
+          test "$code" = 1
+          python - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          r=json.loads(Path('manufacturing/generated/release-status.json').read_text())
+          assert r['status']=='BLOCKED' and not r['authenticated'] and len(r['errors'])==18
+          d=Path('manufacturing/generated')
+          (d/'SHA256.json').write_text(json.dumps({p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(d.iterdir()) if p.is_file() and p.name!='SHA256.json'},indent=2)+'\n')
+          PY
+          git rev-parse HEAD >verification/qualification/SOURCE-COMMIT.txt
+          git add manufacturing/generated verification/qualification verification/browser verification/pages
+          if ! git diff --cached --quiet; then
+            git commit -m 'docs: regenerate qualification handbook and archive executed mock-browser and unit evidence'
+            git push origin HEAD:main
+          fi
+      - name: Package the committed engineering project
+        run: python ci/package_handoff.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: CrystalBall-recovery-qualification-handoff
+          path: |
+            handoff-package/
+            manufacturing/generated/CrystalBall-RevB-Handbook.pdf
+            manufacturing/generated/release-status.json
+            verification/qualification/
+            verification/browser/
+            verification/pages/
+          if-no-files-found: error
