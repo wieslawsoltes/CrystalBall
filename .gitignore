@@ -11,3 +11,9 @@ firmware/sdkconfig.old
 firmware/main/gateway_ca.pem
 factory/private/
 *.key
+
+# Local publishing and qualification workspaces
+_site/
+handoff-package/
+factory/private/
+*.private.pem

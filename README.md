@@ -6,6 +6,10 @@ A tabletop AI-assisted entertainment prop with a hollow optical globe, an operat
 
 **Release: engineering candidate. Not approved for production manufacture or sale.** Physical fit, optical privacy/readability, supplier selection, thermal/electrical qualification, production security and market compliance remain release gates. The browser's volumetric nebula is artistic, not a claim that LEDs create a cloud inside an empty globe. Exact visual identity has not been accepted.
 
+## Browser prototype online
+
+**[Open CrystalBall on GitHub Pages](https://wieslawsoltes.github.io/CrystalBall/)** — offline demo by default, including the WebGPU experience and CAD inspector. The Python gateway is hosted separately. [Pages deployment and pairing](docs/github-pages.md) explains the repository-path checks, publication manifest and CORS configuration.
+
 ## Start the browser without an API key
 
 ```sh
@@ -30,7 +34,7 @@ The tool prompts for the project key without echo and creates `gateway/.env` plu
 
 Configure LAN DNS to point `orb-gateway.home.arpa` at the gateway machine. The supplied Caddy configuration uses a local CA: export and explicitly trust its **public root certificate** on your clients. Do not disable certificate verification or distribute CA private keys. Open the HTTPS site, select **Connect gateway**, enter its origin and the device token from the private JSON, then ask a question or hold the microphone button.
 
-Text generation, transcription and synthesized speech use paid OpenAI APIs. Set model names in `.env` for models available to your account. No live paid provider test has been performed in this repository's CI. Speech requires `--speech`; the voice is disclosed as AI-generated. Experimental native WebRTC voice additionally requires `--realtime`. Leave it disabled for production until provider-session crash recovery and live-device tests are completed.
+Text generation, transcription and synthesized speech use paid OpenAI APIs. Set model names in `.env` for models available to your account. No live paid provider test has been performed in this repository's CI. Speech requires `--speech`; the voice is disclosed as AI-generated. Experimental native WebRTC voice additionally requires `--realtime`. Leave it disabled for production until live provider/device and fault-injection qualification is completed. Known calls now have durable SQLite lifecycle recovery; ambiguous creates block new voice admission until an operator reconciles them. See [recovery and cancellation design](docs/runtime-recovery.md).
 
 The gateway runs as UID 10001 on a read-only root filesystem, uses a persistent SQLite request-admission database, enforces bounded requests and permits a single worker. Request quotas are not exact monetary caps. The browser unlocks Web Audio in the user gesture, stops microphone tracks on cancellation and uses no local/session storage for credentials or transcripts. Actual Safari/iPhone audio and microphone behavior still require representative-device testing.
 
@@ -46,7 +50,8 @@ The gateway runs as UID 10001 on a read-only root filesystem, uses a persistent 
 | Firmware | [ESP-IDF project](firmware/) |
 | Gateway and browser | [gateway](gateway/) / [web](web/) |
 | Commissioning | [Factory tools](factory/) |
-| Release evidence gate | [Requirements](manufacturing/release-plan.json) / [checker](factory/release_gate.py) |
+| Release evidence gate | [Requirements](manufacturing/release-plan.json) / [checker](factory/release_gate.py) / [signed evidence](factory/evidence.py) |
+| First-article data evaluator | [Draft plan](manufacturing/qualification-plan.json) / [measurement tool](factory/measurements.py) |
 | Test provenance | [Verification notes](verification/README.md) and [validated screenshots](preview/validated/) |
 
 The original **63 Rev A files** are preserved byte-for-byte at commit `f430900c5269cbada520c0550a1a0a9df75eb3ed`, checked by `provenance/reva/SHA256.json`. Subsequent revisions are separate commits. `parameters.json` is generated documentation; edit the mechanical generator's `P` dictionary, not that JSON, to change geometry.
@@ -82,7 +87,7 @@ python tools/manufacturing.py
 python factory/release_gate.py --output manufacturing/generated/release-status.json
 ```
 
-The final command currently exits **1 / BLOCKED** because physical qualification and owner approvals are absent. That is intentional. It validates evidence completeness, source fingerprints and report hashes; it does not authenticate reviewers or certify the product.
+The final command currently exits **1 / BLOCKED** because physical qualification and owner approvals are absent. That is intentional. Without a trust policy it validates structure only. With an independently pinned reviewer policy, it verifies Ed25519 signatures, scoped reviewer quorums, expiry/revocation and both source and manufacturing-output fingerprints. No trusted reviewer ships with the project. Neither mode certifies the product or authorizes production. See [signed evidence and measured qualification](docs/qualification-evidence.md).
 
 GitHub Actions also compiles all three firmware profiles, runs KiCad 9.0.9 ERC/DRC/schematic parity, exports native CAM, tests a read-only Docker deployment and exercises the browser on a software WebGPU adapter with mocked OpenAI responses. See [Actions](https://github.com/wieslawsoltes/CrystalBall/actions) for the exact commit under test. Archived evidence is dated, not automatically promoted to cover later design changes.
 

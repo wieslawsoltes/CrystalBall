@@ -131,7 +131,7 @@ Record firmware source commit, build toolchain, sdkconfig, certificate fingerpri
 
 ## 11. Release control, packaging and service
 
-release-plan.json defines eighteen release requirements. factory/release_gate.py computes a source fingerprint and requires one PASS record per requirement, reviewer, timezone-qualified timestamp, matching fingerprint and an accessible report whose SHA-256 matches. Missing, failed, duplicated, stale or altered evidence blocks release. The checker validates record completeness and integrity; it does not authenticate reviewers, certify a product or replace organizational sign-off. Store signed approvals in the owner's controlled quality system.
+release-plan.json defines eighteen release requirements. factory/release_gate.py computes a source fingerprint and requires one PASS record per requirement, reviewer, timezone-qualified timestamp, matching fingerprint and an accessible report whose SHA-256 matches. Missing, failed, duplicated, stale or altered evidence blocks release. The default mode checks structure only. Supplying an independently pinned reviewer policy enables Ed25519 evidence authentication, per-requirement reviewer quorums, expiry/revocation checks, plan binding and separate manufacturing-output fingerprints. No reviewer keys are trusted by default. Signatures authenticate statements, not the truth of measurements; organizational production sign-off is still mandatory. See docs/qualification-evidence.md for the complete signing and policy-enrollment procedure.
 
 Supplier approval must include exact ordering codes, revision/lot traceability, no-substitution rules, measured fit, crimp process, optical inspection and material/process changes. Establish assembly torque, fixture setup, leak/retention limits if applicable, functional limits and process capability on first articles before freezing the traveler. Keep deviations separate and explicitly dispositioned. Defective units must be quarantined, not silently reworked without a record.
 
@@ -141,7 +141,17 @@ Package the globe supported by its flange/base, not by direct point loads on the
 
 Unplug before service. Clean only with optical-supplier-approved materials; PMMA and coatings can be damaged by unsuitable solvents. Do not direct sunlight through the globe onto flammable surfaces. Revalidate optical alignment and viewing-zone leakage after any globe, mirror, display, firmware orientation or mechanical change. Retire or reprovision a unit when its per-device token is revoked.
 
-## 12. Primary technical references
+## 12. Measurement evaluation and live-voice recovery
+
+factory/measurements.py creates a blank NOT_TESTED unit record from manufacturing/qualification-plan.json. The six supplied checkpoints are draft engineering limits, not qualified safety or optical acceptance criteria. Record actual values, positive expanded uncertainty, coverage factor, instrument identity, calibrated interval, fixture revision, UTC acquisition time and the hash of a raw acquisition attachment. Missing, stale, synthetic, mismatched or uncalibrated data blocks the evaluator.
+
+A value passes the numerical interval rule only when the entire value-plus/minus-uncertainty interval is within declared limits. A fully disjoint interval fails; overlap is INDETERMINATE. A DRAFT plan blocks acceptance even when all numerical intervals pass. Computational evaluation does not acquire measurements, verify a claimed instrument calibration, establish statistical confidence or authorize manufacture. Expand the plan to every approved operating condition and optical viewing point before qualification.
+
+Experimental browser live voice commits call reservations before the provider request and persists known provider IDs before consuming the SDP answer. On restart, known unfinished calls are terminated before new admission. A lost response without a persisted ID is UNKNOWN and requires operator reconciliation; it is not silently retried or age-deleted. The single-worker process lock, durable journal and cleanup retries are software safeguards, not guaranteed spending caps or proof of real-provider behavior. Keep the same persistent database volume across upgrades and follow docs/runtime-recovery.md for offline inspection/reconciliation.
+
+The GitHub Pages browser is a separate static presentation deployment. Permit only an explicitly approved frontend origin in CORS, retain bearer-token authentication and TLS verification, and never publish project keys in web assets. Prefer the gateway-hosted application on an isolated trusted origin for sensitive operation.
+
+## 13. Primary technical references
 
 The following sources informed interfaces and workflows. Verify the exact part revision and current applicability during supplier qualification; no claim of certification is derived from these links.
 
@@ -159,3 +169,6 @@ The following sources informed interfaces and workflows. Verify the exact part r
 - OpenAI speech output: https://developers.openai.com/api/docs/guides/text-to-speech
 - OpenAI Realtime: https://developers.openai.com/api/docs/guides/realtime
 - Plate beamsplitter fundamentals: https://www.thorlabs.com/beamsplitter-guide
+
+- Ed25519 signing API: https://cryptography.io/en/latest/hazmat/primitives/asymmetric/ed25519/
+- SQLite WAL durability: https://www.sqlite.org/pragma.html#pragma_synchronous

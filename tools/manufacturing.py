@@ -109,7 +109,7 @@ def pdf(text, tables):
         t.setStyle(TableStyle([('BACKGROUND',(0,0),(-1,0),colors.HexColor('#e9e4f1')),('VALIGN',(0,0),(-1,-1),'TOP'),('LINEBELOW',(0,0),(-1,0),.6,colors.HexColor('#807191')),('ROWBACKGROUNDS',(0,1),(-1,-1),[colors.white,colors.HexColor('#f5f7fa')]),('LEFTPADDING',(0,0),(-1,-1),5),('RIGHTPADDING',(0,0),(-1,-1),5),('TOPPADDING',(0,0),(-1,-1),5),('BOTTOMPADDING',(0,0),(-1,-1),5)]));story.append(t)
     def footer(canvas,doc):
         canvas.saveState();w,h=A4;canvas.setStrokeColor(colors.HexColor('#d6dbe2'));canvas.line(42,38,w-42,38);canvas.setFont('Helvetica',7);canvas.setFillColor(colors.HexColor('#526171'));canvas.drawString(42,26,'CRYSTALBALL / REV B  |  ENGINEERING CANDIDATE - NOT PRODUCTION RELEASED');canvas.drawRightString(w-42,26,str(doc.page));canvas.restoreState()
-    SimpleDocTemplate(str(OUT/'CrystalBall-RevB-Handbook.pdf'),pagesize=A4,rightMargin=42,leftMargin=42,topMargin=42,bottomMargin=50,title='CrystalBall Rev B manufacturing engineering handoff',author='CrystalBall engineering',pageCompression=1).build(story,onFirstPage=footer,onLaterPages=footer)
+    SimpleDocTemplate(str(OUT/'CrystalBall-RevB-Handbook.pdf'),pagesize=A4,rightMargin=42,leftMargin=42,topMargin=42,bottomMargin=50,title='CrystalBall Rev B manufacturing engineering handoff',author='CrystalBall engineering',pageCompression=1,invariant=1).build(story,onFirstPage=footer,onLaterPages=footer)
 
 
 def fixture_dxf(parts):

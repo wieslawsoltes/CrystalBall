@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "product": "CrystalBall / Aether Orb",
+  "revision": "B",
+  "approved": false,
+  "max_age_days": 30,
+  "approval_note": "DRAFT engineering checkpoints, not qualified acceptance limits or safety standards. Obtain approved test methods, fixture and instrument calibration, optical viewing-grid coverage, limits and uncertainty budgets before using physical results as release evidence.",
+  "cases": [
+    {"id":"input_5v_idle","unit":"V","lower":"4.75","upper":"5.25","method":"Measure carrier protected supply at idle under nominal input; use qualified test points and calibrated DMM."},
+    {"id":"logic_3v3_idle","unit":"V","lower":"3.135","upper":"3.465","method":"Measure controller 3.3 V rail; limits are provisional engineering targets."},
+    {"id":"input_5v_active_min","unit":"V","lower":"4.75","upper":"5.25","method":"Capture minimum protected supply with Wi-Fi TX, display and intended maximum LED/audio load; retain complete calibrated acquisition, not a DMM average."},
+    {"id":"surface_temperature_steady","unit":"degC","upper":"45","method":"Proposed touch-surface engineering target at declared ambient/load after defined thermal equilibrium; not a regulatory temperature limit."},
+    {"id":"teller_text_contrast","unit":"ratio","lower":"4","method":"Proposed (Lbright/Ldark) ratio at each approved teller eye position and ambient condition, measured with a calibrated luminance method. This single checkpoint is not the required viewing-volume qualification."},
+    {"id":"client_text_modulation","unit":"ratio","lower":"0","upper":"0.02","method":"Proposed absolute text-on versus text-off luminance modulation divided by background luminance; qualify dark-floor handling, nonlinear sensor effects and every client eye position. Does not alone prove text unreadability."}
+  ]
+}

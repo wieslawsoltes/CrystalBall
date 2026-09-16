@@ -1,0 +1,19 @@
+{
+  "transport_sha256": "5758b45e9e659f3d73306448e56b6248651884ff078eac682a4abd9bc360a10a",
+  "files": {
+    ".gitignore": "1ddd9243beaee1626dff7a57767d1ea264dca48e7b7524f6cda110329a9b5eca",
+    "README.md": "c3088a0f3fc0fde95ba3de6ee3a00f9ed7f5cfeb072050fea84e4ad0987fe9f4",
+    "factory/common.py": "79dd789128d743adc773d6c295c37cfff14aa261a7b57f16a5bfd24d2a1a807f",
+    "factory/release_gate.py": "280947417538cb81556e376283127c13c35d8fc48ba32f29744d102fd0f3d786",
+    "factory/evidence.py": "ca9d722f013f8b628b5a7f400eb5d58cd05c4b5e66a2a4d8942ae8b421513c61",
+    "factory/measurements.py": "ad31e3718cd04d2979a65e63db70d792278d6134051a98b2afc02af0035c1ee3",
+    "factory/tests/test_signatures.py": "40c64143ff6dc5057dfa9b222b560017594776c65d96817818d7d9fc7286f9f2",
+    "factory/tests/test_measurements.py": "adff4e01d4fa6b37c8f3faeaee98a7b20defcee07adbaa2e3f32807dd5407fb5",
+    "gateway/pyproject.toml": "25dddd17ed0f1d7a6851ed4b30887ccf5379f153b5fe3e780a237d3196089338",
+    "manufacturing/qualification-plan.json": "ebf8c66b4fc071066c7264d89eab1e23db555ee4f50c58f5bf13a7e0742f643a",
+    "manufacturing/handbook.md": "9e98cda25c75a306799dff9e64011c8fd8426a97e89a7614d4cf8a985626384f",
+    "docs/qualification-evidence.md": "b6b9fee60cb81c9ebd4bd9c61d4dfb0ba8bd2266adb2caa2fe6cc74466ad5969",
+    "tools/manufacturing.py": "920a065fd0a0137ec0e6331334e1f3e9f5d94ddf81db3b7753cffc469a100b76"
+  },
+  "meaning": "Reviewed source import, not physical qualification or production approval"
+}

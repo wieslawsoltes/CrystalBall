@@ -1,9 +1,10 @@
 """Validation and private-file primitives shared by factory tools (Python 3.11+)."""
 from __future__ import annotations
 import ipaddress
+import hashlib
 import json
 import os
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 import re
 from urllib.parse import urlsplit, urlunsplit
 
@@ -83,3 +84,26 @@ def private_json(path: Path) -> dict:
     if not isinstance(result, dict):
         raise ValueError('Expected a JSON object')
     return result
+
+
+def artifact_hash(root: Path, name: str) -> str:
+    if not isinstance(name,str) or '\\' in name:
+        raise ValueError('Artifact requires a relative POSIX path')
+    rel=PurePosixPath(name)
+    if rel.is_absolute() or not rel.parts or '..' in rel.parts or str(rel)!=name:
+        raise ValueError('Unsafe artifact path')
+    base=root.resolve(); path=base
+    for part in rel.parts:
+        path=path/part
+        if path.is_symlink():raise ValueError('Artifact path cannot traverse symbolic links')
+    if not path.resolve().is_relative_to(base) or not path.is_file():
+        raise ValueError('Artifact is not a regular in-root file')
+    digest=hashlib.sha256();total=0
+    with path.open('rb') as stream:
+        while data:=stream.read(65536):
+            total+=len(data)
+            if total>64*1024*1024:raise ValueError('Evidence artifact exceeds 64 MiB')
+            digest.update(data)
+    if total==0:raise ValueError('Empty evidence is not accepted')
+    return digest.hexdigest()
+
