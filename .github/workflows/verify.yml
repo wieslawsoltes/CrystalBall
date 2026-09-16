@@ -2,74 +2,97 @@ name: Engineering verification
 on:
   push:
     branches: [main]
-    paths: ['firmware/**', 'hardware/**', 'gateway/**', 'web/**', 'tools/**', 'tests/**', '.github/workflows/verify.yml']
+    paths: ['firmware/**', 'hardware/**', 'gateway/**', 'web/**', 'factory/**', 'tools/**', 'tests/**', 'ci/verify_*.sh', '.github/workflows/verify.yml']
   workflow_dispatch:
 permissions:
   contents: read
+defaults:
+  run:
+    shell: bash
 jobs:
-  gateway:
+  units:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.13'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
       - run: python -m pip install './gateway[test]'
-      - run: python -m pytest gateway/tests -q
-  kicad:
-    runs-on: ubuntu-24.04
-    timeout-minutes: 20
-    steps:
-      - uses: actions/checkout@v4
-      - name: Install KiCad 9 from the official stable PPA
+      - name: Python, JavaScript and sanitized host-C tests
         run: |
-          sudo add-apt-repository --yes ppa:kicad/kicad-9.0-releases
-          sudo apt-get update -q
-          sudo apt-get install -y --no-install-recommends kicad
-      - name: Independent ERC, DRC and schematic parity
-        run: |
-          mkdir -p verification/kicad
-          kicad-cli version > verification/kicad/version.txt
-          set +e
-          kicad-cli sch erc --format json --severity-all --exit-code-violations -o verification/kicad/erc.json hardware/aether-carrier.kicad_sch >verification/kicad/erc.log 2>&1
-          ERC=$?
-          kicad-cli pcb drc --format json --severity-all --schematic-parity --exit-code-violations -o verification/kicad/drc.json hardware/aether-carrier.kicad_pcb >verification/kicad/drc.log 2>&1
-          DRC=$?
-          kicad-cli sch export netlist -o verification/kicad/kicad.net hardware/aether-carrier.kicad_sch >verification/kicad/netlist.log 2>&1
-          NET=$?
-          printf 'ERC=%s\nDRC=%s\nNETLIST=%s\n' "$ERC" "$DRC" "$NET" | tee verification/kicad/exit-codes.txt
-          test "$ERC" = 0 && test "$DRC" = 0 && test "$NET" = 0
+          mkdir -p verification/units
+          git rev-parse HEAD >verification/units/COMMIT.txt
+          python -m pytest gateway/tests factory/tests -q | tee verification/units/python.txt
+          npm --prefix web test | tee verification/units/node.txt
+          gcc -std=c11 -Wall -Wextra -Werror -fsanitize=address,undefined -I firmware/main tests/core_test.c firmware/main/core.c -o /tmp/orb-core
+          /tmp/orb-core | tee verification/units/firmware-host.txt
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: kicad-independent-reports
-          path: verification/kicad/
+          name: unit-verification
+          path: verification/units/
+  kicad:
+    runs-on: ubuntu-24.04
+    container:
+      image: kicad/kicad:9.0.9
+      options: --user 0
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Independent native verification and CAM export
+        run: bash ci/verify_kicad.sh
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: kicad-independent-reports-and-native-cam
+          path: |
+            verification/kicad/
+            manufacturing/cam-native/
   firmware:
     runs-on: ubuntu-24.04
     container: espressif/idf:v5.5.2
     timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        profile: [default, public-voice, calibration]
     steps:
       - uses: actions/checkout@v4
       - name: Generate disposable build-only trust anchor
-        shell: bash
         run: |
           openssl req -x509 -newkey rsa:2048 -nodes -keyout /tmp/build-only.key -out firmware/main/gateway_ca.pem -days 1 -subj '/CN=CrystalBall CI TEST ONLY NOT FOR DEPLOYMENT'
           rm -f /tmp/build-only.key
-      - name: Compile and link for real ESP32-S3 target
-        shell: bash
+          if [ '${{ matrix.profile }}' = public-voice ]; then echo CONFIG_ORB_PUBLIC_TTS=y >>firmware/sdkconfig.defaults; fi
+          if [ '${{ matrix.profile }}' = calibration ]; then echo CONFIG_ORB_CALIBRATION_BOOT=y >>firmware/sdkconfig.defaults; fi
+      - name: Compile and link for ESP32-S3
         run: |
           . /opt/esp/idf/export.sh
           cd firmware
           idf.py set-target esp32s3
           idf.py build
-          idf.py size > build/size-report.txt
-          printf 'TEST TRUST ANCHOR. DO NOT FLASH OR DEPLOY. Rebuild with your gateway CA.\n' >build/NOT-FOR-DEPLOYMENT.txt
+          idf.py size >build/size-report.txt
+          printf 'BUILD-ONLY TEST CA. DO NOT FLASH OR DEPLOY. Rebuild with your gateway CA.\n' >build/NOT-FOR-DEPLOYMENT.txt
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: firmware-compile-evidence-not-for-deployment
+          name: firmware-${{ matrix.profile }}-compile-evidence
           path: |
             firmware/build/size-report.txt
             firmware/build/NOT-FOR-DEPLOYMENT.txt
             firmware/build/log/
             firmware/build/project_description.json
+  container:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Boot unprivileged read-only gateway without paid calls
+        run: bash ci/verify_container.sh
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: container-verification
+          path: verification/container/
