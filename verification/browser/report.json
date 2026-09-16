@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "checks": [
+    "WebGPU pipeline created; software adapter in CI",
+    "demo reading and teller projection",
+    "client perspective hides projected answer",
+    "CAD tessellation loaded and exploded",
+    "authenticated Responses stream through real gateway; mocked provider",
+    "no credential or transcript browser storage",
+    "bounded PCM playback",
+    "AudioWorklet capture, WAV resampling, mocked STT and response",
+    "explicit private response erasure",
+    "390 px mobile layout without horizontal overflow",
+    "separate client page exposes no operator interface",
+    "explicit Canvas 2D fallback"
+  ],
+  "errors": [],
+  "failure": null,
+  "provider": "MOCKED; no live OpenAI key used",
+  "gpu": "Chromium software WebGPU; not hardware FPS qualification",
+  "csp": "Production CSP unchanged; no unsafe-eval or bypassCSP"
+}

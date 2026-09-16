@@ -1,0 +1,1 @@
+Firmware host core: WAV, clipping, pagination, erasure and URL checks passed.

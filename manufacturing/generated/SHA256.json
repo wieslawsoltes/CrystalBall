@@ -1,5 +1,5 @@
 {
-  "CrystalBall-RevB-Handbook.pdf": "a1bd4f83dad38afb3e860d9d8810156bb7e391baed741b809b992afbdb66d4df",
+  "CrystalBall-RevB-Handbook.pdf": "f9bdf84caa5ceff1b0aff19b293109e463e0acd712146964fb2196e2e0e6214f",
   "acceptance-plan.csv": "c98a4c6eb6d701cdb0ce52cb849373d8e1d20ca511afda8fc6289b1e57b66b63",
   "all-pad-nets.csv": "1059311a1d11851e7823b9c9c6399755c6c8249d72c30f127746bff630df05b5",
   "carrier-bom.csv": "b91b3b9e88c2292bc2974fc227875b43fe69e7b0a882b715682d3f1015be925c",
@@ -8,9 +8,9 @@
   "first-article-record-BLANK.csv": "46d451c6777421772bdd6a773e9062814e9b9f6ec50de11ccadaef93b6cb7973",
   "fixture-alignment-only.dxf": "2efd4df2ccbdcabe0cf34881c7e008358f498f43ffeb352e7455e6171842d4ac",
   "fixture-testpoint-coordinates.csv": "a316bfedf57b4a131d0242e0af3d7f05ee2fe1f09797b10e6fdcab9c2583b208",
-  "handbook.html": "4287c2ba76167c2f681e97b0433772463c622aa661ac1dece7fbc9cea174746a",
+  "handbook.html": "e98a2b71016197a08ebf2437b87ba90cb300a75c07b6f21d6ea3a3d20fdbdf82",
   "harness.csv": "c24edb4ac1e4555a90c0737550e40cf2081336c3ee6023c69708343794568d33",
   "mechanical-inventory.csv": "853710f6c95737fff6bdd4faa013102a5597332c45a309c0f405b7a18a1836fd",
   "purchased-modules.csv": "f4c0ff4b6eaad04aa18d67e09913c50f9f800bed776d4cefacff587fa4640187",
-  "release-status.json": "98162576084dd968ab24df04d15c7480f77efdf19954656ba77a2d2c12789fb8"
+  "release-status.json": "35c0b2306ead7c7e554a8af3ddc508a6255716b24f31596332953d19e0d7b196"
 }

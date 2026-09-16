@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "checks": [
+    "WebGPU module and WGSL load below /CrystalBall/",
+    "Offline demo reading and teller projection",
+    "Client perspective hides projected text",
+    "CAD assets load below repository path; explosion works",
+    "390px layout without horizontal overflow",
+    "Separate client window preserves repository base path",
+    "Canvas fallback works on static host",
+    "No API traffic, browser storage, off-origin or root-relative asset requests"
+  ],
+  "errors": [],
+  "failed_responses": [],
+  "failure": null,
+  "provider": "NONE: static offline demo",
+  "gpu": "Chromium software adapter; no hardware FPS claim",
+  "base_path": "/CrystalBall/",
+  "csp": "Production meta CSP; not bypassed"
+}

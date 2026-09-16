@@ -1,0 +1,188 @@
+
+> crystalball-prototype@0.2.0 test
+> node --test tests/*.test.js
+
+TAP version 13
+# Subtest: unlock creates and resumes context before awaiting the network
+ok 1 - unlock creates and resumes context before awaiting the network
+  ---
+  duration_ms: 1.031428
+  type: 'test'
+  ...
+# Subtest: cancel during context resume cannot start stale audio and wipes PCM
+ok 2 - cancel during context resume cannot start stale audio and wipes PCM
+  ---
+  duration_ms: 0.842895
+  type: 'test'
+  ...
+# Subtest: playback end wipes AudioBuffer and detaches graph
+ok 3 - playback end wipes AudioBuffer and detaches graph
+  ---
+  duration_ms: 1.300953
+  type: 'test'
+  ...
+# Subtest: public state never serializes text or credentials
+ok 4 - public state never serializes text or credentials
+  ---
+  duration_ms: 1.29211
+  type: 'test'
+  ...
+# Subtest: public activity is an allowlist
+ok 5 - public activity is an allowlist
+  ---
+  duration_ms: 0.162935
+  type: 'test'
+  ...
+# Subtest: pagination is bounded and preserves word content
+ok 6 - pagination is bounded and preserves word content
+  ---
+  duration_ms: 0.657377
+  type: 'test'
+  ...
+# Subtest: empty text has one empty page
+ok 7 - empty text has one empty page
+  ---
+  duration_ms: 0.121642
+  type: 'test'
+  ...
+# Subtest: camera target projects to screen centre
+ok 8 - camera target projects to screen centre
+  ---
+  duration_ms: 0.557757
+  type: 'test'
+  ...
+# Subtest: WebGPU depth projection maps near and far to zero and one
+ok 9 - WebGPU depth projection maps near and far to zero and one
+  ---
+  duration_ms: 0.147211
+  type: 'test'
+  ...
+# Subtest: WAV exact firmware format
+ok 10 - WAV exact firmware format
+  ---
+  duration_ms: 3.514355
+  type: 'test'
+  ...
+# Subtest: WAV clips and rejects nonfinite samples
+ok 11 - WAV clips and rejects nonfinite samples
+  ---
+  duration_ms: 8.625025
+  type: 'test'
+  ...
+# Subtest: WAV rejects excessive and insufficient duration
+ok 12 - WAV rejects excessive and insufficient duration
+  ---
+  duration_ms: 0.441563
+  type: 'test'
+  ...
+# Subtest: resampling 44100 Hz suppresses above-Nyquist audio
+ok 13 - resampling 44100 Hz suppresses above-Nyquist audio
+  ---
+  duration_ms: 28.604563
+  type: 'test'
+  ...
+# Subtest: resampling 48000 Hz suppresses above-Nyquist audio
+ok 14 - resampling 48000 Hz suppresses above-Nyquist audio
+  ---
+  duration_ms: 19.704024
+  type: 'test'
+  ...
+# Subtest: PCM decoder enforces format and bounds
+ok 15 - PCM decoder enforces format and bounds
+  ---
+  duration_ms: 0.247672
+  type: 'test'
+  ...
+# Subtest: gateway rejects plaintext remote origin and project key
+ok 16 - gateway rejects plaintext remote origin and project key
+  ---
+  duration_ms: 0.311718
+  type: 'test'
+  ...
+# Subtest: gateway rejects paths outside its API contract
+ok 17 - gateway rejects paths outside its API contract
+  ---
+  duration_ms: 0.376845
+  type: 'test'
+  ...
+# Subtest: streamed text requires an explicit done event
+ok 18 - streamed text requires an explicit done event
+  ---
+  duration_ms: 126.409733
+  type: 'test'
+  ...
+# Subtest: stream accepts completed bounded snapshots
+ok 19 - stream accepts completed bounded snapshots
+  ---
+  duration_ms: 0.566841
+  type: 'test'
+  ...
+# Subtest: speech response is bounded before allocating playback buffer
+ok 20 - speech response is bounded before allocating playback buffer
+  ---
+  duration_ms: 2.014844
+  type: 'test'
+  ...
+# Subtest: stop while permission is pending closes the late microphone without creating a peer
+ok 21 - stop while permission is pending closes the late microphone without creating a peer
+  ---
+  duration_ms: 1.671549
+  type: 'test'
+  ...
+# Subtest: stop during offer generation does not send SDP
+ok 22 - stop during offer generation does not send SDP
+  ---
+  duration_ms: 5.58351
+  type: 'test'
+  ...
+# Subtest: late successful response is hung up with original credential snapshot
+ok 23 - late successful response is hung up with original credential snapshot
+  ---
+  duration_ms: 174.662994
+  type: 'test'
+  ...
+# Subtest: stale data-channel callback cannot restore erased private text
+ok 24 - stale data-channel callback cannot restore erased private text
+  ---
+  duration_ms: 18.834239
+  type: 'test'
+  ...
+# Subtest: stop while applying remote description cannot arm a timer or report active
+ok 25 - stop while applying remote description cannot arm a timer or report active
+  ---
+  duration_ms: 2.182706
+  type: 'test'
+  ...
+# Subtest: normal voice lifecycle clears tracks, peer, channel and transcript on stop
+ok 26 - normal voice lifecycle clears tracks, peer, channel and transcript on stop
+  ---
+  duration_ms: 1.305389
+  type: 'test'
+  ...
+# Subtest: overlapping start rejects instead of reassigning a pending attempt
+ok 27 - overlapping start rejects instead of reassigning a pending attempt
+  ---
+  duration_ms: 1.025179
+  type: 'test'
+  ...
+# Subtest: invalid duration triggers cleanup and never starts voice
+ok 28 - invalid duration triggers cleanup and never starts voice
+  ---
+  duration_ms: 1.563016
+  type: 'test'
+  ...
+# Subtest: malformed data-channel messages never throw or propagate
+ok 29 - malformed data-channel messages never throw or propagate
+  ---
+  duration_ms: 1.362425
+  type: 'test'
+  ...
+1..29
+# tests 29
+# suites 0
+# pass 29
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 277.039695
