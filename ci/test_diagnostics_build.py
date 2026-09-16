@@ -9,7 +9,7 @@ class DiagnosticBuildTests(unittest.TestCase):
         self.tmp=tempfile.TemporaryDirectory();self.addCleanup(self.tmp.cleanup)
         self.root=Path(self.tmp.name)
         (self.root/'config').mkdir()
-        self.config={'CONFIG_ORB_FACTORY_DIAGNOSTICS':True,'CONFIG_IDF_TARGET':'esp32s3'}
+        self.config={'ORB_FACTORY_DIAGNOSTICS':True,'IDF_TARGET':'esp32s3'}
         self.write_config()
         (self.root/'defined-symbols.txt').write_text('\n'.join('123 T '+s for s in REQUIRED))
         self.arguments={'flash_files':FILES,'extra_esptool_args':{'chip':'esp32s3'}}
@@ -19,11 +19,15 @@ class DiagnosticBuildTests(unittest.TestCase):
     def write_config(self): (self.root/'config/sdkconfig.json').write_text(json.dumps(self.config))
     def write_arguments(self): (self.root/'flasher_args.json').write_text(json.dumps(self.arguments))
     def test_isolated_image(self): self.assertTrue(verify(self.root,'a'*40)['passed'])
+    def test_prefixed_header_names_are_not_json_configuration(self):
+        self.config={'CONFIG_ORB_FACTORY_DIAGNOSTICS':True,'CONFIG_IDF_TARGET':'esp32s3'}
+        self.write_config()
+        with self.assertRaisesRegex(ValueError,'Not a diagnostic build'):verify(self.root,'a'*40)
     def test_normal_firmware_rejected(self):
-        self.config['CONFIG_ORB_FACTORY_DIAGNOSTICS']=False;self.write_config()
+        self.config['ORB_FACTORY_DIAGNOSTICS']=False;self.write_config()
         with self.assertRaises(ValueError):verify(self.root,'a'*40)
     def test_conflicting_mode(self):
-        self.config['CONFIG_ORB_PUBLIC_TTS']=True;self.write_config()
+        self.config['ORB_PUBLIC_TTS']=True;self.write_config()
         with self.assertRaises(ValueError):verify(self.root,'a'*40)
     def test_network_path_rejected(self):
         p=self.root/'defined-symbols.txt';p.write_text(p.read_text()+'\n123 T orb_network_init')

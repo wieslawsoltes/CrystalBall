@@ -5,7 +5,7 @@ __pycache__/
 node_modules/
 .env
 !**/.env.example
-firmware/build/
+firmware/build*/
 firmware/sdkconfig
 firmware/sdkconfig.old
 firmware/main/gateway_ca.pem
@@ -15,7 +15,6 @@ factory/private/
 # Local publishing and qualification workspaces
 _site/
 handoff-package/
-factory/private/
 *.private.pem
 # Python build output must never shadow the current source during wheel creation.
 gateway/build/

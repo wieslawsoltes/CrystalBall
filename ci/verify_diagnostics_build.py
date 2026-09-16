@@ -30,10 +30,11 @@ Digital microphone counts and successful driver calls are NOT acceptance passes.
 
 def verify(build, commit):
     if not re.fullmatch('[0-9a-f]{40}', commit): raise ValueError('Exact source commit required')
+    # kconfgen JSON uses bare Kconfig symbol names, unlike sdkconfig.h/.cmake.
     config=json.loads((build/'config/sdkconfig.json').read_text())
-    if config.get('CONFIG_ORB_FACTORY_DIAGNOSTICS') is not True: raise ValueError('Not a diagnostic build')
-    if config.get('CONFIG_ORB_PUBLIC_TTS') or config.get('CONFIG_ORB_CALIBRATION_BOOT'): raise ValueError('Conflicting build modes')
-    if config.get('CONFIG_IDF_TARGET') != 'esp32s3': raise ValueError('Wrong chip target')
+    if config.get('ORB_FACTORY_DIAGNOSTICS') is not True: raise ValueError('Not a diagnostic build')
+    if config.get('ORB_PUBLIC_TTS') or config.get('ORB_CALIBRATION_BOOT'): raise ValueError('Conflicting build modes')
+    if config.get('IDF_TARGET') != 'esp32s3': raise ValueError('Wrong chip target')
     symbols={line.split()[-1] for line in (build/'defined-symbols.txt').read_text().splitlines() if line.split()}
     if not REQUIRED <= symbols: raise ValueError('Diagnostic entry points missing')
     if FORBIDDEN & symbols or any('gateway_ca_pem' in s for s in symbols): raise ValueError('Network, credentials or CA linked into bench image')
