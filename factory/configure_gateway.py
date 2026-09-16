@@ -15,12 +15,23 @@ except ImportError:
     from common import ROOT, origin, private_write, unit_id
 
 def configure(unit: str, url: str, api_key: str, *, speech: bool = False,
-              realtime: bool = False, root: Path = ROOT) -> tuple[Path, Path]:
+              realtime: bool = False, browser_origins: tuple[str, ...] = (), root: Path = ROOT) -> tuple[Path, Path]:
     unit, url = unit_id(unit), origin(url)
+    if not isinstance(browser_origins, (tuple, list)) or len(browser_origins) > 8:
+        raise ValueError("At most eight explicit browser origins are allowed")
+    allowed_origins = []
+    for value in browser_origins:
+        normalized = origin(value)
+        if urlsplit(normalized).port == 443:
+            normalized = normalized[:-4]
+        if normalized not in allowed_origins:
+            allowed_origins.append(normalized)
     if urlsplit(url).port not in (None, 443):
         raise ValueError('Bundled Compose deployment uses HTTPS port 443')
     if not isinstance(api_key, str) or not api_key.startswith('sk-') or not 20 <= len(api_key) <= 512 or not all(33 <= ord(c) <= 126 and c not in "'\\$" for c in api_key):
         raise ValueError('Enter a valid OpenAI project API key; it is stored only in the gateway environment')
+    if realtime and not speech:
+        raise ValueError('Live voice requires explicit public speech enablement')
     env_path = root/'gateway/.env'
     credentials = root/f'factory/private/{unit}.json'
     if env_path.exists() or env_path.is_symlink() or credentials.exists() or credentials.is_symlink():
@@ -39,8 +50,9 @@ def configure(unit: str, url: str, api_key: str, *, speech: bool = False,
         'OPENAI_REALTIME_MODEL':'gpt-realtime-2.1', 'REALTIME_SECONDS':'90',
         'PUBLIC_TTS':str(speech).lower(), 'REALTIME_ENABLED':str(realtime).lower(),
         'REQUESTS_PER_MINUTE':'8', 'REQUESTS_PER_DAY':'200',
+        'REALTIME_DATABASE':'/var/lib/orb/voice.sqlite',
         'BUDGET_DATABASE':'/var/lib/orb/budget.sqlite', 'WEB_DIRECTORY':'/opt/orb/web',
-        'CORS_ORIGINS':''
+        'CORS_ORIGINS':','.join(allowed_origins)
     }
     body = '# PRIVATE. Never commit or include in a manufacturing archive.\n'
     body += '\n'.join(f"{key}='{value}'" for key, value in values.items())+'\n'
@@ -58,10 +70,11 @@ def main() -> None:
     parser.add_argument('--url', default='https://orb-gateway.home.arpa')
     parser.add_argument('--speech', action='store_true', help='Explicitly enable AI-generated speaker playback')
     parser.add_argument('--realtime', action='store_true', help='Enable experimental bounded live voice; requires live qualification')
+    parser.add_argument('--browser-origin', action='append', default=[], help='Explicit HTTPS frontend origin; repeatable; no repository path')
     args = parser.parse_args()
     unit_id(args.unit); origin(args.url)
     api_key = os.environ.get('OPENAI_API_KEY') or getpass.getpass('OpenAI project API key (hidden): ')
-    env, device = configure(args.unit, args.url, api_key, speech=args.speech, realtime=args.realtime)
+    env, device = configure(args.unit, args.url, api_key, speech=args.speech, realtime=args.realtime, browser_origins=tuple(args.browser_origin))
     print(f'Created {env.relative_to(ROOT)} and {device.relative_to(ROOT)} with restrictive permissions.')
     print('The project key was not printed. Read the device JSON locally when pairing the browser.')
     print('Set LAN DNS, run: cd gateway && docker compose up --build -d')

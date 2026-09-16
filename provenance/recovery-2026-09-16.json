@@ -1,0 +1,24 @@
+{
+  "transport_sha256": "0dc7b668d12be7fbf2fa3e0a6b18177c2f021be34c6fb2085a302436f78a585a",
+  "files": {
+    "docs/runtime-recovery.md": "32f74c7a90478dc54bcc9e59fa3441ec9f1eea35aae19a48f2608d1178508db8",
+    "docs/github-pages.md": "ad4c501c5806e9ac3e7d5da1bc62d5f983f4627b6abefe8f0ca66d5e325d8cf3",
+    "factory/configure_gateway.py": "3e4b0cf3c3a777e9552ba126c1c792373f64b9e2ccac83185b04817b615480f5",
+    "factory/tests/test_pages_config.py": "230044a989919315bfa8346d7b8b1163f3e64dfb2bc4955492a08dd28695062b",
+    "gateway/.env.example": "79ff0beac302fb6a1f08f3d8eef03cba400c89c4a3ea6db829d97c4e61a6fde2",
+    "gateway/app/browser.py": "397c6155231743e87be71b2bc20f1326b59aad3ee87602c47914dae6b61af020",
+    "gateway/app/main.py": "93aaa7338cd30dcfa36c30bab6db56812bc76f92f6e42ec2a06f3dd71106ca90",
+    "gateway/app/realtime.py": "813d019fa0076fc0c737d5ca00ad137b0386bb6499d7f9d80f59fa30d1a4e790",
+    "gateway/app/voice_admin.py": "cf546b54c2a0f7d0bc170072ba5f4a121abddf03f2a068cafa442cfa9080dbe9",
+    "gateway/tests/test_browser.py": "387b9130d98e6f476feff5d88557b20ecc62faab3612dd22d2799111ad290504",
+    "gateway/tests/test_realtime_recovery.py": "e1b64aee62079f251c842aeb4f591e45bb5472a124a30c347afd99e86b9c3988",
+    "gateway/tests/test_pages_origin.py": "cc3b2484a330bfbef18050a69fa47eb464bd7ce4ce332471c9c69e931b69edff",
+    "web/index.html": "3a495ad29471f9293aa4b25978b144c556739077178e064a2da4480717f6e46c",
+    "web/src/api.js": "398c406983d99fe1113a5e43d926cfd1714acdd1519f377e117b222a461d6869",
+    "web/src/app.js": "5f766d1cf818b7815985f1f74a893f90bda97b212182fec29c4e11a63a58b228",
+    "web/src/audio.js": "afb145d5d7c029464b8ff413b5eef3046eed449f578bf8c93ec27798ca476cf1",
+    "web/src/live-voice.js": "d8061c18ac044ca7a6b2b5a41d9d911ccedb61349cd2261a27b4a3f04ad27301",
+    "web/tests/live-voice.test.js": "0296054955ce4e5da22a6b62450c00b0c748bf9f2749835772a088ba5477f86a"
+  },
+  "meaning": "Reviewed source import, not physical qualification or production approval"
+}

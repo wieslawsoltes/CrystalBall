@@ -8,6 +8,7 @@ export class Gateway {
     if(!/^[\x21-\x7e]{32,128}$/.test(token)||token.startsWith('sk-'))throw new Error('Enter a device token, not an OpenAI API key. The project key stays on your gateway.');
     this.base=base.origin;this.token=token;
   }
+  fork(){const copy=new Gateway();copy.base=this.base;copy.token=this.token;return copy}
   async request(path,{body,method='POST',type='application/json',timeout=60000,signal}={}){
     if(!this.token)throw new Error('Connect your gateway first, or use the explicit demo mode.');
     if(!/^\/v1\/(text|fortune|speech|capabilities|realtime\/call(?:\/[A-Za-z0-9_-]{1,128})?)$/.test(path))throw new Error('Unsupported gateway endpoint');

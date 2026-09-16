@@ -111,7 +111,7 @@ def test_live_voice_defaults_disabled():
     with use(public_tts=True) as c:
         assert c.post('/v1/realtime/call',headers={**AUTH,'Content-Type':'application/sdp'},content='v=0\r\nm=audio 9 UDP/TLS/RTP/SAVPF 111\r\n').status_code==403
 
-def test_live_voice_handshake_hangup_and_ownership():
+def test_live_voice_handshake_hangup_and_ownership(tmp_path):
     seen=[]
     def provider(r):
         seen.append(r.url.path)
@@ -119,7 +119,7 @@ def test_live_voice_handshake_hangup_and_ownership():
         if r.url.path.endswith('/hangup'):return httpx.Response(200)
         assert b'gpt-realtime-2.1' in r.content and b'marin' in r.content
         return httpx.Response(201,content=b'v=0\r\nm=audio 9 UDP/TLS/RTP/SAVPF 111\r\n',headers={'Location':'/v1/realtime/calls/rtc_TEST'})
-    with use(provider,public_tts=True,realtime_enabled=True,requests_per_minute=1) as c:
+    with use(provider,public_tts=True,realtime_enabled=True,realtime_database=str(tmp_path/"voice.sqlite"),requests_per_minute=1) as c:
         r=c.post('/v1/realtime/call',headers={**AUTH,'Content-Type':'application/sdp'},content='v=0\r\nm=audio 9 UDP/TLS/RTP/SAVPF 111\r\n')
         assert r.status_code==200
         h=r.headers['x-orb-call']

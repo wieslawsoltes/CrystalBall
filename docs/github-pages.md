@@ -6,6 +6,14 @@ The Pages workflow stages only tracked `web/index.html`, `web/style.css` and all
 
 ## Pairing a gateway from Pages
 
+For a new gateway installation, the commissioning tool can configure the explicit Pages origin:
+
+```sh
+python factory/configure_gateway.py --unit orb-0001 --url https://orb-gateway.home.arpa --speech --browser-origin https://wieslawsoltes.github.io
+```
+
+It prompts for your project key without echo and refuses to replace existing credentials. On an already configured gateway, update only `CORS_ORIGINS` in its private environment file; do not regenerate the device token accidentally.
+
 Deploy the gateway at an HTTPS origin with a certificate your browser trusts. Add exactly `https://wieslawsoltes.github.io` to the gateway's `CORS_ORIGINS` environment setting and restart it. The CORS entry is an **origin**: do not add `/CrystalBall/` or a trailing slash, and do not use `*`. Keep your API project key in the gateway environment. Use the separate device token in the browser's Connect gateway dialog. CORS is not authentication; bearer-token validation still applies. All projects on this GitHub Pages hostname share an origin. Use the gateway-hosted application on a dedicated trusted origin for sensitive operation.
 
 Pages cannot host Python, keep an API key secret, reach a private gateway on behalf of a remote visitor, or bypass browser private-network/mixed-content restrictions. For a LAN gateway, the client device must be on the appropriate network and explicitly trust its public CA; browsers may require a local-network permission. Never disable TLS or browser security. When the browser's network policy prevents cross-origin LAN pairing, open the gateway-hosted HTTPS application instead.

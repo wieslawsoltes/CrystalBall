@@ -59,6 +59,7 @@ class Settings:
     realtime_enabled: bool = False
     realtime_model: str = "gpt-realtime-2.1"
     realtime_seconds: int = 90
+    realtime_database: str = ""
     budget_path: str = ""
     web_dir: str = ""
     cors_origins: tuple[str, ...] = ()
@@ -99,6 +100,7 @@ class Settings:
             realtime_enabled=os.environ.get("REALTIME_ENABLED", "false").lower() == "true",
             realtime_model=os.environ.get("OPENAI_REALTIME_MODEL", "gpt-realtime-2.1"),
             realtime_seconds=int(os.environ.get("REALTIME_SECONDS", "90")),
+            realtime_database=os.environ.get("REALTIME_DATABASE", ""),
             budget_path=os.environ.get("BUDGET_DATABASE", ""),
             web_dir=os.environ.get("WEB_DIRECTORY", ""),
             cors_origins=tuple(filter(None, os.environ.get("CORS_ORIGINS", "").split(","))),
@@ -252,6 +254,7 @@ def create_app(settings: Settings | None = None, transport: httpx.AsyncBaseTrans
         ) as client:
             app.state.upstream = Upstream(cfg, client)
             app.state.calls = Calls(app)
+            await app.state.calls.start()
             try:
                 yield
             finally:

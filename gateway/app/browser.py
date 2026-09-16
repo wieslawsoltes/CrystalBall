@@ -10,10 +10,6 @@ import asyncio
 import hashlib
 import json
 import re
-import secrets
-from contextlib import suppress
-from dataclasses import dataclass
-from urllib.parse import urlparse
 
 import httpx
 from fastapi import Depends, FastAPI, HTTPException, Request, Response
@@ -64,55 +60,7 @@ def ndjson(event_type: str, **fields) -> bytes:
     return (json.dumps({"type": event_type, **fields}, ensure_ascii=True) + "\n").encode()
 
 
-@dataclass
-class Call:
-    unit: str
-    provider_id: str
-    task: asyncio.Task | None = None
-
-
-class Calls:
-    """Best-effort server hangup with admission fail-closed on failed cleanup.
-
-    TTL is not a guaranteed financial spending cap: provider/network outages and
-    abrupt process loss can prevent hangup. Public deployment needs a durable
-    call supervisor. This feature is disabled by default for this reason.
-    """
-    def __init__(self, app: FastAPI):
-        self.app = app
-        self.active: dict[str, Call] = {}
-        self.pending: set[str] = set()
-        self.unhealthy = False
-
-    async def hangup(self, handle: str) -> None:
-        call = self.active.get(handle)
-        if call is None:
-            return
-        client = self.app.state.upstream.client
-        for attempt in range(3):
-            try:
-                async with client.stream("POST", f"https://api.openai.com/v1/realtime/calls/{call.provider_id}/hangup",
-                    headers={"Authorization": "Bearer " + self.app.state.settings.api_key}, timeout=10) as r:
-                    if r.status_code in (200, 204, 404, 410):
-                        self.active.pop(handle, None)
-                        return
-            except httpx.HTTPError:
-                pass
-            await asyncio.sleep(.25 * (attempt + 1))
-        self.unhealthy = True
-        raise HTTPException(502, "Voice cleanup failed; new calls disabled. Restart only after provider-side review")
-
-    async def expire(self, handle: str):
-        await asyncio.sleep(self.app.state.settings.realtime_seconds)
-        with suppress(HTTPException):
-            await self.hangup(handle)
-
-    async def close(self):
-        tasks = [c.task for c in self.active.values() if c.task]
-        for task in tasks:
-            task.cancel()
-        await asyncio.gather(*tasks, return_exceptions=True)
-        await asyncio.gather(*(self.hangup(h) for h in list(self.active)), return_exceptions=True)
+from .realtime import Calls, provider_id
 
 
 def install(app: FastAPI, authenticate, identify, enter_slot, read_bounded, ascii_text, instructions):
@@ -120,7 +68,8 @@ def install(app: FastAPI, authenticate, identify, enter_slot, read_bounded, asci
     async def capabilities(_unit: str = Depends(identify)):
         cfg = app.state.settings
         return {"text": True, "push_to_talk": True, "speech": cfg.public_tts,
-                "realtime": cfg.realtime_enabled and cfg.public_tts,
+                "realtime": cfg.realtime_enabled and cfg.public_tts and app.state.calls.status()["ready"],
+                "voice_health": app.state.calls.status(),
                 "realtime_seconds": cfg.realtime_seconds, "revision": "B"}
 
     @app.post("/v1/text")
@@ -206,7 +155,8 @@ def install(app: FastAPI, authenticate, identify, enter_slot, read_bounded, asci
             raise HTTPException(503, 'Voice capacity unavailable')
         if unit in calls.pending or any(c.unit == unit for c in calls.active.values()):
             raise HTTPException(409, 'A voice session is already active for this device')
-        calls.pending.add(unit)
+        handle = calls.reserve(unit)
+        complete = False
         try:
             session = {"type": "realtime", "model": cfg.realtime_model,
                        "instructions": instructions + " Tell users your voice is AI-generated. Keep every answer brief.",
@@ -217,29 +167,32 @@ def install(app: FastAPI, authenticate, identify, enter_slot, read_bounded, asci
                              "OpenAI-Safety-Identifier": hashlib.sha256(unit.encode()).hexdigest()},
                     files={"sdp": (None, offer), "session": (None, json.dumps(session))}) as upstream:
                     if upstream.status_code not in (200, 201):
-                        raise HTTPException(502, "Live voice provider rejected the session")
-                    provider_id = urlparse(upstream.headers.get("location", "")).path.rstrip("/").split("/")[-1]
-                    if not re.fullmatch(r"[A-Za-z0-9_-]{1,128}", provider_id):
-                        calls.unhealthy = True
-                        raise HTTPException(502, "Provider omitted a manageable call ID; live voice disabled")
-                    handle = secrets.token_urlsafe(24)
-                    calls.active[handle] = Call(unit, provider_id)
-                    calls.active[handle].task = asyncio.create_task(calls.expire(handle))
+                        # No retry: even an error reply is not evidence that no call exists.
+                        raise HTTPException(502, "Live voice provider rejected the session; review required")
+                    try:
+                        ident = provider_id(upstream.headers.get("location", ""))
+                    except ValueError:
+                        raise HTTPException(502, "Provider omitted a manageable call ID; review required") from None
+                    calls.bind(handle, unit, ident)
                     answer = bytearray()
                     async for chunk in upstream.aiter_bytes():
                         if len(answer) + len(chunk) > 32768:
-                            await calls.hangup(handle)
                             raise HTTPException(502, "Provider SDP exceeds bounds")
                         answer.extend(chunk)
-                    if not answer.startswith(b"v=0"):
-                        await calls.hangup(handle)
+                    if not answer.startswith(b"v=0") or b"m=audio" not in answer:
                         raise HTTPException(502, "Invalid provider SDP")
+                    if handle not in calls.active or calls.unhealthy:
+                        raise HTTPException(503, "Voice session closed during setup")
+                    complete = True
                     return Response(bytes(answer), media_type="application/sdp",
                         headers={"X-Orb-Call": handle, "X-Orb-Duration": str(cfg.realtime_seconds)})
         except (TimeoutError, httpx.HTTPError):
             raise HTTPException(504, "Voice connection timed out") from None
         finally:
             calls.pending.discard(unit)
+            if not complete:
+                # Supervisor owns cleanup even when the HTTP request is cancelled.
+                await asyncio.shield(calls.cleanup(handle))
 
     @app.delete("/v1/realtime/call/{handle}")
     async def stop_call(handle: str, unit: str = Depends(identify)):
