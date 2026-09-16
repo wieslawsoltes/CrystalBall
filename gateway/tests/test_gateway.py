@@ -31,7 +31,7 @@ def client(**kwargs):return TestClient(create_app(settings(**kwargs),httpx.MockT
 def auth():return {'Authorization':'Bearer '+TOKEN,'Content-Type':'audio/wav'}
 
 def test_live_without_cloud():
-    with client() as c:assert c.get('/healthz').json()['revision']=='A'
+    with client() as c:assert c.get('/healthz').json()['revision']=='B'
 def test_auth_required():
     with client() as c:assert c.post('/v1/fortune',content=wav()).status_code==401
 def test_auth_wrong():

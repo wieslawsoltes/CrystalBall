@@ -1,0 +1,31 @@
+{
+  "source_archive_sha256": "9b77b7291feb1ef99e816c34b2009d44901b8990b165fea200992256c0561ffe",
+  "files": {
+    "gateway/app/__init__.py": "d830195bac66bde4f90b08f3662b9ddfb6026630209c814859ec6aff3146e19f",
+    "gateway/app/browser.py": "791b81fda9fb733f9258d921fe8f9327ff67c699ede2e96dad9f69920a441e3b",
+    "gateway/app/budgets.py": "c97b178d99c0f79b8251ba7ab161742e0c8b8f59333d9a93b67042ff7f0f339b",
+    "gateway/app/main.py": "c08f8229fcff4f393cd0ab266bedbc929a79f2d46118be74b3ca6d6b2d45d1b2",
+    "gateway/tests/test_browser.py": "78788170251abe77518b22109ace3846b8b64282d546939aabf0f80e72f9966b",
+    "gateway/tests/test_gateway.py": "8a1ccefe2a16729e26a39bbb97de35f80f41626b7ed99e1fdb31f122a525a132",
+    "tests/browser.py": "7ddf7ba66300eb7de0878a741963c1fca6ac4817c5d406770585b50bc283bcff",
+    "tests/mock_gateway.py": "6870733fe8715978469eb0d94e35a502c0e3aef58610ddaf9dde263493bafa11",
+    "web/assets/icon.svg": "dc21c66ebfe305d63d0c1701de309cfa0d18094b62781b63d712a063429780f9",
+    "web/index.html": "f09290a18a4715b2af1150e5bdf745de69fc797941297ac48312f97ca40df84c",
+    "web/package.json": "8775fd598dca3c4fbfbc28587ee22e083d52188dd191756920222430a68452e9",
+    "web/src/api.js": "e621a8c3e6089febcb3a159492d4e9761e6ea700527d712fb9007b0292e56331",
+    "web/src/app.js": "3b2278a6bdf31f44478fe6c5c396df2e66daff2d9d71e4c6561a5df1b0e42a9d",
+    "web/src/audio.js": "66328aca2ffbd6f57e178c2644b37b4251125dfe19276605d85c05f017ad7421",
+    "web/src/capture-worklet.js": "6e275e2d0e6d070af4239af5dfe92f53e3c11f8fc8f3138e49060489966d893c",
+    "web/src/math.js": "2465834f93927a6522817f36adfdd25df89c8e87f1db30c1c98adcd696b230d3",
+    "web/src/orb.wgsl": "6db7975e56d54d6974dca081f43ab0d807100b694906c1f3a18c6d00717be137",
+    "web/src/renderer.js": "425f5ca569f5c3c7c623c3c7b4aa0b5c826f0a5c32e725847a0356ec0be8cecc",
+    "web/src/wave.js": "dfd508cce47f47aa5a852d491aa28d1840efd6a41ad1471a4094764dbd22855d",
+    "web/style.css": "8734f34748bcd7e37ac129f6aadd9ec0933ba60b6e7db3e938609b749ac3ced3",
+    "web/tests/core.test.js": "8a035422d34e934ddfc8a4b2bbce44ba7f8de55558d4a41567332d9d4886cb39"
+  },
+  "test_adjustments": [
+    "range input uses DOM input event",
+    "require exact WebGPU renderer label"
+  ],
+  "release": "engineering; physical validation outstanding"
+}

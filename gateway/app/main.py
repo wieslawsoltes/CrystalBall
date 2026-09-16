@@ -1,4 +1,4 @@
-"""Bounded, authenticated local gateway for Aether Orb Rev A.
+"""Bounded, authenticated local gateway for Aether Orb Rev B.
 
 The upstream key stays here, never on the ESP32. Requests are memory-only at
 this application layer; this is not a promise about provider retention or OS
@@ -24,6 +24,11 @@ from typing import AsyncIterator, Callable
 import httpx
 from fastapi import Depends, FastAPI, HTTPException, Request, Response
 from fastapi.middleware.trustedhost import TrustedHostMiddleware
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from pathlib import Path
+from .browser import Calls, install as install_browser
+from .budgets import DurableBudget
 from pydantic import BaseModel, ConfigDict, Field, ValidationError
 
 WAV_LIMIT = 44 + 16000 * 2 * 8
@@ -51,6 +56,12 @@ class Settings:
     requests_per_minute: int = 8
     requests_per_day: int = 200
     public_tts: bool = False
+    realtime_enabled: bool = False
+    realtime_model: str = "gpt-realtime-2.1"
+    realtime_seconds: int = 90
+    budget_path: str = ""
+    web_dir: str = ""
+    cors_origins: tuple[str, ...] = ()
     hosts: tuple[str, ...] = ("orb-gateway.home.arpa", "localhost", "127.0.0.1")
 
     def __post_init__(self) -> None:
@@ -61,6 +72,15 @@ class Settings:
                 raise ValueError("Invalid unit ID")
             if not re.fullmatch(r"[0-9a-f]{64}", digest):
                 raise ValueError("Device token digest must be lowercase SHA-256 hex")
+        if not 30 <= self.realtime_seconds <= 300:
+            raise ValueError("Realtime duration must be 30 to 300 seconds")
+        from urllib.parse import urlparse
+        for origin in self.cors_origins:
+            url = urlparse(origin)
+            if url.scheme != "https" and not (url.scheme == "http" and url.hostname in ("localhost", "127.0.0.1")):
+                raise ValueError("CORS requires HTTPS or loopback HTTP")
+            if not url.hostname or url.username or url.password or url.path not in ("", "/") or url.query or url.fragment:
+                raise ValueError("CORS entry must be an origin, not a URL path")
         if not 1 <= self.requests_per_minute <= 120 or not 1 <= self.requests_per_day <= 10000:
             raise ValueError("Rate limit out of range")
 
@@ -76,6 +96,12 @@ class Settings:
             requests_per_minute=int(os.environ.get("REQUESTS_PER_MINUTE", "8")),
             requests_per_day=int(os.environ.get("REQUESTS_PER_DAY", "200")),
             public_tts=os.environ.get("PUBLIC_TTS", "false").lower() == "true",
+            realtime_enabled=os.environ.get("REALTIME_ENABLED", "false").lower() == "true",
+            realtime_model=os.environ.get("OPENAI_REALTIME_MODEL", "gpt-realtime-2.1"),
+            realtime_seconds=int(os.environ.get("REALTIME_SECONDS", "90")),
+            budget_path=os.environ.get("BUDGET_DATABASE", ""),
+            web_dir=os.environ.get("WEB_DIRECTORY", ""),
+            cors_origins=tuple(filter(None, os.environ.get("CORS_ORIGINS", "").split(","))),
             hosts=tuple(os.environ.get("ALLOWED_HOSTS", "orb-gateway.home.arpa,localhost,127.0.0.1").split(",")),
         )
 
@@ -218,27 +244,39 @@ def create_app(settings: Settings | None = None, transport: httpx.AsyncBaseTrans
     async def lifespan(app: FastAPI) -> AsyncIterator[None]:
         cfg = settings or Settings.from_env()
         app.state.settings = cfg
-        app.state.rate = RateLimiter(cfg.requests_per_minute, cfg.requests_per_day)
+        app.state.rate = (DurableBudget(cfg.budget_path, cfg.requests_per_minute, cfg.requests_per_day) if cfg.budget_path else RateLimiter(cfg.requests_per_minute, cfg.requests_per_day))
         app.state.slots = asyncio.Semaphore(2)
         async with httpx.AsyncClient(
             transport=transport, timeout=httpx.Timeout(45, connect=10), follow_redirects=False,
             limits=httpx.Limits(max_connections=4, max_keepalive_connections=2), trust_env=False,
         ) as client:
             app.state.upstream = Upstream(cfg, client)
-            yield
+            app.state.calls = Calls(app)
+            try:
+                yield
+            finally:
+                await app.state.calls.close()
 
-    app = FastAPI(title="Aether Orb Gateway", version="0.1.0", lifespan=lifespan, docs_url=None, redoc_url=None, openapi_url=None)
+    app = FastAPI(title="Aether Orb Gateway", version="0.2.0", lifespan=lifespan, docs_url=None, redoc_url=None, openapi_url=None)
     hosts = settings.hosts if settings else tuple(os.environ.get("ALLOWED_HOSTS", "orb-gateway.home.arpa,localhost,127.0.0.1").split(","))
     app.add_middleware(TrustedHostMiddleware, allowed_hosts=list(hosts))
+    origins = settings.cors_origins if settings else tuple(filter(None, os.environ.get("CORS_ORIGINS", "").split(",")))
+    if origins:
+        app.add_middleware(CORSMiddleware, allow_origins=list(origins), allow_methods=["GET","POST","DELETE"],
+                           allow_headers=["Authorization","Content-Type"], expose_headers=["X-Orb-Call","X-Orb-Duration"])
+
 
     @app.middleware("http")
     async def no_store(request: Request, call_next):
         response = await call_next(request)
         response.headers["Cache-Control"] = "no-store"
         response.headers["X-Content-Type-Options"] = "nosniff"
+        response.headers["Referrer-Policy"] = "no-referrer"
+        response.headers["X-Frame-Options"] = "DENY"
+        response.headers["Permissions-Policy"] = "camera=(), geolocation=(), microphone=(self)"
         return response
 
-    async def authenticate(request: Request) -> str:
+    async def identify(request: Request) -> str:
         auth = request.headers.get("authorization", "")
         if not auth.startswith("Bearer ") or not 32 <= len(auth[7:]) <= 128:
             raise HTTPException(401, "Device authentication required")
@@ -249,13 +287,17 @@ def create_app(settings: Settings | None = None, transport: httpx.AsyncBaseTrans
                 unit = candidate
         if unit is None:
             raise HTTPException(401, "Device authentication failed")
+        return unit
+
+    async def authenticate(request: Request) -> str:
+        unit = await identify(request)
         app.state.rate.take(unit)
         return unit
 
     @app.get("/healthz")
     async def health() -> dict[str, str]:
         # Liveness only, not a cloud/model availability claim.
-        return {"status": "ok", "revision": "A"}
+        return {"status": "ok", "revision": "B"}
 
     async def enter_slot() -> None:
         try:
@@ -306,6 +348,10 @@ def create_app(settings: Settings | None = None, transport: httpx.AsyncBaseTrans
             app.state.slots.release()
         return Response(pcm, media_type="application/octet-stream", headers={"X-PCM-Format": "s16le;rate=24000;channels=1"})
 
+    install_browser(app, authenticate, identify, enter_slot, read_bounded, ascii_text, INSTRUCTIONS)
+    web_dir = settings.web_dir if settings else os.environ.get("WEB_DIRECTORY", "")
+    if web_dir:
+        app.mount("/", StaticFiles(directory=web_dir, html=True), name="prototype")
     return app
 
 
