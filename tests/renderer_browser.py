@@ -17,7 +17,7 @@ async def main():
         page.on('console',lambda m:errors.append(m.text) if m.type=='error' else None)
         try:
             await page.goto('http://127.0.0.1:8088/?test=1')
-            await page.wait_for_function("document.documentElement.dataset.renderer==='WebGPU'")
+            await page.wait_for_function("() => document.documentElement.dataset.renderer==='WebGPU'")
             # Explicit test fixture uses the shipped module, not an alternate renderer.
             await page.evaluate('''async()=>{
                 const {OrbRenderer}=await import('./src/renderer.js');
@@ -26,7 +26,7 @@ async def main():
                 document.body.append(c);window.fixture=new OrbRenderer(c,()=>{});
                 fixture.paused=true;await fixture.init();
             }''')
-            await page.wait_for_function('fixture.frames>=1&&!fixture.gpuBusy')
+            await page.wait_for_function('() => fixture.frames>=1&&!fixture.gpuBusy')
             assert await page.evaluate("fixture.kind==='WebGPU'")
             checks.append('Shipped renderer compiles and submits a real WebGPU frame')
             assert await page.evaluate('''async()=>{
@@ -34,18 +34,18 @@ async def main():
                 if(a!==b)return false;const names=await a;fixture.cad=true;
                 return names.length>=26&&fixture.meshes.length===names.length;
             }''')
-            await page.wait_for_function('!fixture.gpuBusy&&fixture.frames>=2')
+            await page.wait_for_function('() => !fixture.gpuBusy&&fixture.frames>=2')
             checks.append('Concurrent CAD load shares one real GPU upload transaction')
             before=await page.evaluate('fixture.frames');await page.wait_for_timeout(350)
             assert await page.evaluate('fixture.frames')==before
             checks.append('Stationary CAD submits no redundant frames')
             await page.locator('#lifetime-fixture').focus();await page.keyboard.press('ArrowRight')
-            await page.wait_for_function('fixture.params.yaw>0&&!fixture.gpuBusy')
-            await page.keyboard.press('Home');await page.wait_for_function('fixture.params.yaw===0')
+            await page.wait_for_function('() => fixture.params.yaw>0&&!fixture.gpuBusy')
+            await page.keyboard.press('Home');await page.wait_for_function('() => fixture.params.yaw===0')
             checks.append('Focused-canvas keyboard orbit and reset')
             # Device destruction exercises the same lost-device route as a reset.
             await page.evaluate('fixture.device.destroy()')
-            await page.wait_for_function("fixture.kind==='Canvas 2D'&&fixture.device===null")
+            await page.wait_for_function("() => fixture.kind==='Canvas 2D'&&fixture.device===null")
             assert await page.evaluate('fixture.meshes.length===0&&!fixture.loadedCAD&&!fixture.cad')
             await page.locator('#lifetime-fixture').focus();await page.keyboard.press('ArrowLeft')
             assert await page.evaluate('fixture.params.yaw<0')
