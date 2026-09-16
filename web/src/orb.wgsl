@@ -27,7 +27,7 @@ fn env(d:vec3f)->vec3f{
  col+=vec3f(.12,.06,.28)*pow(max(dot(d,normalize(vec3f(-2,0,-1))),0.),25.);
  return col;
 }
-fn star(p:vec2f,r:f32)->f32{let a=atan2(p.x,p.y);let k=.48+.52*pow(max(cos(a*5.),0.),.6);return length(p)-r*k;}
+fn star(p:vec2f,r:f32)->f32{let period=1.25663706;let a=abs((fract((atan2(p.y,p.x)-1.57079633)/period+.5)-.5)*period);let k=.45*.58778525/(.45*.58778525*cos(a)+(1.-.45*.80901699)*sin(a));return length(p)-r*k;}
 fn decoration(p:vec3f)->f32 {
  let angle=atan2(p.x,p.z);let q=vec2f(angle*1.08,p.y-.60);
  let cres=max(length(q)-.205,-(length(q-vec2f(.087,.068))-.181));
@@ -44,10 +44,10 @@ fn shade(p:vec3f,n:vec3f,rd:vec3f,material:f32)->vec3f{
  let light=normalize(vec3f(-3,5,4));let halfv=normalize(light-rd);
  let metal=max(select(0.,1.,material>1.5),decoration(p)*select(0.,1.,material<1.5));
  let rough=fbm(p*58.);
- let black=vec3f(.022,.02,.031)*(1.+rough*.15);let gold=vec3f(.64,.36,.105)*(0.66+.42*rough);
+ let black=vec3f(.008,.007,.013)*(1.+rough*.15);let gold=vec3f(.64,.36,.105)*(0.66+.42*rough);
  var col=mix(black,gold,metal)*(.12+max(dot(n,light),0.)*.72);
  col+=mix(vec3f(.09),vec3f(.87,.55,.23),metal)*pow(max(dot(n,halfv),0.),mix(45.,95.,metal))*.7;
- col+=env(reflect(rd,n))*mix(.55,.65,metal);
+ col+=env(reflect(rd,n))*mix(.24,.72,metal);
  col+=vec3f(.18,.018,.45)*pow(max(n.y,0.),2.)*u.glow*.7;
  return col;
 }
@@ -65,7 +65,7 @@ fn sphere(ro:vec3f,rd:vec3f)->vec2f{let o=ro-vec3f(0,1.8667,0);let b=dot(o,rd);l
    let p=ro+rd*tFloor;let radius=length(p.xz);let weave=.96+.04*sin(p.x*210.)*sin(p.z*160.);
    let shadow=1.-.85*exp(-radius*radius*.8);
    col=vec3f(.042,.014,.054)*weave*shadow+vec3f(.065,.007,.20)*exp(-radius*radius*.7)*u.glow;
-   col+=vec3f(.03,.009,.05)*fbm(p*3.);distanceHit=tFloor;
+   col+=vec3f(.016,.004,.023)*fbm(p*3.);col=mix(env(rd)*.45,col*.65,exp(-max(tFloor-7.,0.)*.12));distanceHit=tFloor;
  }
  var t=0.;var hit=vec2f(0);
  for(var i=0;i<100;i++){let p=ro+rd*t;hit=base(p);if(hit.x<.0009||t>min(distanceHit,22.)){break;}t+=max(hit.x*.85,.0005);}
@@ -87,11 +87,11 @@ fn sphere(ro:vec3f,rd:vec3f)->vec2f{let o=ro-vec3f(0,1.8667,0);let b=dot(o,rd);l
          let filaments=pow(max(0.,1.-abs(clouds-.53)*15.),5.)*.22;
          let energy=(density+filaments*(1.-smoothstep(.85,1.,radial)))*(0.5+u.glow)*(1.+u.activity*.18);
          glow+=transmission*energy*dt*mix(vec3f(.16,.011,.54),vec3f(.84,.32,1.6),pow(density,1.4));
-         transmission*=exp(-density*dt*1.8);
+         transmission*=exp(-density*dt*.9);
        }
      }
      let edge=pow(1.-facing,2.3);let lower=pow(max(-n.y,0.),4.);
-     col=col*transmission*.76+glow*1.7+reflected*(.22+fres*1.5);
+     col=col*transmission*.76+glow*.86+reflected*(.22+fres*1.5);
      col+=vec3f(.14,.025,.50)*(edge*.6+lower*2.)*u.glow;
      col+=vec3f(.67,.66,.85)*pow(max(dot(reflect(rd,n),normalize(vec3f(-1.8,3,2))),0.),140.);
      col+=vec3f(.3,.22,.53)*pow(edge,3.);

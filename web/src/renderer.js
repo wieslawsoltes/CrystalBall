@@ -15,8 +15,34 @@ export class OrbRenderer {
     this.tick(performance.now());return this.kind;
   }
   fallback(reason){if(this.kind==='Canvas 2D')return;this.kind='Canvas 2D';if(this.context){this.context.unconfigure();const copy=this.canvas.cloneNode();this.canvas.replaceWith(copy);this.observer.unobserve(this.canvas);this.canvas=copy;this.observer.observe(copy);this.context=null;this.installInput()}this.ctx=this.canvas.getContext('2d');this.info({renderer:'Canvas 2D',detail:reason});this.resize()}
-  resize(){const r=this.canvas.getBoundingClientRect();if(!r.width||!r.height)return;const ratio=Math.min(devicePixelRatio||1,1.5,1000/r.height)*this.quality;this.canvas.width=Math.round(r.width*ratio);this.canvas.height=Math.round(r.height*ratio);this.width=r.width;this.height=r.height;if(this.device&&this.kind==='WebGPU'){this.depth?.destroy();this.depth=this.device.createTexture({size:[this.canvas.width,this.canvas.height],format:'depth24plus',usage:GPUTextureUsage.RENDER_ATTACHMENT})}}
-  tick(now){if(this.disposed)return;this.frame=requestAnimationFrame(t=>this.tick(t));if(document.hidden)return;const dt=now-this.last;this.last=now;this.fps=this.fps*.95+(.05*1000/Math.max(1,dt));if(!this.paused)this.time=now*.001;try{if(this.kind==='WebGPU'){if(this.cad&&this.meshes.length)this.drawCAD();else this.drawGPU()}else this.drawFallback()}catch(error){this.fallback(error.message)}if(++this.frames%60===0)this.info({fps:Math.round(this.fps)})}
+  resize(){this.drawnSignature='';const r=this.canvas.getBoundingClientRect();if(!r.width||!r.height)return;const ratio=Math.min(devicePixelRatio||1,1.5,1000/r.height)*this.quality;this.canvas.width=Math.round(r.width*ratio);this.canvas.height=Math.round(r.height*ratio);this.width=r.width;this.height=r.height;if(this.device&&this.kind==='WebGPU'){this.depth?.destroy();this.depth=this.device.createTexture({size:[this.canvas.width,this.canvas.height],format:'depth24plus',usage:GPUTextureUsage.RENDER_ATTACHMENT})}}
+  tick(now){
+    if(this.disposed)return;
+    this.frame=requestAnimationFrame(t=>this.tick(t));
+    if(document.hidden||this.gpuBusy)return;
+    if(!this.paused)this.time=now*.001;
+    // At most one submitted frame. Otherwise a CPU adapter accumulates an
+    // unbounded GPU queue and screenshots, input and device shutdown stall.
+    const signature=JSON.stringify([this.kind,this.canvas.width,this.canvas.height,this.params,
+      this.cad,this.explode,this.selected,[...this.hidden],this.meshes.length]);
+    if(this.paused&&signature===this.drawnSignature)return;
+    this.drawnSignature=signature;
+    const completed=()=>{
+      const finish=performance.now(),dt=finish-(this.lastCompleted||finish-16);
+      this.lastCompleted=finish;this.fps=this.fps?this.fps*.8+.2*1000/Math.max(1,dt):1000/Math.max(1,dt);
+      this.info({fps:Math.round(this.fps)});this.gpuBusy=false;
+      document.documentElement.dataset.gpuIdle='true';
+    };
+    try{
+      if(this.kind==='WebGPU'){
+        this.gpuBusy=true;document.documentElement.dataset.gpuIdle='false';
+        if(this.cad&&this.meshes.length)this.drawCAD();else this.drawGPU();
+        this.device.queue.onSubmittedWorkDone().then(completed,error=>{
+          this.gpuBusy=false;if(!this.disposed)this.fallback(error.message);
+        });
+      }else{this.drawFallback();completed()}
+    }catch(error){this.gpuBusy=false;this.fallback(error.message)}
+  }
   drawGPU(){const p=this.params,v=new Float32Array([this.canvas.width,this.canvas.height,this.time||0,p.activity,p.yaw,p.pitch,p.zoom,p.glow,Number(p.art),Number(p.split),p.view,0]);this.device.queue.writeBuffer(this.uniform,0,v);const e=this.device.createCommandEncoder(),pass=e.beginRenderPass({colorAttachments:[{view:this.context.getCurrentTexture().createView(),clearValue:{r:0,g:0,b:0,a:1},loadOp:'clear',storeOp:'store'}]});pass.setPipeline(this.pipeline);pass.setBindGroup(0,this.bind);pass.draw(3);pass.end();this.device.queue.submit([e.finish()])}
   screenAnchor(){const split=this.params.split,w=this.width/(split?2:1),cam=camera(this.params.yaw,this.params.pitch,this.params.zoom,w/this.height);const p=project([0,1.87,.16],cam.matrix,w,this.height),a=project([-.45,1.87,.16],cam.matrix,w,this.height),b=project([.45,1.87,.16],cam.matrix,w,this.height);return {x:p[0],y:p[1],width:Math.abs(b[0]-a[0])*1.25,visible:!this.cad&&this.params.view===0&&Math.cos(this.params.yaw)>.45}}
   async loadCAD(){if(this.loadedCAD)return this.meshes.map(x=>x.name);if(this.kind!=='WebGPU')throw new Error('The exact CAD mesh viewer requires WebGPU. Beauty preview remains available.');const response=await fetch(new URL('../assets/assembly.json',import.meta.url));if(!response.ok)throw new Error('CAD asset is not installed. Run mechanical/model.py and copy the generated mesh JSON to web/assets/assembly.json.');const source=await response.json();const m=this.device.createShaderModule({code:meshShader});const descriptor={layout:'auto',vertex:{module:m,entryPoint:'vs',buffers:[{arrayStride:24,attributes:[{shaderLocation:0,offset:0,format:'float32x3'},{shaderLocation:1,offset:12,format:'float32x3'}]}]},fragment:{module:m,entryPoint:'fs',targets:[{format:this.format,blend:{color:{srcFactor:'src-alpha',dstFactor:'one-minus-src-alpha'},alpha:{srcFactor:'one',dstFactor:'one-minus-src-alpha'}}}]},primitive:{topology:'triangle-list',cullMode:'none'},depthStencil:{format:'depth24plus',depthWriteEnabled:true,depthCompare:'less'}};

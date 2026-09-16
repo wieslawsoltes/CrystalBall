@@ -33,13 +33,37 @@ export class Recorder {
   }
 }
 export class Speaker {
-  constructor(){this.context=null;this.source=null;this.level=0}
-  async play(pcm,onEnd){
-    this.stop();this.context??=new AudioContext();await this.context.resume();const floats=pcmFloats(pcm),b=this.context.createBuffer(1,floats.length,24000);b.copyToChannel(floats,0);floats.fill(0);new Uint8Array(pcm).fill(0);
-    const source=this.context.createBufferSource(),gain=this.context.createGain();gain.gain.value=.35;source.buffer=b;source.connect(gain).connect(this.context.destination);this.source=source;source.onended=()=>{source.disconnect();gain.disconnect();if(this.source===source){this.source=null;onEnd?.()}};source.start();
+  constructor(){this.context=null;this.source=null;this.gain=null;this.buffer=null;this.generation=0;this.level=0}
+  unlock(){
+    this.context??=new AudioContext();
+    // Calling resume synchronously from the click is required by mobile audio policies.
+    return this.context.resume();
   }
-  stop(){if(this.source){this.source.onended=null;this.source.stop();this.source.disconnect();this.source=null}}
-  async close(){this.stop();if(this.context)await this.context.close();this.context=null}
+  async play(pcm,onEnd){
+    this.stop();const generation=this.generation;
+    try{
+      await this.unlock();
+      if(generation!==this.generation)return false;
+      const floats=pcmFloats(pcm),buffer=this.context.createBuffer(1,floats.length,24000);
+      buffer.copyToChannel(floats,0);floats.fill(0);
+      const source=this.context.createBufferSource(),gain=this.context.createGain();
+      gain.gain.value=.35;source.buffer=buffer;source.connect(gain).connect(this.context.destination);
+      this.source=source;this.gain=gain;this.buffer=buffer;
+      source.onended=()=>{if(this.source!==source)return;this.release();onEnd?.()};
+      source.start();return true;
+    }finally{new Uint8Array(pcm).fill(0)}
+  }
+  release(){
+    this.source?.disconnect();this.gain?.disconnect();
+    this.buffer?.getChannelData(0).fill(0);
+    this.source=null;this.gain=null;this.buffer=null;
+  }
+  stop(){
+    ++this.generation;
+    if(this.source){this.source.onended=null;try{this.source.stop()}catch{}}
+    this.release();
+  }
+  async close(){this.stop();const context=this.context;this.context=null;if(context&&context.state!=='closed')await context.close()}
 }
 export class LiveVoice {
   constructor(api){this.api=api;this.pc=null;this.stream=null;this.handle=null;this.generation=0}
@@ -50,13 +74,13 @@ export class LiveVoice {
     this.stream=stream;
     const pc=new RTCPeerConnection();this.pc=pc;
     this.audio=new Audio();this.audio.autoplay=true;this.audio.volume=.5;
-    pc.ontrack=e=>{this.audio.srcObject=e.streams[0];this.audio.play().catch(()=>onState('Tap live voice again to end; audio playback was blocked.'))};
+    pc.ontrack=e=>{if(g!==this.generation||!this.audio)return;this.audio.srcObject=e.streams[0];this.audio.play().catch(()=>onState('Tap live voice again to end; audio playback was blocked.'))};
     this.stream.getTracks().forEach(t=>pc.addTrack(t,this.stream));
     const dc=pc.createDataChannel('oai-events');let text='';dc.onmessage=e=>{if(typeof e.data!=='string'||e.data.length>65536)return;let data;try{data=JSON.parse(e.data)}catch{return}if(data.type==='response.created')text='';if(['response.output_audio_transcript.delta','response.audio_transcript.delta','response.output_text.delta'].includes(data.type)&&typeof data.delta==='string'){text=(text+data.delta).slice(0,400);onText(text)}if(data.type==='error')onState('Live voice reported an error. End the session and check the gateway.')};
     pc.onconnectionstatechange=()=>{if(['failed','closed','disconnected'].includes(pc.connectionState))this.stop().finally(()=>onState('Live voice ended.'))};
     try{const offer=await pc.createOffer();await pc.setLocalDescription(offer);const r=await this.api.request('/v1/realtime/call',{body:offer.sdp,type:'application/sdp',timeout:30000});this.handle=r.headers.get('X-Orb-Call');if(g!==this.generation){await this.stop();return}await pc.setRemoteDescription({type:'answer',sdp:await r.text()});const seconds=Number(r.headers.get('X-Orb-Duration'))||90;this.timer=setTimeout(()=>this.stop().finally(()=>onState('Live voice time limit reached.')),seconds*1000);onState(`Live AI voice · maximum ${seconds} seconds`)}catch(error){await this.stop();throw error}
   }
   async stop(){
-    ++this.generation;clearTimeout(this.timer);const handle=this.handle;this.handle=null;const pc=this.pc;this.pc=null;if(pc){pc.onconnectionstatechange=null;pc.close()}this.stream?.getTracks().forEach(t=>t.stop());this.stream=null;if(this.audio){this.audio.pause();this.audio.srcObject=null;this.audio=null}if(handle)await this.api.request('/v1/realtime/call/'+encodeURIComponent(handle),{method:'DELETE',timeout:15000}).catch(()=>{});
+    ++this.generation;clearTimeout(this.timer);const handle=this.handle;this.handle=null;const pc=this.pc;this.pc=null;if(pc){pc.ontrack=null;pc.onconnectionstatechange=null;pc.close()}this.stream?.getTracks().forEach(t=>t.stop());this.stream=null;if(this.audio){this.audio.pause();this.audio.srcObject=null;this.audio=null}if(handle)await this.api.request('/v1/realtime/call/'+encodeURIComponent(handle),{method:'DELETE',timeout:15000}).catch(()=>{});
   }
 }

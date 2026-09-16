@@ -1,0 +1,12 @@
+{
+  "changeset_sha256": "6fe0674da90b38c78c2310a2a38d7c7d2396d2bfa7374d422af6365f0949104d",
+  "files": {
+    "firmware/main/app_main.c": "d7dfeef07ea6c505557b6bc84c7b966729c09b6ff3c24d11e10dbfa7b53c2111",
+    "gateway/app/main.py": "ca102c990749e7a0b2f07d40792f32f6175eff33d5f79a603a88da7c83a0a8de",
+    "web/src/app.js": "f15c4765f58b1bccf6f2f80684ae33f8cbeb4aa719a4e930e122d68c3f17004f",
+    "web/src/audio.js": "ba9d70ab3abb20bed5187e823c4a7d653fd5defa0488b5370d9553ffcb79caae",
+    "web/src/renderer.js": "2157546a387166be8e24af8fbc2a0e915a2ca4b2d8a501cf916bcfb34e3689e4",
+    "web/src/orb.wgsl": "50c863fe459d3ec54769619fe6b9ce7c128476ffee8457c32c437d4c912e8edf"
+  },
+  "release": "engineering; not physically qualified"
+}
