@@ -1,0 +1,102 @@
+name: Manufacturing engineering handoff
+on:
+  push:
+    branches: [main]
+    paths: ['.imports/manufacturing.*', 'ci/import_manufacturing.py', 'ci/package_handoff.py', '.github/workflows/handoff.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: manufacturing-handoff
+  cancel-in-progress: false
+defaults:
+  run:
+    shell: bash
+jobs:
+  handoff:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Import reviewed text sources once
+        run: python ci/import_manufacturing.py
+      - name: Install generator and tests
+        run: python -m pip install './gateway[test]' 'reportlab==4.4.3'
+      - name: Generate documents and verify code
+        run: |
+          python tools/manufacturing.py
+          mkdir -p verification/handoff
+          python -m pytest gateway/tests factory/tests -q | tee verification/handoff/python.txt
+          npm --prefix web test | tee verification/handoff/node.txt
+          set +e
+          python factory/release_gate.py --output manufacturing/generated/release-status.json >verification/handoff/release-gate.txt
+          result=$?
+          set -e
+          test "$result" = 1
+          python -c "import json; r=json.load(open('manufacturing/generated/release-status.json')); assert r['status']=='BLOCKED'; assert len(r['errors'])==18"
+      - name: Preserve dated native verification evidence
+        uses: actions/download-artifact@v4
+        with:
+          github-token: ${{ github.token }}
+          repository: wieslawsoltes/CrystalBall
+          run-id: 35122549355
+          path: verification/archived/2026-09-16-native
+      - name: Preserve dated browser evidence
+        uses: actions/download-artifact@v4
+        with:
+          github-token: ${{ github.token }}
+          repository: wieslawsoltes/CrystalBall
+          run-id: 35122015818
+          name: runtime-hardening-browser-evidence
+          path: preview/validated
+      - name: Collect native CAM and validate archived report status
+        run: |
+          cp -R verification/archived/2026-09-16-native/kicad-independent-reports-and-native-cam/manufacturing/cam-native manufacturing/
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          browser=json.loads(Path('preview/validated/report.json').read_text())
+          assert browser['passed'] and len(browser['checks'])==12 and not browser['errors']
+          codes=Path('verification/archived/2026-09-16-native/kicad-independent-reports-and-native-cam/verification/kicad/exit-codes.txt').read_text()
+          assert codes == 'ERC=0\nDRC=0\nNETLIST=0\n'
+          PY
+          # Regenerate the manifest after adding the current BLOCKED gate report.
+          python - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          d=Path('manufacturing/generated')
+          manifest={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(d.iterdir()) if p.is_file() and p.name!='SHA256.json'}
+          (d/'SHA256.json').write_text(json.dumps(manifest,indent=2)+'\n')
+          PY
+      - name: Commit complete engineering handoff directly to main
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add factory tools manufacturing verification preview/validated provenance
+          if ! git diff --cached --quiet; then
+            git commit -m 'manufacturing: publish Rev B handbook, BOMs, harness, native CAM and verified evidence; production remains gated'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
+      - name: Package tracked public files only
+        run: python ci/package_handoff.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: CrystalBall-manufacturing-engineering-handoff
+          path: |
+            handoff-package/
+            manufacturing/generated/CrystalBall-RevB-Handbook.pdf
+            manufacturing/generated/release-status.json
+            verification/handoff/
+          if-no-files-found: error
+          retention-days: 90
