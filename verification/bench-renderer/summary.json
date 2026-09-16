@@ -1,0 +1,49 @@
+{
+  "schema": 1,
+  "date": "2026-09-16",
+  "kind": "manually recorded index of downloaded and inspected CI evidence; not a release signature",
+  "engineering": {
+    "source_commit": "691bc5b6db2cd4843e99f7bd7bce945aec40a8bf",
+    "run": "https://github.com/wieslawsoltes/CrystalBall/actions/runs/35139646862",
+    "all_seven_jobs_passed": true,
+    "python_gateway_and_factory_tests": 208,
+    "javascript_tests": 55,
+    "publication_unit_tests": 8,
+    "wheel_parity_unit_tests": 6,
+    "diagnostic_build_unit_tests": 13,
+    "host_c": "core and diagnostics passed AddressSanitizer and UndefinedBehaviorSanitizer",
+    "firmware_profiles": ["default", "public-voice", "calibration", "factory-diagnostics"],
+    "kicad": "9.0.9 native ERC, DRC, schematic parity and CAM export job passed",
+    "container": "unprivileged read-only gateway smoke test passed, no paid calls",
+    "unit_evidence_artifact_id": 10465070763,
+    "unit_evidence_zip_sha256": "e7bd830c53d83665601e6d2cb5bac901eace499d650ef8ba7fdda3c4c1733710",
+    "bench_artifact_id": 10464124281,
+    "bench_artifact_zip_sha256": "bf4ed4f56afc07d2d554484bcf7b58d8dd46ee20ff648d286f8f036e958117d5",
+    "bench_image_hashes_checked_after_download": true
+  },
+  "browser": {
+    "source_commit": "5b7da7d7bcb3f02c050e71c8c6af0954c5b12f0e",
+    "run": "https://github.com/wieslawsoltes/CrystalBall/actions/runs/35139224375",
+    "integration_checks": 12,
+    "renderer_lifetime_checks": 6,
+    "errors": [],
+    "provider": "MOCKED; no live OpenAI key used",
+    "adapter": "Chromium software WebGPU, not representative hardware performance",
+    "csp": "production CSP unchanged",
+    "artifact_id": 10464605994,
+    "artifact_zip_sha256": "9bbd1c58d63e24a472b90cc9e77bae2c94a259fb251db1d6a2dd87bba2c00628"
+  },
+  "pages": {
+    "url": "https://wieslawsoltes.github.io/CrystalBall/",
+    "source_commit": "5b7da7d7bcb3f02c050e71c8c6af0954c5b12f0e",
+    "run": "https://github.com/wieslawsoltes/CrystalBall/actions/runs/35139224382",
+    "repository_subpath_browser_checks": 8,
+    "public_assets_sha256_verified": 16,
+    "public_verified_at": "2026-09-16T19:14:36.819859+00:00",
+    "manifest_sha256": "1126bba3e4fccf036721cfe1cac3d7b4057ab0fc5054e8c32fc56f315c105349",
+    "artifact_id": 10464526204,
+    "artifact_zip_sha256": "caf37b947f9d1e4c90271574fae47e5edf39c54e6ceea49d878dad4ae13d5480"
+  },
+  "production_release": "BLOCKED; no physical test evidence, qualified suppliers or owner release signatures added",
+  "remaining": ["physical first article", "optical privacy and readability", "power, thermal and EMC qualification", "production security and recovery", "real-provider and representative mobile hardware acceptance"]
+}

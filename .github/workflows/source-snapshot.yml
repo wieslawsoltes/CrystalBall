@@ -2,19 +2,35 @@ name: Complete source snapshot
 on:
   push:
     branches: [main]
-    paths: ['.github/workflows/source-snapshot.yml']
+    paths:
+      - '.github/workflows/source-snapshot.yml'
+      - 'ci/package_handoff.py'
+      - 'README.md'
+      - 'docs/**'
+      - 'firmware/**'
+      - 'web/**'
+      - 'gateway/**'
+      - 'factory/**'
+      - 'manufacturing/**'
+      - 'hardware/**'
+      - 'mechanical/**'
+      - 'verification/bench-renderer/**'
   workflow_dispatch:
 permissions:
   contents: read
+concurrency:
+  group: source-snapshot
+  cancel-in-progress: true
 jobs:
   snapshot:
     runs-on: ubuntu-24.04
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.13'
-      - name: Archive clean source at this event commit, with per-file checksums
+      - name: Archive exact event commit, excluding untracked build and credential files
         run: python ci/package_handoff.py
       - uses: actions/upload-artifact@v4
         with:

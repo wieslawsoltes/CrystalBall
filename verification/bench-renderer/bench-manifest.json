@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "passed": true,
+  "source_commit": "691bc5b6db2cd4843e99f7bd7bce945aec40a8bf",
+  "profile": "factory-diagnostics",
+  "target": "esp32s3",
+  "release": "BENCH_ONLY_NOT_PHYSICALLY_QUALIFIED",
+  "application_network_symbols_absent": true,
+  "flash_files": {
+    "0x0": "bootloader/bootloader.bin",
+    "0x8000": "partition_table/partition-table.bin",
+    "0x10000": "aether_orb.bin"
+  },
+  "sha256": {
+    "bootloader/bootloader.bin": "0dd0dc8f441d9364faef00e6d9b12a65b2a916a53b11d80707066b4d170e61ed",
+    "partition_table/partition-table.bin": "73c0b5c3e5fcba3a151cc70c453c93dd5f4798899e7f2f8cca76da1f32ffc501",
+    "aether_orb.bin": "5211e4ee370f1697c3ff149080e85799a0b07738595f69493720907a1b7d9704"
+  },
+  "meaning": "Build isolation and file integrity; not hardware qualification or firmware signing"
+}

@@ -10,6 +10,10 @@ A tabletop AI-assisted entertainment prop with a hollow optical globe, an operat
 
 **[Open CrystalBall on GitHub Pages](https://wieslawsoltes.github.io/CrystalBall/)** — offline demo by default, including the WebGPU experience and CAD inspector. The Python gateway is hosted separately. [Pages deployment and pairing](docs/github-pages.md) explains the repository-path checks, publication manifest and CORS configuration.
 
+## Rendering and input hardening
+
+The renderer now caps surface area and adapter dimensions, allows only one outstanding GPU frame, suspends redundant paused/CAD submissions, and adapts resolution with hysteresis. Device loss/disposal releases GPU resources and aborts stale initialization or CAD uploads. Two-finger pinch, focused-canvas arrow keys, +/- zoom and Home reset complement mouse controls. See [resource ownership and validation](docs/renderer-lifecycle.md). These are bounded-work/resource improvements, not measured hardware FPS claims.
+
 ## Start the browser without an API key
 
 ```sh
@@ -75,7 +79,22 @@ python factory/provision.py --device factory/private/orb-0001.json --generate
 python factory/provision.py --device factory/private/orb-0001.json --flash --port /dev/ttyUSB0 --devkit-detached
 ```
 
-Use one provisioning invocation for a unit: the tool deliberately refuses to reuse its private output folder. The passphrase is prompted without echo. NVS offsets come from the checked-in partition table. **This is plaintext development provisioning, not production secure storage.** No eFuses are automatically changed. Production signing/encryption, key custody, recovery and update policy require an approved security workflow. CI certificates and build artifacts are test-only, not customer firmware.
+Use one provisioning invocation for a unit: the tool deliberately refuses to reuse its private output folder. The passphrase is prompted without echo. NVS offsets come from the checked-in partition table. **This is plaintext development provisioning, not production secure storage.** No eFuses are automatically changed. Production signing/encryption, key custody, recovery and update policy require an approved security workflow. The three network-capable CI profiles use disposable build-only CAs and are not deployable customer firmware. The separate offline diagnostic artifact below needs no CA, but remains bench-only and physically unqualified.
+
+## Offline first-article diagnostics
+
+The fourth firmware profile, **factory-diagnostics**, has a separate entry point and does not initialize application networking or read device credentials. It provides ten button-driven pages: instructions, optical alignment grid, black, white, RGB bars, checkerboard, gray ramp, a 16-pixel RGB walk, a held-button 1 kHz test tone and microphone digital statistics. Capture is not saved or uploaded. Driver success and digital levels never become automatic manufacturing passes.
+
+Read [the complete bench procedure](docs/bench-diagnostics.md) before using the diagnostic build. The same detached-DevKit programming rule applies. From an activated ESP-IDF 5.5.2 environment, in `firmware/`:
+
+```sh
+idf.py -B build-diagnostics \
+  -D SDKCONFIG="$PWD/build-diagnostics/sdkconfig" \
+  -D SDKCONFIG_DEFAULTS="sdkconfig.defaults;sdkconfig.diagnostics" \
+  -D IDF_TARGET=esp32s3 build
+```
+
+CI inspects the linked diagnostic image and exact flash-image addresses before producing **factory-diagnostics-bench-only-NOT-CUSTOMER-FIRMWARE**. That artifact contains only the bootloader, partition table, diagnostic application, flashing metadata and a source/hash manifest. No NVS provisioning image, gateway CA or credential is included. Do not flash it to a security-enrolled production controller or mistake it for an approved customer release.
 
 ## Verify and regenerate
 
@@ -89,7 +108,9 @@ python factory/release_gate.py --output manufacturing/generated/release-status.j
 
 The final command currently exits **1 / BLOCKED** because physical qualification and owner approvals are absent. That is intentional. Without a trust policy it validates structure only. With an independently pinned reviewer policy, it verifies Ed25519 signatures, scoped reviewer quorums, expiry/revocation and both source and manufacturing-output fingerprints. No trusted reviewer ships with the project. Neither mode certifies the product or authorizes production. See [signed evidence and measured qualification](docs/qualification-evidence.md).
 
-GitHub Actions also compiles all three firmware profiles, runs KiCad 9.0.9 ERC/DRC/schematic parity, exports native CAM, tests a read-only Docker deployment and exercises the browser on a software WebGPU adapter with mocked OpenAI responses. See [Actions](https://github.com/wieslawsoltes/CrystalBall/actions) for the exact commit under test. Archived evidence is dated, not automatically promoted to cover later design changes.
+GitHub Actions also compiles all four firmware profiles, runs KiCad 9.0.9 ERC/DRC/schematic parity, exports native CAM, tests a read-only Docker deployment and exercises the browser on a software WebGPU adapter with mocked OpenAI responses. See [Actions](https://github.com/wieslawsoltes/CrystalBall/actions) for the exact commit under test. Archived evidence is dated, not automatically promoted to cover later design changes.
+
+The [bench/renderer batch record](verification/bench-renderer/summary.json) links the exact engineering, browser and public Pages runs and distinguishes their source commits. It is an engineering evidence index, not a signed release authorization.
 
 ## Remaining production gates
 
