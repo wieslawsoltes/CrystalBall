@@ -2,7 +2,7 @@ name: Engineering verification
 on:
   push:
     branches: [main]
-    paths: ['firmware/**', 'hardware/**', 'gateway/**', 'web/**', 'factory/**', 'tools/**', 'tests/**', 'ci/verify_*.sh', '.github/workflows/verify.yml']
+    paths: ['firmware/**', 'hardware/**', 'gateway/**', 'web/**', 'factory/**', 'tools/**', 'tests/**', 'ci/verify_*', 'ci/test_publication.py', 'manufacturing/*plan.json', '.github/workflows/verify.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -26,6 +26,7 @@ jobs:
           mkdir -p verification/units
           git rev-parse HEAD >verification/units/COMMIT.txt
           python -m pytest gateway/tests factory/tests -q | tee verification/units/python.txt
+          python ci/test_publication.py 2>&1 | tee verification/units/publication.txt
           npm --prefix web test | tee verification/units/node.txt
           gcc -std=c11 -Wall -Wextra -Werror -fsanitize=address,undefined -I firmware/main tests/core_test.c firmware/main/core.c -o /tmp/orb-core
           /tmp/orb-core | tee verification/units/firmware-host.txt

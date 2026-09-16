@@ -2,7 +2,7 @@ name: Publish browser to GitHub Pages
 on:
   push:
     branches: [main]
-    paths: ['web/**', 'ci/stage_pages.py', 'ci/test_pages.py', '.github/workflows/pages.yml']
+    paths: ['web/**', 'ci/stage_pages.py', 'ci/test_pages.py', 'ci/verify_live_pages.py', 'ci/test_publication.py', '.github/workflows/pages.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -26,6 +26,7 @@ jobs:
           node-version: '22'
       - name: Test JavaScript and stage public browser files only
         run: |
+          python ci/test_publication.py
           npm --prefix web test
           python ci/stage_pages.py
       - name: Verify static deployment below the repository base path
@@ -38,6 +39,12 @@ jobs:
         with:
           name: pages-subpath-browser-evidence
           path: verification/pages/
+          if-no-files-found: error
+      - name: Preserve exact tested manifest for post-deployment verification
+        uses: actions/upload-artifact@v4
+        with:
+          name: pages-build-manifest
+          path: _site/build.json
           if-no-files-found: error
       - uses: actions/upload-pages-artifact@v3
         with:
@@ -54,7 +61,23 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - uses: actions/configure-pages@v5
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - uses: actions/configure-pages@v6
       - name: Deploy verified browser artifact
         uses: actions/deploy-pages@v5
         id: deployment
+      - uses: actions/download-artifact@v4
+        with:
+          name: pages-build-manifest
+          path: verification/deployment
+      - name: Verify all published HTTPS bytes against tested build
+        run: python ci/verify_live_pages.py --manifest verification/deployment/build.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pages-public-https-evidence
+          path: verification/deployment/
+          if-no-files-found: error

@@ -11,16 +11,14 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
-          ref: main
-      - name: Archive tracked sources only
-        run: |
-          mkdir -p /tmp/crystalball-snapshot
-          git rev-parse HEAD >/tmp/crystalball-snapshot/COMMIT.txt
-          git archive --format=tar HEAD > /tmp/crystalball-snapshot/CrystalBall-source.tar
-          sha256sum /tmp/crystalball-snapshot/CrystalBall-source.tar > /tmp/crystalball-snapshot/SHA256.txt
+          python-version: '3.13'
+      - name: Archive this exact event commit, with per-file checksums
+        run: python ci/package_handoff.py
       - uses: actions/upload-artifact@v4
         with:
           name: CrystalBall-complete-source
-          path: /tmp/crystalball-snapshot/
+          path: handoff-package/
+          if-no-files-found: error
           retention-days: 30
