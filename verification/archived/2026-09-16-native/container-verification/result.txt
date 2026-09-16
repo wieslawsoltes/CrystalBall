@@ -1,0 +1,1 @@
+PASS: read-only root; UID 10001; SQLite volume; web assets; no paid API calls.

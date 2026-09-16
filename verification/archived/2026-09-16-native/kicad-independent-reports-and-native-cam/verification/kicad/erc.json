@@ -1,0 +1,34 @@
+{
+    "$schema": "https://schemas.kicad.org/erc.v1.json",
+    "coordinate_units": "mm",
+    "date": "2026-09-16T16:33:31+0000",
+    "included_severities": [
+        "error",
+        "warning",
+        "exclusion"
+    ],
+    "kicad_version": "9.0.9",
+    "sheets": [
+        {
+            "path": "/",
+            "uuid_path": "/ad1a34b2-96a7-5ba9-ac31-2526a6d7ce6c",
+            "violations": []
+        },
+        {
+            "path": "/01 / Controller sockets and reserved pins/",
+            "uuid_path": "/ad1a34b2-96a7-5ba9-ac31-2526a6d7ce6c/601b5815-dced-5207-ab9e-57b098688598",
+            "violations": []
+        },
+        {
+            "path": "/02 / Protected power and 5 V LED interface/",
+            "uuid_path": "/ad1a34b2-96a7-5ba9-ac31-2526a6d7ce6c/d1f4b7b7-d918-5e6f-8422-c482079c13a4",
+            "violations": []
+        },
+        {
+            "path": "/03 / Display, audio and operator harnesses/",
+            "uuid_path": "/ad1a34b2-96a7-5ba9-ac31-2526a6d7ce6c/5b9c8ad4-10d0-59b1-a0d3-0a85f8a83bb8",
+            "violations": []
+        }
+    ],
+    "source": "aether-carrier.kicad_sch"
+}

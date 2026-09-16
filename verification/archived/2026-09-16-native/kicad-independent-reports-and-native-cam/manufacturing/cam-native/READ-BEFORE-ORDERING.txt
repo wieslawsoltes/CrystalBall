@@ -1,0 +1,4 @@
+ENGINEERING CAM CANDIDATE. NOT RELEASED FOR PRODUCTION.
+Native KiCad exports: do not mix with hardware/fabrication custom exports.
+Hand assembly only. Position data is a reference, not a qualified placement recipe.
+Verify supplier footprints, copper weight, polarity, drill plating, legend and tolerances.

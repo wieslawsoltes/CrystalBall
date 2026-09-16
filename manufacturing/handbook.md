@@ -1,0 +1,161 @@
+# CrystalBall / Aether Orb
+## Rev B manufacturing engineering handoff
+
+**Status: ENGINEERING CANDIDATE. Not authorized for production or sale.**
+
+This package is a buildable design and verification starting point, not a certificate of conformity. Native ECAD checks, nominal mechanical checks, firmware compilation and mocked software tests are different evidence classes. None establishes optical privacy, physical fit, safe temperature, radio performance or regulatory compliance. Production requires all requirements in release-plan.json, a qualified bill of materials and an authorized manufacturing release.
+
+The original 63-file Rev A baseline is preserved byte-for-byte at Git commit f430900c5269cbada520c0550a1a0a9df75eb3ed. Rev B changes are separate commits. Do not mix Rev A mechanical parts with Rev B parts. Preserve the full commit identifier and archive SHA-256 with every supplier request, first article and engineering change.
+
+## 1. Product definition and configuration
+
+The device is a tabletop, openly AI-assisted entertainment prop. The operator presses TALK, records up to eight seconds, releases the button and reads a bounded fictional reflection on an LCD reflected through a coated plate inside a hollow globe. The client-facing viewing zone is intended to show a decorative glow rather than legible text. This viewing-zone goal is unvalidated. The design is not an invisible screen, omnidirectionally private display or security boundary.
+
+The physical globe is nominally 120 mm outside diameter, 2 mm wall optical PMMA. A solid acrylic sphere is incompatible with the internal mirror. The base is nominally 148 mm wide, 137 mm deep at the flattened operator panel, with overall product height approximately 172 mm. The curved globe will refract and distort display light. The browser's artistic purple cloud volume is an aesthetic simulation; LEDs in an empty clear globe do not create that volumetric nebula. Use the browser's non-artistic mode when explaining the physical lighting target.
+
+Rev B is a module-based, hand-assembled carrier design. Controller: genuine ESP32-S3-DevKitC-1-N8R8 v1.1. Display: Adafruit 1770 ILI9341 SPI configuration. Microphone: Adafruit 3421 SPH0645. Amplifier: Adafruit 3006 MAX98357A. Input: Adafruit 5807 HUSB238 breakout, explicitly configured for 5 V, 3 A. Illumination: sixteen WS2812B pixels in a perimeter arrangement. Speaker: 40 mm envelope, 8 ohm, 2 W target; exact part has not been qualified.
+
+The external power adapter, cable, speaker, switches, LED strip, inserts, screws, optical supplier and coatings still need exact part numbers and incoming qualification. A generic envelope or material description is not an approved vendor list. Do not substitute DevKit variants, LCD controllers, XH-compatible clones or a different optical plate without engineering review.
+
+## 2. Deliverables and source of truth
+
+hardware/aether-carrier.kicad_pro opens the carrier, its root schematic and three hierarchical child sheets. Project-local Aether.kicad_sym, sym-lib-table, fp-lib-table and Aether.pretty must remain alongside the project. hardware/design.json is the generated component/pad/net contract. tools/design.py is its authoring source. tools/pcb.py and tools/schematic.py regenerate ECAD outputs; cached routes remain under version control.
+
+mechanical/model.py is the parametric mechanical authoring source. Its P dictionary is the input configuration. parameters.json and parts.json are generated documentation, not live configuration files. mechanical/step contains individual assembly-coordinate solids; mechanical/stl contains print-oriented meshes. The assembled Rev B STEP and per-part STEPs are nominal geometry; REF components are purchased-module envelopes, not certified vendor models. Optical DXFs are nominal outlines, not optical-quality fabrication processes.
+
+web/assets/assembly.json is the CAD tessellation used in the Engineering viewer. The Experience renderer is a separate artistic real-time shader, not an optical solver. Firmware pins are generated from the same electrical source. gateway hosts the browser and proxies bounded requests to OpenAI; project API keys never belong in firmware or browser storage.
+
+manufacturing/generated contains machine-readable carrier BOM, component placements, all pad/net connections, harness table, mechanical inventory, fastener schedule, proposed acceptance plan, blank first-article records, and fixture alignment geometry. Native KiCad CAM is produced by the engineering verification workflow and delivered separately as cam-native. Never combine individual layers from different export sets or commits.
+
+## 3. PCB fabrication and incoming inspection
+
+Specify a 100 x 90 mm nominal finished profile, two-layer 1.60 mm FR-4, 2 oz nominal finished outer copper, green solder mask both sides and white top legend. Confirm copper weight, board-thickness tolerance, dielectric grade, surface finish and fabricator capability in writing. ENIG or lead-free HASL must be selected and recorded for the lot; the design does not authorize an arbitrary change after qualification. No controlled impedance is specified. This does not remove the requirement to measure SPI/I2S/LED timing and return-current behavior.
+
+Nominal routing is 0.30 mm signal, 0.50 mm 3.3 V, 0.60 mm GND and 0.80 mm main 5 V, with 0.20 mm minimum clearance and 0.70/0.35 mm via diameter/drill. Actual minimum clearances and connectivity must come from the same revision's native DRC. Trace width alone is not a current-capacity qualification. The design has no continuous ground plane; evaluate return paths, radio coexistence and radiated/conducted behavior before accepting production routing.
+
+There are four 3.20 mm non-plated mounting holes at PCB coordinates (4,4), (96,4), (4,86), (96,86). All coordinates in generated electrical tables are component-side X-right, Y-down, millimetres from the PCB's upper-left origin. The nominal antenna keepout spans X=7..44, Y=0..13.5. Do not put copper, conductive paint, cables, metallic labels or hardware into the antenna region without RF review.
+
+Use native KiCad Gerbers and separate plated/non-plated Excellon drill outputs from one job. Check the Gerber job, outline closure, units, origin, hole plating, mask openings, legend polarity marks and annular rings in an independent CAM viewer. The IPC-D-356 netlist supports bare-board electrical testing. All bare boards require continuity/isolation testing against the released netlist. Supplier DFM review and accepted land-pattern drawings are release inputs, not replaced by ERC/DRC.
+
+Incoming checks: record supplier, purchase order, PCB revision, date/lot, thickness and finish. Inspect under magnification for copper defects, solder-mask slivers, blocked holes and incorrect legend. Dry-fit sockets, terminal and keyed headers before soldering. The custom footprints were generated from the circuit contract; independently compare every pad pitch, pin number, hole diameter and body envelope with the exact purchased part's drawing.
+
+Rev B assembly is manual. No stencil process, placement-machine centroid convention, reflow recipe, panelization, tooling rails or automated optical-inspection programme is qualified. positions-reference.csv is an assembly reference, not permission to run an automated PCBA line. Such a process requires its own NPI validation.
+
+## 4. Carrier assembly and electrical precautions
+
+Work on an ESD-controlled bench. Use an isolated, current-limited low-voltage bench supply for commissioning and a compliant external USB-C adapter for intended operation. Do not construct or modify mains circuitry. Keep the globe and optical coatings away from soldering fumes, adhesive vapour and conductive debris.
+
+Populate SMD resistors/capacitors, U1 and Q1 first; inspect pin orientation, wetting and bridges before adding tall through-hole parts. Q1 AO3401A has gate pin 1, source pin 2, drain pin 3. It provides reverse-input protection only. It is not an eFuse, precise current limiter, overvoltage protector or guaranteed reverse-current blocker while on. F1 RXEF250 is a temperature-dependent resettable fuse; hold-current derating and thermal interaction must be measured. C1 is polarized, 1000 uF, 10 V, positive pin 1. Its inrush can upset a USB-C source and must be tested.
+
+U1 must be SN74AHCT1G125 at 5 V with the specified pinout. Do not replace AHCT with HC: input threshold compatibility is part of the design. R6 limits LED data edge current; it is not LED power protection. The amplifier shutdown pull-down must be present so audio is muted during reset. Both speaker terminals are active bridge outputs. Never connect either speaker wire to ground, USB shield or an earth-referenced oscilloscope clip. Use a suitable differential measurement method.
+
+Install the J1/J2 sockets parallel using an unpowered alignment fixture, then remove the fixture. Verify 22.86 mm row separation and actual seating height. Populate keyed XH headers with square-pad pin 1 matching the harness table. XH pitch is 2.50 mm, not 2.54 mm. Inspect C1, fuse and terminal body clearances. Fit the RUN shunt only when ready for powered carrier tests.
+
+Configure the HUSB238 board for 5 V and a 3 A current request. Keep the 5 V voltage-select jumper closed and follow the manufacturer's current-jumper table. All voltage-select jumpers open is not the specified safe configuration. Independently measure the PD board output, unloaded and under the approved load, before connecting it to J3. A 3 A request does not by itself prove the source or cable can supply 3 A; approved adapter/cable behaviour is an acceptance test.
+
+USB service rule: switch off and unplug product power, allow C1 to discharge and verify it with a meter, then remove the DevKit from BOTH carrier sockets before connecting either DevKit USB port. Removing only JP1 does not isolate signal-pin paths. Never have USB and carrier power connected to the installed DevKit at once. Reinsert only after USB is disconnected and orientation has been checked.
+
+## 5. Harness specification and routing
+
+Use genuine XH housings and compatible contacts qualified to the wire conductor area and insulation diameter. Candidate family: XHP-2/3/6/8 housing and SXH-001T-P0.6 contact; the supplier must validate these against the exact header and crimp drawing. The generated harness table specifies net-to-labelled-module-pad connections, not an assumed order on a generic breakout. Verify labelled pad identity on each purchased module.
+
+Proposed wire: flexible stranded 26 AWG for short signal/module harnesses; 24 AWG for the LED branch; 22 AWG for the PD-to-switch-to-J3 input circuit. These are engineering selections pending contact fit, voltage-drop, temperature and handling tests. Use red for positive supply, black for GND, distinct colours for signal functions. Label both ends with harness ID and pin 1. Record final cut length, strip length and crimp tooling after the first article. The provided lengths are starting estimates with service slack, not released production cut lengths.
+
+Route LCD and microphone/I2S harnesses separately from speaker leads and high-current LED wiring. Keep supply and return conductors adjacent. Keep the speaker pair twisted and away from the microphone. Do not bundle an I2S clock beside the acoustic port. Retain harnesses to the base with nonconductive ties or qualified adhesive mounts; no sharp bends, tension on module solder pads or pinch points under the deck. Respect the RF keepout. Use strain relief on the USB breakout and master switch. A cable must not support the globe or mirror frame.
+
+Harness acceptance: inspect crimp conductor/insulation wings under magnification; confirm terminal latch engagement; perform continuity and pin-to-pin short tests with electronics disconnected; perform supplier-specified pull tests on representative coupons. Do not tin conductors before crimping. Supplier crimp height, strip length and pull-force limits must be recorded; do not invent a universal value.
+
+## 6. Mechanical production, fits and optical assembly
+
+Coordinate datums: +Z is up; +Y is the operator; -Y is the client. The base/bottom interface defines datum A at Z=0; the globe/optical axis defines X=Y=0. PCB conversion is mechanical X=PCB X-50 and mechanical Y=45-PCB Y. PCB underside is at Z=9. The deck top is Z=72. Verify actual assembled heights because sockets, terminals and module connectors are represented incompletely.
+
+Printed structural parts are black PETG for iterative FDM or PA12 for a qualified SLS process. Start FDM trials at 0.20 mm layer height, four perimeters and 35% infill, then determine the final process from strength, creep, fit and thermal coupons. These settings are not validated process parameters. Do not print the optical globe as a transparent FDM part. Gold decoration must remain nonconductive near the antenna. Protect the mirror aperture and acoustic port from paint, flocking fibres and adhesive.
+
+Proposed first-article tolerances, subject to supplier capability approval: general non-optical printed dimensions +/-0.30 mm, drilled/reamed fastener holes +/-0.10 mm, relative optical mounting positions +/-0.20 mm. Do not apply these values blindly to optical curvature, surface finish or coatings. Print the fit coupon before heat-setting inserts. The nominal 4.2 mm insert pilots must be adjusted to the selected insert manufacturer's installation requirements and verified for pull-out and rotation resistance.
+
+The base and deck each use four main fastener locations. Main shell bosses lie on R=67 mm at 30,150,210,330 degrees; deck supports on R=63 mm at 45,135,225,315 degrees. Fastener lengths in the generated schedule are initial selections, not approved engagements. Confirm each screw does not bottom, break through, foul wiring or load an optical element. Establish torque by testing the exact material/insert/screw combination, not a steel fastener table alone.
+
+The LCD mounting pilots are currently round 2.5 mm holes at +/-38.1, +/-28.575 mm. Despite an older model comment about slots, the CAD does not provide an adjustable slot at those pilots. Dry-fit the real LCD board and quantify alignment before modifying geometry. The speaker cradle attaches at (-8,-40) and (37,-38). Rev B relieves its corner around the southeast deck support. The microphone and clip moved to X=-27; do not reuse the earlier X=-37 panel position.
+
+Panel interfaces are nominal envelopes: TALK and PAGE holes diameter 12.2 mm at X=-22 and X=0, Z=39; REC LED diameter 3.2 mm at X=18,Z=39; master switch diameter 6.4 mm at X=-22,Z=22; USB opening 12 x 7 mm centred X=29,Z=32; microphone aperture diameter 2.0 mm at X=-27,Z=52. All are on the +Y operator side. Select actual parts and verify rear body depth, nut access, panel thickness and cable bends before release.
+
+Globe procurement: nominal OD 120 mm, optical PMMA wall 2 mm, concentricity and optical zone to supplier-agreed inspection limits. The nominal spherical cut at Z=72 gives approximately 89.44 mm outside and 84.00 mm inside opening diameter. Bond a separate 100 OD / 84 ID / 2 mm PMMA flange using a supplier-qualified PMMA process. Inspect for crazing, stress, residual solvent, bond integrity and optical contamination. Do not prescribe a generic solvent adhesive without compatibility trials.
+
+Globe support uses the 100/84 mm silicone gasket, nominal 0.8 mm, and split retaining rings. Clamp loads act on the flange/gasket, not on the unsupported sphere. Verify compression and retention under the intended carry/transport cases. Mirror specification: 70 x 80 x 1 mm plate, nominal 70% reflection / 30% transmission in the visible range, front beamsplitter coating and rear antireflection treatment, reviewed at the actual incidence angles and LCD polarization. Supplier quality limits for wedge, scratch/dig, flatness and spectral balance are required before purchase release.
+
+The Rev B mirror frame has relieved pivots and hard stops separating the glass and retainer. Fit qualified compliant edge pads; do not force the plate into a printed pocket or use the glass as a load-bearing spacer. The retainer must not contact optical glass hard-to-hard. Verify actual pad thickness/compression, edge support, thermal expansion allowance and handling retention. Tighten only to the qualified process limit. Wear suitable eye protection when handling thin glass.
+
+## 7. Optical bench acceptance
+
+Begin without the decorative globe or LEDs, using the LCD calibration pattern and matte-black surroundings. Fit the coated face in the direction specified by the optical supplier. Adjust the mirror through its intended 45-55 degree range, set the operator position and record angle, eye distance and eye height. In a simplified central-ray construction, 45 degrees redirects a vertical ray horizontally; 55 degrees gives roughly 20 degrees elevation. That construction does not include globe refraction, off-axis LCD emission or polarization.
+
+Set firmware MIRROR_X/MIRROR_Y from the actual reflected LEFT/RIGHT/TOP pattern, not a photograph of a direct LCD. Check full character legibility, corner clipping, double images and colour fringes. Install the globe and repeat. Then add the diffuser/LEDs gradually and measure contrast. Do not accept a brightness setting that makes the operator strain or exposes legible text to the client zone.
+
+Define operator and client viewing volumes before testing. Proposed characterization grid: distances 0.4,0.6,0.8 m; azimuth steps of 15 degrees around both sides; seated and standing eye heights; ambient illuminance 10,100,500 lux. Record coordinates, meter calibration, displayed randomized strings, readable-character fraction and luminance/contrast for each position. A proposed target is at least 95% operator character recognition and at most 5% client character recognition in the owner-approved zones. Those are engineering goals, not measured results or a universal privacy guarantee.
+
+Direct sight of the upward-facing LCD from standing or side positions may require additional louvers, masking or a revised geometry. Rear-surface reflections, transmitted light, shiny fasteners and globe caustics must be considered. No current software test can close this item. When the target fails, revise the optics and corresponding mechanical model, regenerate the meshes and repeat the whole viewing-volume test. Do not change a report threshold to turn a failed design into a pass.
+
+## 8. Power-up and first-article functional procedure
+
+Before controller installation, inspect polarity and verify supply-to-ground is not shorted after capacitors settle. Record the meter and test method; a charged capacitor can make a resistance reading misleading. Energize through a current-limited 5 V source with a conservative initial limit and no display/LED/amplifier loads. Stop immediately on current limiting, incorrect rail voltage, unexpected heating or smell. Increase load only in planned steps within the source and component ratings.
+
+Proposed rail acceptance targets: 5 V system steady state 4.75-5.25 V; 3.3 V 3.135-3.465 V. Verify at the DevKit and far-end modules during Wi-Fi transmit, full permitted LED pattern, capture and speaker operation. Record startup/inrush and brownout waveforms with appropriate probing; minimum transient voltage must meet the actual module data-sheet requirements. No nominal wattage calculation replaces these measurements.
+
+Test buttons, REC indicator and amplifier shutdown first. The REC indicator should illuminate only during deliberate capture. Confirm the microphone clock stops outside capture. Hold TALK beyond eight seconds: recording must stop and not restart until release/re-press. Hold PAGE during the entire auto-erase interval: text must still be cleared. Disconnect Wi-Fi while an answer is displayed: the previous answer must disappear. Use the calibration firmware to verify SPI orientation and geometry before the operational firmware.
+
+Acquire a known acoustic tone/speech sample and inspect amplitude, polarity, sample alignment, clipping and noise. Default MIC_SHIFT=14 is not qualified by compilation. Validate against the SPH0645 timing and ESP32 receive format on the actual board. Check amplifier mute transitions and pop/noise at power, reset and cancellation. Speaker gain is intentionally limited, but acoustic output must still be measured.
+
+Run at the maximum permitted combination of radio activity, LED brightness and audio. Record ambient temperature and stabilized case/component temperatures, supply current and voltage drop for at least a two-hour engineering soak. A proposed external accessible-surface goal is <=45 C at 25 C ambient; applicable safety requirements and actual intended ambient range must govern final limits. Do not perform destructive short/fault tests without a reviewed method, protected supply and suitable equipment.
+
+## 9. Gateway and browser commissioning
+
+The project key is configured on the trusted gateway host using factory/configure_gateway.py. The tool writes a per-device token file and gateway/.env with restrictive POSIX permissions and refuses overwrite. Browser pairing uses the device token, not the OpenAI project key. On Windows, apply equivalent NTFS ACLs. Keep private files, backups, swap and crash dumps under the owner's security controls. The archive intentionally excludes these files.
+
+Start Docker Compose from gateway. It builds from the repository root using the explicit .dockerignore allowlist, serves the browser and API together, runs the application as UID 10001 with a read-only root filesystem and writes admission metadata to a dedicated SQLite volume. Use a single application worker. The budget is request-admission control, not an exact monetary cap. Provider account limits and operational spending alerts remain necessary.
+
+Configure LAN DNS for the chosen hostname. Caddy uses its local certificate authority in the bundled configuration. Export only the Caddy root certificate to trusted clients and firmware; keep its private signing keys private. Trust that certificate explicitly on each intended device. HTTPS certificate verification must stay enabled. A certificate issued for another hostname will not work. A public deployment requires an independently reviewed authentication, reverse-proxy and TLS configuration.
+
+Speech and Realtime are off unless explicitly enabled. Text and push-to-talk transcription use the gateway key and may incur API charges. Public speech must be disclosed as AI-generated. The browser resumes Web Audio in the button gesture before waiting for the network. Test actual Safari/iPhone audio, mute-switch behavior, microphone permissions, interruption, backgrounding and Bluetooth routing on representative devices. Desktop Chromium software rendering does not prove mobile behavior.
+
+Realtime uses native WebRTC and a server-created session. The gateway limits session duration and active slots and attempts cleanup on close/timeout. The current call ledger is process-local; crash recovery of provider sessions needs further qualification or a durable ledger before enabling it in production. Keep REALTIME_ENABLED=false until that gate is closed. Browser tabs clear stored credentials only in application memory; language-runtime string copies are not a secure-memory guarantee.
+
+## 10. Firmware commissioning and production security
+
+Use ESP-IDF v5.5.2 and the selected N8R8 hardware target. Copy the trusted gateway public root certificate to firmware/main/gateway_ca.pem. Never copy a private CA key into the firmware directory. Build with idf.py set-target esp32s3 and idf.py build. CI uses a disposable one-day test root only to prove compilation; it is not a deployable image and must not be flashed to a customer unit.
+
+The development partition table places NVS at 0x9000, size 0x6000, PHY at 0xf000 and the factory app at 0x10000. factory/provision.py reads the actual table instead of assuming those offsets. It prompts for the Wi-Fi passphrase without echo, generates a correctly quoted NVS CSV and optionally calls the official ESP-IDF generator. Flashing NVS requires an explicit port and --devkit-detached acknowledgement. It does not erase the whole chip, flash an application or alter eFuses.
+
+This NVS path is plaintext development provisioning. Secure Boot v2, flash/NVS encryption, production signing-key custody, anti-rollback/update policy, recovery, credential rotation, debug/JTAG policy and manufacturing station hardening are not completed production features. eFuse operations are irreversible and must be implemented under the owner's approved security workflow on sacrificial qualification units first. Never automate fuse burning merely to obtain a green software gate.
+
+Record firmware source commit, build toolchain, sdkconfig, certificate fingerprint, binary digest, unit serial and provisioning outcome in a private manufacturing record. Do not put raw tokens or passwords in public test evidence. Use a separate non-secret record for the product archive. Initial configuration failure and loss of network must fail visibly, keep the microphone inactive and avoid queueing recordings for later upload.
+
+## 11. Release control, packaging and service
+
+release-plan.json defines eighteen release requirements. factory/release_gate.py computes a source fingerprint and requires one PASS record per requirement, reviewer, timezone-qualified timestamp, matching fingerprint and an accessible report whose SHA-256 matches. Missing, failed, duplicated, stale or altered evidence blocks release. The checker validates record completeness and integrity; it does not authenticate reviewers, certify a product or replace organizational sign-off. Store signed approvals in the owner's controlled quality system.
+
+Supplier approval must include exact ordering codes, revision/lot traceability, no-substitution rules, measured fit, crimp process, optical inspection and material/process changes. Establish assembly torque, fixture setup, leak/retention limits if applicable, functional limits and process capability on first articles before freezing the traveler. Keep deviations separate and explicitly dispositioned. Defective units must be quarantined, not silently reworked without a record.
+
+For the target markets, obtain a competent assessment of radio/EMC/ESD, product safety, chemicals/material restrictions, environmental obligations, privacy and labeling. No conformity mark or certificate is authorized by this package. Define intended users, indoor environment, supply specification, duty cycle and handling restrictions before selecting test standards. The external adapter's compliance does not automatically qualify the assembled radio product.
+
+Package the globe supported by its flange/base, not by direct point loads on the optical sphere. Use a clean protective optical sleeve, non-shedding cushioning, no adhesive on coated glass and an inner restraint that prevents the base and globe striking each other. Qualify packaging dimensions, cushioning density and transport/drop procedures with the actual finished unit. Do not ship an assembled globe without retention and transport evidence. Include power/service restrictions and the AI-entertainment/voice disclosure in user instructions.
+
+Unplug before service. Clean only with optical-supplier-approved materials; PMMA and coatings can be damaged by unsuitable solvents. Do not direct sunlight through the globe onto flammable surfaces. Revalidate optical alignment and viewing-zone leakage after any globe, mirror, display, firmware orientation or mechanical change. Retire or reprovision a unit when its per-device token is revoked.
+
+## 12. Primary technical references
+
+The following sources informed interfaces and workflows. Verify the exact part revision and current applicability during supplier qualification; no claim of certification is derived from these links.
+
+- ESP32-S3 DevKitC-1 v1.1: https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32s3/esp32-s3-devkitc-1/user_guide_v1.1.html
+- ESP-IDF 5.5.2 NVS generator: https://docs.espressif.com/projects/esp-idf/en/v5.5.2/esp32s3/api-reference/storage/nvs_partition_gen.html
+- Espressif security enablement workflows: https://docs.espressif.com/projects/esp-idf/en/stable/esp32s3/security/security-features-enablement-workflows.html
+- ILI9341 display module: https://www.adafruit.com/product/1770
+- HUSB238 configuration: https://learn.adafruit.com/adafruit-husb238-usb-type-c-power-delivery-breakout/pinouts
+- I2S microphone: https://learn.adafruit.com/adafruit-i2s-mems-microphone-breakout/pinouts
+- MAX98357A interfaces: https://learn.adafruit.com/adafruit-max98357-i2s-class-d-mono-amp/pinouts
+- TI AHCT buffer: https://www.ti.com/product/SN74AHCT1G125
+- KiCad 9 CLI: https://docs.kicad.org/9.0/en/cli/cli.html
+- Official KiCad CI images: https://hub.docker.com/r/kicad/kicad
+- OpenAI key safety: https://help.openai.com/en/articles/5112595-best-practices-for-api-key-safety
+- OpenAI speech output: https://developers.openai.com/api/docs/guides/text-to-speech
+- OpenAI Realtime: https://developers.openai.com/api/docs/guides/realtime
+- Plate beamsplitter fundamentals: https://www.thorlabs.com/beamsplitter-guide

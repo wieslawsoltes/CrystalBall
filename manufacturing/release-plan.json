@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "product": "CrystalBall / Aether Orb",
+  "revision": "B",
+  "release_status": "ENGINEERING_CANDIDATE",
+  "required": [
+    "ecad_native", "mechanical_geometry", "firmware_profiles", "software_tests", "deployment_image",
+    "approved_vendor_list", "pcb_first_article", "mechanical_first_article", "optical_readability_privacy",
+    "power_inrush_fault_thermal", "radio_emc_esd", "product_safety_market_review",
+    "secure_provisioning_recovery", "privacy_retention_review", "live_api_browser_hardware",
+    "assembly_process_capability", "packaging_transport", "owner_manufacturing_authorization"
+  ],
+  "evidence": [],
+  "note": "No physical or compliance evidence has been supplied. Software tests cannot approve manufacturing."
+}

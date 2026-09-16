@@ -1,0 +1,3 @@
+ERC=0
+DRC=0
+NETLIST=0

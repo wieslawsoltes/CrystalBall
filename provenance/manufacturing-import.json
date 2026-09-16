@@ -1,0 +1,11 @@
+{
+  "transport_sha256": "8c11d02f4311fa31e37a4099f1f96abff30320470f855140b27738d2bc28401b",
+  "files": {
+    "manufacturing/handbook.md": "34533750aa28932029cb15dacee62cf87d93c7cf22f44399eaabaf5ac9963300",
+    "manufacturing/release-plan.json": "f369abecc2082843a5bdd767ebb54ce6c3b9dd2dea87d0aba9639291582b9d82",
+    "factory/release_gate.py": "3f00f4b279654faa37a3c03833070d626efeb2867b0505ae077619564931f498",
+    "factory/tests/test_release.py": "0f430880254a01261f2bb7170c85354dec5da3a420325ece02650900a31c8c5a",
+    "tools/manufacturing.py": "8ea7bd5cd3f13862335402268bd6839bc8c9e9507fa522b8de9693715a227f7b"
+  },
+  "release": "ENGINEERING_CANDIDATE"
+}

@@ -1,0 +1,31 @@
+Reference,Qty,Value,Candidate ordering code,Fitted,Footprint,Qualification,Notes,Source
+J1,1,DevKitC-1 socket J1,Samtec SSQ-122-03-G-S,True,Aether:Socket_1x22_P2.54_J1,CANDIDATE; supplier drawing/FAI required,Use genuine ESP32-S3-DevKitC-1-N8R8 v1.1. Remove module before USB flashing.,https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32s3/esp32-s3-devkitc-1/user_guide_v1.1.html
+J2,1,DevKitC-1 socket J3,Samtec SSQ-122-03-G-S,True,Aether:Socket_1x22_P2.54_J2,CANDIDATE; supplier drawing/FAI required,Use genuine ESP32-S3-DevKitC-1-N8R8 v1.1. Remove module before USB flashing.,https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32s3/esp32-s3-devkitc-1/user_guide_v1.1.html
+J3,1,5V INPUT,Phoenix Contact 1729128,True,Aether:Terminal_1x02_P5.08_J3,CANDIDATE; supplier drawing/FAI required,5.08 mm 2-position terminal; 5 V only. + pin 1; - pin 2. Verify exact holder body.,https://www.phoenixcontact.com/en-us/products/pcb-terminal-block-mkds-15-2-508-1729128
+F1,1,PTC 2.5A,Littelfuse RXEF250,True,Aether:PTC_P5.08_F1,CANDIDATE; supplier drawing/FAI required,"Thermal resettable fuse, not a precise electronic current limiter. Check hold-current derating.",https://www.littelfuse.com/products/polyswitch-resettable-ptcs/radial-leaded/rxef
+Q1,1,AO3401A,AO3401A,True,Aether:SOT-23_Q1,CANDIDATE; supplier drawing/FAI required,"P-channel reverse-input protection. Pin 1 G, pin 2 S, pin 3 D. NOT reverse-current blocking while on.",https://www.aosmd.com/res/data_sheets/AO3401A.pdf
+R1,1,100k,RC0805FR-07100KL,True,Aether:R_0805_2012Metric_R1,CANDIDATE; supplier drawing/FAI required,,
+C1,1,1000uF 10V,Panasonic EEU-FR1A102,True,Aether:CP_Radial_D10_P5_C1,CANDIDATE; supplier drawing/FAI required,Polarized; + pin 1. Measure PD startup/inrush with this bulk capacitance.,https://industrial.panasonic.com/ww/products/pt/aluminum-cap/models/EEUFR1A102
+JP1,1,RUN POWER,Samtec TSW-102-07-G-S + 2.54mm shunt,True,Aether:PinHeader_1x02_P2.54_JP1,CANDIDATE; supplier drawing/FAI required,Fitted shunt for RUN. Remove DevKit completely for USB flashing; do not dual-power.,
+J4,1,LCD,JST B8B-XH-A(LF)(SN),True,Aether:XH_1x08_P2.50_J4,CANDIDATE; supplier drawing/FAI required,Vertical keyed XH header; pin 1 is square; qualify exact supplier drawing.,https://www.jst-mfg.com/product/pdf/eng/eXH.pdf
+R2,1,33R,RC0805FR-0733RL,True,Aether:R_0805_2012Metric_R2,CANDIDATE; supplier drawing/FAI required,,
+R3,1,33R,RC0805FR-0733RL,True,Aether:R_0805_2012Metric_R3,CANDIDATE; supplier drawing/FAI required,,
+J5,1,MIC 3V3,JST B6B-XH-A(LF)(SN),True,Aether:XH_1x06_P2.50_J5,CANDIDATE; supplier drawing/FAI required,Vertical keyed XH header; pin 1 is square; qualify exact supplier drawing.,https://www.jst-mfg.com/product/pdf/eng/eXH.pdf
+J6,1,AMP 5V,JST B6B-XH-A(LF)(SN),True,Aether:XH_1x06_P2.50_J6,CANDIDATE; supplier drawing/FAI required,Vertical keyed XH header; pin 1 is square; qualify exact supplier drawing.,https://www.jst-mfg.com/product/pdf/eng/eXH.pdf
+R4,1,10k,RC0805FR-0710KL,True,Aether:R_0805_2012Metric_R4,CANDIDATE; supplier drawing/FAI required,,
+U1,1,SN74AHCT1G125,SN74AHCT1G125DBVR,True,Aether:SOT-23-5_U1,CANDIDATE; supplier drawing/FAI required,5V TTL input buffer; /OE grounded. Qualify TI DBV footprint before ordering.,https://www.ti.com/lit/ds/symlink/sn74ahct1g125.pdf
+C2,1,100nF,GRM21BR71H104KA01L,True,Aether:C_0805_2012Metric_C2,CANDIDATE; supplier drawing/FAI required,,
+R5,1,100k,RC0805FR-07100KL,True,Aether:R_0805_2012Metric_R5,CANDIDATE; supplier drawing/FAI required,,
+R6,1,330R,RC0805FR-07330RL,True,Aether:R_0805_2012Metric_R6,CANDIDATE; supplier drawing/FAI required,,
+J7,1,RING 5V,JST B3B-XH-A(LF)(SN),True,Aether:XH_1x03_P2.50_J7,CANDIDATE; supplier drawing/FAI required,Vertical keyed XH header; pin 1 is square; qualify exact supplier drawing.,https://www.jst-mfg.com/product/pdf/eng/eXH.pdf
+J8,1,PTT,JST B2B-XH-A(LF)(SN),True,Aether:XH_1x02_P2.50_J8,CANDIDATE; supplier drawing/FAI required,Vertical keyed XH header; pin 1 is square; qualify exact supplier drawing.,https://www.jst-mfg.com/product/pdf/eng/eXH.pdf
+J9,1,PAGE,JST B2B-XH-A(LF)(SN),True,Aether:XH_1x02_P2.50_J9,CANDIDATE; supplier drawing/FAI required,Vertical keyed XH header; pin 1 is square; qualify exact supplier drawing.,https://www.jst-mfg.com/product/pdf/eng/eXH.pdf
+J10,1,REC LED,JST B2B-XH-A(LF)(SN),True,Aether:XH_1x02_P2.50_J10,CANDIDATE; supplier drawing/FAI required,Vertical keyed XH header; pin 1 is square; qualify exact supplier drawing.,https://www.jst-mfg.com/product/pdf/eng/eXH.pdf
+R7,1,1k,RC0805FR-071KL,True,Aether:R_0805_2012Metric_R7,CANDIDATE; supplier drawing/FAI required,,
+R8,1,10k,RC0805FR-0710KL,True,Aether:R_0805_2012Metric_R8,CANDIDATE; supplier drawing/FAI required,,
+R9,1,10k,RC0805FR-0710KL,True,Aether:R_0805_2012Metric_R9,CANDIDATE; supplier drawing/FAI required,,
+C3,1,100nF,GRM21BR71H104KA01L,True,Aether:C_0805_2012Metric_C3,CANDIDATE; supplier drawing/FAI required,,
+TP1,1,5V_SYS,Keystone 5000 test loop,True,Aether:TestPoint_THT_D2_TP1,CANDIDATE; supplier drawing/FAI required,,
+TP2,1,GND,Keystone 5000 test loop,True,Aether:TestPoint_THT_D2_TP2,CANDIDATE; supplier drawing/FAI required,,
+TP3,1,3V3,Keystone 5000 test loop,True,Aether:TestPoint_THT_D2_TP3,CANDIDATE; supplier drawing/FAI required,,
+TP4,1,LED_DIN,Keystone 5000 test loop,True,Aether:TestPoint_THT_D2_TP4,CANDIDATE; supplier drawing/FAI required,,

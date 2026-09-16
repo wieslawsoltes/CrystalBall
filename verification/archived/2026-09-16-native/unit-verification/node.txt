@@ -1,0 +1,134 @@
+
+> crystalball-prototype@0.2.0 test
+> node --test tests/*.test.js
+
+TAP version 13
+# Subtest: unlock creates and resumes context before awaiting the network
+ok 1 - unlock creates and resumes context before awaiting the network
+  ---
+  duration_ms: 0.706379
+  type: 'test'
+  ...
+# Subtest: cancel during context resume cannot start stale audio and wipes PCM
+ok 2 - cancel during context resume cannot start stale audio and wipes PCM
+  ---
+  duration_ms: 1.240389
+  type: 'test'
+  ...
+# Subtest: playback end wipes AudioBuffer and detaches graph
+ok 3 - playback end wipes AudioBuffer and detaches graph
+  ---
+  duration_ms: 0.36584
+  type: 'test'
+  ...
+# Subtest: public state never serializes text or credentials
+ok 4 - public state never serializes text or credentials
+  ---
+  duration_ms: 1.901268
+  type: 'test'
+  ...
+# Subtest: public activity is an allowlist
+ok 5 - public activity is an allowlist
+  ---
+  duration_ms: 0.257758
+  type: 'test'
+  ...
+# Subtest: pagination is bounded and preserves word content
+ok 6 - pagination is bounded and preserves word content
+  ---
+  duration_ms: 0.715455
+  type: 'test'
+  ...
+# Subtest: empty text has one empty page
+ok 7 - empty text has one empty page
+  ---
+  duration_ms: 0.166349
+  type: 'test'
+  ...
+# Subtest: camera target projects to screen centre
+ok 8 - camera target projects to screen centre
+  ---
+  duration_ms: 0.345033
+  type: 'test'
+  ...
+# Subtest: WebGPU depth projection maps near and far to zero and one
+ok 9 - WebGPU depth projection maps near and far to zero and one
+  ---
+  duration_ms: 0.13563
+  type: 'test'
+  ...
+# Subtest: WAV exact firmware format
+ok 10 - WAV exact firmware format
+  ---
+  duration_ms: 3.344602
+  type: 'test'
+  ...
+# Subtest: WAV clips and rejects nonfinite samples
+ok 11 - WAV clips and rejects nonfinite samples
+  ---
+  duration_ms: 0.982902
+  type: 'test'
+  ...
+# Subtest: WAV rejects excessive and insufficient duration
+ok 12 - WAV rejects excessive and insufficient duration
+  ---
+  duration_ms: 0.470523
+  type: 'test'
+  ...
+# Subtest: resampling 44100 Hz suppresses above-Nyquist audio
+ok 13 - resampling 44100 Hz suppresses above-Nyquist audio
+  ---
+  duration_ms: 34.138885
+  type: 'test'
+  ...
+# Subtest: resampling 48000 Hz suppresses above-Nyquist audio
+ok 14 - resampling 48000 Hz suppresses above-Nyquist audio
+  ---
+  duration_ms: 18.06911
+  type: 'test'
+  ...
+# Subtest: PCM decoder enforces format and bounds
+ok 15 - PCM decoder enforces format and bounds
+  ---
+  duration_ms: 0.227542
+  type: 'test'
+  ...
+# Subtest: gateway rejects plaintext remote origin and project key
+ok 16 - gateway rejects plaintext remote origin and project key
+  ---
+  duration_ms: 0.321651
+  type: 'test'
+  ...
+# Subtest: gateway rejects paths outside its API contract
+ok 17 - gateway rejects paths outside its API contract
+  ---
+  duration_ms: 0.369474
+  type: 'test'
+  ...
+# Subtest: streamed text requires an explicit done event
+ok 18 - streamed text requires an explicit done event
+  ---
+  duration_ms: 33.006474
+  type: 'test'
+  ...
+# Subtest: stream accepts completed bounded snapshots
+ok 19 - stream accepts completed bounded snapshots
+  ---
+  duration_ms: 0.603323
+  type: 'test'
+  ...
+# Subtest: speech response is bounded before allocating playback buffer
+ok 20 - speech response is bounded before allocating playback buffer
+  ---
+  duration_ms: 1.612065
+  type: 'test'
+  ...
+1..20
+# tests 20
+# suites 0
+# pass 20
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 160.427048

@@ -1,0 +1,12 @@
+ID,Joint,Qty,Candidate screw,Mating feature,Qualification
+F01,Bottom cover to shell,4,"M3 machine screw, initial M3x8",4 x M3 heat-set inserts,Verify 4.2 mm pilot and blind engagement
+F02,Optical deck to shell,4,"M3 machine screw, initial M3x8",4 x M3 heat-set inserts,Verify 4.2 mm pilot; no screw bottoming
+F03,Carrier to standoffs,4,"M3 plastic-thread screw, initial x6",2.5 mm pilot,Do not use metal-thread torque assumptions
+F04,LCD to standoffs,4,"M3 plastic-thread screw, initial x6",2.5 mm pilot,Real board hole diameter/stack must be measured
+F05,Speaker cradle to deck,2,"M3 plastic-thread screw, initial x6",2.5 mm blind pilots,"Locations (-8,-40), (37,-38)"
+F06,PD sled to supports,2,"M3 plastic-thread screw, initial x6",2.5 mm pilots,Verify PCB retention separately
+F07,Mirror upright feet,4,"M2 plastic-thread screw, initial x6",1.7 mm pilots,Do not break through deck
+F08,Mirror pivot pair,2,"M3 screw, initial x12 + nylon washer + locknut",3.3 mm pivot bores,Set friction without bending frame or loading glass
+F09,Split globe retainer,4,"M3 plastic-thread screw, initial x6",2.5 mm pilots / 3.3 mm clearance,Verify flange compression and pull-out
+F10,Mirror retainer,4,"M2 plastic-thread screw, initial x6",Match modeled pilots,Qualified compliant pads; no glass contact
+F11,Speaker/harness retention,as routed,Nonconductive ties and mounts,Supplier selection required,No load transmitted to acoustic/optical parts

@@ -1,0 +1,8 @@
+Command: ninja all
+[1/4] cd /__w/CrystalBall/CrystalBall/firmware/build/esp-idf/esptool_py && /opt/esp/python_env/idf5.5_py3.12_env/bin/python /opt/esp/idf/components/partition_table/check_sizes.py --offset 0x8000 partition --type app /__w/CrystalBall/CrystalBall/firmware/build/partition_table/partition-table.bin /__w/CrystalBall/CrystalBall/firmware/build/aether_orb.bin
+aether_orb.bin binary size 0xde810 bytes. Smallest app partition is 0x300000 bytes. 0x2217f0 bytes (71%) free.
+[2/4] Performing build step for 'bootloader'
+[1/1] cd /__w/CrystalBall/CrystalBall/firmware/build/bootloader/esp-idf/esptool_py && /opt/esp/python_env/idf5.5_py3.12_env/bin/python /opt/esp/idf/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x0 /__w/CrystalBall/CrystalBall/firmware/build/bootloader/bootloader.bin
+Bootloader binary size 0x57e0 bytes. 0x2820 bytes (31%) free.
+[3/4] No install step for 'bootloader'
+[4/4] Completed 'bootloader'

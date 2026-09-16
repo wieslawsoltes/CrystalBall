@@ -1,0 +1,21 @@
+ID,Domain,Test,Criterion,Sampling,Precaution
+A01,PCB,Bare board electrical test,Released IPC-D-356 continuity/isolation,Every bare board,Unpowered
+A02,PCB,Profile / thickness / hole plating,Supplier-approved drawing and stackup,Incoming lot / FAI,Unpowered
+A03,Assembly,Polarity / connector numbering / solder,"No bridges, wrong polarity, incomplete latch or cold joints",Every unit,Unpowered
+A04,Power,PD output before carrier connection,PROPOSED 4.75..5.25 V; approved adapter and cable,Every unit,Isolated low-voltage supply
+A05,Power,3V3 operating rail,PROPOSED 3.135..3.465 V plus module transient limits,Every unit / detailed FAI,Suitable probe ground
+A06,Power,"Inrush, droop, fault, reverse-input",Reviewed waveform and protected fault-test procedure,Design qualification,Reviewed bench setup
+A07,Thermal,Worst permitted radio/LED/audio duty,PROPOSED case <=45 C at 25 C ambient; final applicable limits govern,Design qualification / soak,Measure stabilized temperatures
+A08,Input,TALK/PAGE held and released,Single capture; <=8 s; no held-button erase starvation,Every unit,No live credentials in report
+A09,Privacy,Mic/REC status / idle I2S clocks,No capture or microphone clocks outside requested recording,FAI / every-unit functional,Logic analyzer + acoustic stimulus
+A10,Display,Calibration / full text / orientation,All intended operator glyphs legible and correctly oriented,Every unit,Calibration firmware
+A11,Optics,Viewing-volume recognition grid,"PROPOSED operator >=95%, client <=5%; zones approved first",Design qualification / sampled audit,"Distances, angles and lux recorded"
+A12,Audio,I2S sample shift / clipping / gain,Known stimulus; no clipping at approved level; correct sample alignment,Design qualification,Differential BTL measurements only
+A13,Privacy,Erase / offline / cancellation,Browser 90 s; firmware configured 120 s default; disconnect hides old answer,Every unit / software regression,Test held controls and network loss
+A14,Network,"TLS trust, bad cert and bad token",Valid request succeeds; invalid cert/token fails closed,Every deployment,Never disable TLS
+A15,Security,Provisioning / boot / recovery / revocation,Owner-approved signed/encrypted production process,Production qualification,No automatic eFuse operations
+A16,API,Paid text / STT / TTS / optional Realtime,"Owner key, approved account models, bounded failure recovery",Commissioning / regression,Explicit spend authorization
+A17,Mechanical,Fits / retention / cable routing,"No hard optical contact, pinched cable or insecure globe",Every unit / FAI,"Real parts, not envelope proxies"
+A18,Compliance,"Radio, EMC, ESD, market safety",Competent assessment and applicable test evidence,Design qualification,Accredited/competent lab as required
+A19,Transport,Globe restraint and pack integrity,Owner-approved packaging/drop/transport plan,Packaging qualification,No point load on optical globe
+A20,Visual,Mobile / desktop / physical appearance,Owner-approved comparison; no 100% identity claim without acceptance,Design acceptance,Actual Safari/iPhone and hardware

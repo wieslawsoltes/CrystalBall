@@ -1,0 +1,28 @@
+Part,Modeled_qty,Role,Material,Process,BBox_mm,Notes
+01_base_shell,1,FABRICATED/OPTICAL PART,Black PETG or PA12,"FDM/SLS, no optical surfaces",148.0 x 137.0 x 65.0,3 mm wall; 4.2 mm heat-set pilot must be tuned using fit coupon. No metal-filled finish near antenna.
+02_bottom_cover,1,FABRICATED/OPTICAL PART,Black PETG / PA12,FDM/SLS,147.4 x 136.7 x 9.0,M3 body screws through counterbores; independent PCB M3x6 self-tap screws enter separate posts from above.
+03_optical_deck,1,FABRICATED/OPTICAL PART,Black PETG / PA12,FDM/SLS,147.4 x 136.7 x 8.8,Screen plane nominal Z68.5. Display stand-off length is adjustable using washers; measure actual LCD revision.
+04_optical_globe,1,FABRICATED/OPTICAL PART,"Optical PMMA, clear, UV-stabilized",Optical forming/polishing - NOT FDM,120.0 x 120.0 x 100.0,"120 OD, 2 nominal wall, cut at 40 mm below centre. Opening OD89.443 / ID84.000. Supplier optical qualification required."
+05_globe_bond_flange,1,FABRICATED/OPTICAL PART,Clear cast PMMA,CNC/laser cut; supplier-bond to globe,100.0 x 100.0 x 2.0,100 OD / 84 ID / 2 thick. Bond is structural: test pull-off. No cyanoacrylate vapour near clear surfaces.
+06_globe_gasket,1,FABRICATED/OPTICAL PART,"Black silicone, 40-50 Shore A",Die-cut 0.8 mm sheet,100.0 x 100.0 x 0.8,
+07_retainer_left,1,FABRICATED/OPTICAL PART,Gold-painted PETG / PA12,FDM/SLS then nonconductive finish,55.85 x 112.0 x 2.0,
+08_retainer_right,1,FABRICATED/OPTICAL PART,Gold-painted PETG / PA12,FDM/SLS then nonconductive finish,55.85 x 112.0 x 2.0,
+09_mirror_frame,1,FABRICATED/OPTICAL PART,Matte black PA12 / PETG,FDM/SLS; smooth glass-contact pads,74.0 x 49.819 x 69.956,Glass rests on edge lip with 0.2 mm silicone pads. Rotation 45-55 deg normal use; clamp with M3 pivot screws.
+10_mirror_retainer,1,FABRICATED/OPTICAL PART,Matte black PA12 / PETG,FDM/SLS,74.0 x 49.163 x 69.497,
+11_beamsplitter_OPTICAL,1,FABRICATED/OPTICAL PART,"70R/30T coated optical glass, rear AR",Optical fabrication - NOT FDM,70.0 x 46.705 x 66.106,"70x80x1 mm, visible band, specify usable incidence 45-55 degrees. Coating uniformity, wedge/ghosting and polarization to vendor review."
+12_upright_left,1,FABRICATED/OPTICAL PART,Matte black PA12 / PETG,FDM/SLS,4.0 x 14.0 x 44.0,"M2x6 foot screws, M3 pivot clamp. No overlong screws into LCD envelope."
+12_upright_right,1,FABRICATED/OPTICAL PART,Matte black PA12 / PETG,FDM/SLS,4.0 x 14.0 x 44.0,"M2x6 foot screws, M3 pivot clamp. No overlong screws into LCD envelope."
+13_halo_rail,1,FABRICATED/OPTICAL PART,Black PETG / PA12,FDM/SLS,118.0 x 118.0 x 10.0,"Use flexible strip, not a 60 mm rigid ring: that would obstruct the display. Locate the no-LED gap on +Y."
+14_halo_diffuser,1,FABRICATED/OPTICAL PART,Opal silicone or translucent TPU,Cast/mould or FDM optical trial,112.4 x 112.4 x 8.0,"Only peripheral glow; no mist, lasers or true volumetric image. Black out operator-facing quadrant after optical calibration."
+15_speaker_cradle,1,FABRICATED/OPTICAL PART,Black PETG / PA12,FDM/SLS,54.5 x 44.0 x 33.0,"40 mm speaker envelope; strap retention. Mount to matching blind deck holes at (-8,-40) and (37,-38) with M3x6 self-tapping screws. Strap through cradle secures speaker; qualify purchased speaker envelope."
+16_pd_module_sled,1,FABRICATED/OPTICAL PART,Black PETG / PA12,FDM/SLS,26.0 x 31.0 x 6.0,"Tray screws at (19/39,57) to case bosses. Foam tape plus cable tie retains PD board; adjust strip thickness to align USB centre Z32.0 with 12x7 case slot. Vendor PCB hole pattern is NOT claimed exact."
+17_fit_coupon,1,PROCESS COUPON; not an assembly part,Same material and print profile as enclosure,FDM/SLS,68.0 x 28.0 x 6.0,"Not an assembly part. Print first. Verify inserts, M2/M3 holes and beamsplitter thickness slots."
+REF_carrier_PCB,1,REFERENCE ONLY; procure via electrical/module BOM,FR-4 2 oz copper,Purchased PCB,100.0 x 90.0 x 1.6,Board outline/mounting holes only. Pads and copper in KiCad/Gerbers.
+REF_esp32_devkit,1,REFERENCE ONLY; procure via electrical/module BOM,Purchased module,Envelope proxy,25.4 x 62.74 x 4.6,Envelope orientation only; board antenna keepout is authoritative in PCB files.
+REF_LCD_1770,1,REFERENCE ONLY; procure via electrical/module BOM,Adafruit 1770,Envelope proxy,81.28 x 62.484 x 6.1,LCD optical plane and connector clearance require measurement. Display is 320x240 landscape.
+REF_LCD_active,1,REFERENCE ONLY; procure via electrical/module BOM,TFT active area,Envelope proxy,57.6 x 43.2 x 0.2,
+REF_speaker_40mm,1,REFERENCE ONLY; procure via electrical/module BOM,8 ohm 2W speaker,Envelope proxy,40.0 x 40.0 x 20.0,
+REF_amp_module,1,REFERENCE ONLY; procure via electrical/module BOM,Adafruit 3006,Envelope proxy,20.0 x 18.0 x 2.0,
+REF_mic_module,1,REFERENCE ONLY; procure via electrical/module BOM,Adafruit 3421,Envelope proxy,16.7 x 2.0 x 12.7,"Mount bottom acoustic port facing +Y at (-27,60,52), using a 1.3 mm closed-cell foam gasket to panel. Do not cover port with adhesive. Secure board with nonconductive tie through carrier."
+18_microphone_clip,1,FABRICATED/OPTICAL PART,Black PETG / PA12,FDM/SLS,22.0 x 4.5 x 17.0,"Foam tape to panel; guide the microphone port to the 2 mm panel bore. Clip supports board edges, not MEMS package. Insulate back side; no conductive screws near microphone pins."
+REF_PD_HUSB238,1,REFERENCE ONLY; procure via electrical/module BOM,Adafruit 5807,Envelope proxy,18.0 x 31.5 x 3.4,USB mouth centre is adjusted to the case Z32 slot with thin foam shims after measuring delivered module. No assumed mounting-hole pattern.

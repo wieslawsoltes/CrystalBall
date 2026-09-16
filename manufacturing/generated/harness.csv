@@ -1,0 +1,35 @@
+Harness,From,Pin,Net,To,Labelled pad,AWG,Colour,Initial_length_mm,Status/notes
+W04,J4,1,5V_SYS,Adafruit 1770,VIN,26,red,130,PROPOSED cut length; validate on FAI
+W04,J4,2,GND,Adafruit 1770,GND,26,black,130,PROPOSED cut length; validate on FAI
+W04,J4,3,LCD_SCK_R,Adafruit 1770,CLK,26,green,130,PROPOSED cut length; validate on FAI
+W04,J4,4,LCD_MOSI_R,Adafruit 1770,MOSI,26,blue,130,PROPOSED cut length; validate on FAI
+W04,J4,5,LCD_CS,Adafruit 1770,CS,26,orange,130,PROPOSED cut length; validate on FAI
+W04,J4,6,LCD_DC,Adafruit 1770,D/C,26,violet,130,PROPOSED cut length; validate on FAI
+W04,J4,7,LCD_RST,Adafruit 1770,RST,26,grey,130,PROPOSED cut length; validate on FAI
+W04,J4,8,LCD_BL,Adafruit 1770,LITE,26,brown,130,PROPOSED cut length; validate on FAI
+W05,J5,1,3V3,Adafruit 3421,3V,26,red,130,PROPOSED cut length; validate on FAI
+W05,J5,2,GND,Adafruit 3421,GND,26,black,130,PROPOSED cut length; validate on FAI
+W05,J5,3,MIC_BCLK,Adafruit 3421,BCLK,26,green,130,PROPOSED cut length; validate on FAI
+W05,J5,4,MIC_WS,Adafruit 3421,LRCL,26,blue,130,PROPOSED cut length; validate on FAI
+W05,J5,5,MIC_SD,Adafruit 3421,DOUT,26,orange,130,PROPOSED cut length; validate on FAI
+W05,J5,6,GND,Adafruit 3421,SEL,26,black,130,PROPOSED cut length; validate on FAI
+W06,J6,1,5V_SYS,Adafruit 3006,VIN,26,red,100,PROPOSED cut length; validate on FAI
+W06,J6,2,GND,Adafruit 3006,GND,26,black,100,PROPOSED cut length; validate on FAI
+W06,J6,3,AMP_BCLK,Adafruit 3006,BCLK,26,green,100,PROPOSED cut length; validate on FAI
+W06,J6,4,AMP_WS,Adafruit 3006,LRC,26,blue,100,PROPOSED cut length; validate on FAI
+W06,J6,5,AMP_DIN,Adafruit 3006,DIN,26,orange,100,PROPOSED cut length; validate on FAI
+W06,J6,6,AMP_SD,Adafruit 3006,SD,26,violet,100,PROPOSED cut length; validate on FAI
+W07,J7,1,5V_SYS,16-pixel WS2812B strip,5V,24,red,120,PROPOSED cut length; validate on FAI
+W07,J7,2,GND,16-pixel WS2812B strip,GND,24,black,120,PROPOSED cut length; validate on FAI
+W07,J7,3,LED_DIN,16-pixel WS2812B strip,DIN,24,green,120,PROPOSED cut length; validate on FAI
+W08,J8,1,PTT,TALK normally-open momentary,NO contact,26,white,140,PROPOSED cut length; validate on FAI
+W08,J8,2,GND,TALK normally-open momentary,other contact,26,black,140,PROPOSED cut length; validate on FAI
+W09,J9,1,NEXT,PAGE normally-open momentary,NO contact,26,white,130,PROPOSED cut length; validate on FAI
+W09,J9,2,GND,PAGE normally-open momentary,other contact,26,black,130,PROPOSED cut length; validate on FAI
+W10,J10,1,REC_ANODE,Red recording LED,anode,26,white,130,PROPOSED cut length; validate on FAI
+W10,J10,2,GND,Red recording LED,cathode,26,black,130,PROPOSED cut length; validate on FAI
+W01,PD OUT+,1,VIN_5V,master switch,input lug,22,red,80,Verify switch DC rating
+W02,master switch,2,VIN_5V,J3,pin 1,22,red,120,5 V only; no USB dual-power
+W03,PD OUT-,1,GND,J3,pin 2,22,black,160,Route beside positive supply
+W11,amplifier SPK+,1,BTL+,8 ohm speaker,positive,26,white,100,Twisted pair; neither wire grounded
+W11,amplifier SPK-,2,BTL-,8 ohm speaker,negative,26,white/black,100,Twisted pair; neither wire grounded

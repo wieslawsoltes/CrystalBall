@@ -1,0 +1,16 @@
+ID,Qty,Candidate part/specification,Supplier,Qualification notes
+M01,1,ESP32-S3-DevKitC-1-N8R8 v1.1,Espressif,"Verify board revision, PSRAM, pinout and seating height"
+M02,1,1770 ILI9341 2.8-inch TFT breakout,Adafruit,IM1/IM2/IM3 closed; IM0 open; verify active optical plane
+M03,1,3421 SPH0645 I2S microphone,Adafruit,SEL to ground; microphone port unobstructed
+M04,1,3006 MAX98357A amplifier,Adafruit,BTL speaker pair; neither lead to ground
+M05,1,5807 HUSB238 PD breakout,Adafruit,5 V jumper closed; 3 A current request; verify unloaded voltage
+M06,1,16 x WS2812B on flexible strip,Supplier selection required,"Pitch, width, bend radius and power qualification required"
+M07,1,40 mm envelope / 8 ohm / 2 W speaker,Supplier selection required,"Exact part, depth, lugs and acoustic response unqualified"
+M08,1,USB-C external 5 V / 3 A capable supply,Supplier selection required,Market-compliant finished adapter; PD/cable qualification
+M09,1,USB-C cable for selected supply,Supplier selection required,"Connector, current, bend and strain relief qualification"
+M10,2,12 mm nominal panel momentary NO switch,Supplier selection required,Hole 12.2; rear depth and contact quality unqualified
+M11,1,M6 nominal panel master switch,Supplier selection required,DC switching rating and contact heating qualification
+M12,1,3 mm red panel recording LED,Supplier selection required,3.2 hole; colour/current/retention qualification
+M13,1,120 mm OD / 2 mm wall optical PMMA globe,Custom optical supplier,Open-bottom sphere; flange bond and optical quality qualification
+M14,1,70 x 80 x 1 mm visible beamsplitter,Custom optical supplier,Nominal 70R/30T front coating; rear AR; angle/polarization review
+M15,1,Optical edge pads / gasket / non-shedding foam,Supplier selection required,"Compatibility, compression, ageing and retention qualification"

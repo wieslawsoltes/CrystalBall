@@ -1,0 +1,26 @@
+{
+  "schema": 1,
+  "status": "BLOCKED",
+  "source_fingerprint": "be558c86963c5ebec17a2cc1d570fe45d13c0e197059ff518feda1498fea5d49",
+  "errors": [
+    "ecad_native: missing evidence",
+    "mechanical_geometry: missing evidence",
+    "firmware_profiles: missing evidence",
+    "software_tests: missing evidence",
+    "deployment_image: missing evidence",
+    "approved_vendor_list: missing evidence",
+    "pcb_first_article: missing evidence",
+    "mechanical_first_article: missing evidence",
+    "optical_readability_privacy: missing evidence",
+    "power_inrush_fault_thermal: missing evidence",
+    "radio_emc_esd: missing evidence",
+    "product_safety_market_review: missing evidence",
+    "secure_provisioning_recovery: missing evidence",
+    "privacy_retention_review: missing evidence",
+    "live_api_browser_hardware: missing evidence",
+    "assembly_process_capability: missing evidence",
+    "packaging_transport: missing evidence",
+    "owner_manufacturing_authorization: missing evidence"
+  ],
+  "limitation": "Checks completeness and integrity only; does not authenticate reviewers or establish compliance."
+}

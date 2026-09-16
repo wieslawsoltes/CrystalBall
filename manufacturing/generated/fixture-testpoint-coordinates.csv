@@ -1,0 +1,5 @@
+TP,Net,PCB_X,PCB_Y_down,Template_X,Template_Y_up,Interface
+TP1,5V_SYS,69,61,79,39,Loop contact; fixture/sleeve selection unqualified
+TP2,GND,76,61,86,39,Loop contact; fixture/sleeve selection unqualified
+TP3,3V3,46,36,56,64,Loop contact; fixture/sleeve selection unqualified
+TP4,LED_DIN,71,49,81,51,Loop contact; fixture/sleeve selection unqualified
