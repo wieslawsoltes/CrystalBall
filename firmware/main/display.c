@@ -66,9 +66,12 @@ esp_err_t orb_display_init(void){
     CHECK(command(0x11,NULL,0));vTaskDelay(pdMS_TO_TICKS(150));CHECK(command(0x29,NULL,0));CHECK(flush());gpio_set_level(PIN_LCD_BL,1);return ESP_OK;
 }
 esp_err_t orb_display_status(const char *title,const char *body){
-    if(!fb)return ESP_ERR_INVALID_STATE;memset(fb,0,WIDTH*HEIGHT*2);
+    if (!fb) { return ESP_ERR_INVALID_STATE; }
+    memset(fb,0,WIDTH*HEIGHT*2);
     label(28,14,title,2,LILAC);char lines[ORB_ROWS][ORB_COLUMNS+1];orb_page(body,0,lines);
-    for(int i=0;i<ORB_ROWS;i++)label(28,44+i*17,lines[i],2,WHITE);return flush();
+    for (int i=0;i<ORB_ROWS;i++) { label(28,44+i*17,lines[i],2,WHITE); }
+    orb_wipe(lines,sizeof lines);
+    return flush();
 }
 esp_err_t orb_display_page(const char *text,size_t offset,unsigned page){
     char heading[32];snprintf(heading,sizeof heading,"REFLECTION / %u",page);
