@@ -2,7 +2,7 @@
   "schema": 2,
   "status": "BLOCKED",
   "authenticated": false,
-  "source_fingerprint": "027aed8f085af8bb58455eb970e8378fb2053464bcd3b7dcdefa8eb00e31c53a",
+  "source_fingerprint": "40a838de530ac0eca08bcaa4f13b123f074f50df46fafe8e26086a13f9ae5ba2",
   "materials_fingerprint": "3b19185abe81351a56968833dfe9ade39e2092017377b5a221ae25a0ebd6fc13",
   "errors": [
     "ecad_native: missing evidence",
