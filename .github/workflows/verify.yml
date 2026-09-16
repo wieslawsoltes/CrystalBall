@@ -35,6 +35,9 @@ jobs:
           npm --prefix web test | tee verification/units/node.txt
           gcc -std=c11 -Wall -Wextra -Werror -fsanitize=address,undefined -I firmware/main tests/core_test.c firmware/main/core.c -o /tmp/orb-core
           /tmp/orb-core | tee verification/units/firmware-host.txt
+          gcc -std=c11 -Wall -Wextra -Werror -fsanitize=address,undefined -I firmware/main tests/diagnostics_test.c firmware/main/diagnostics_core.c -o /tmp/orb-diagnostics
+          /tmp/orb-diagnostics | tee verification/units/diagnostics-host.txt
+          python ci/test_diagnostics_build.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -64,13 +67,18 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        profile: [default, public-voice, calibration]
+        profile: [default, public-voice, calibration, factory-diagnostics]
     steps:
       - uses: actions/checkout@v4
-      - name: Generate disposable build-only trust anchor
+      - name: Configure isolated build profile
         run: |
-          openssl req -x509 -newkey rsa:2048 -nodes -keyout /tmp/build-only.key -out firmware/main/gateway_ca.pem -days 1 -subj '/CN=CrystalBall CI TEST ONLY NOT FOR DEPLOYMENT'
-          rm -f /tmp/build-only.key
+          if [ '${{ matrix.profile }}' = factory-diagnostics ]; then
+            test ! -e firmware/main/gateway_ca.pem
+            echo CONFIG_ORB_FACTORY_DIAGNOSTICS=y >>firmware/sdkconfig.defaults
+          else
+            openssl req -x509 -newkey rsa:2048 -nodes -keyout /tmp/build-only.key -out firmware/main/gateway_ca.pem -days 1 -subj '/CN=CrystalBall CI TEST ONLY NOT FOR DEPLOYMENT'
+            rm -f /tmp/build-only.key
+          fi
           if [ '${{ matrix.profile }}' = public-voice ]; then echo CONFIG_ORB_PUBLIC_TTS=y >>firmware/sdkconfig.defaults; fi
           if [ '${{ matrix.profile }}' = calibration ]; then echo CONFIG_ORB_CALIBRATION_BOOT=y >>firmware/sdkconfig.defaults; fi
       - name: Compile and link for ESP32-S3
@@ -80,7 +88,15 @@ jobs:
           idf.py set-target esp32s3
           idf.py build
           idf.py size >build/size-report.txt
-          printf 'BUILD-ONLY TEST CA. DO NOT FLASH OR DEPLOY. Rebuild with your gateway CA.\n' >build/NOT-FOR-DEPLOYMENT.txt
+          if [ '${{ matrix.profile }}' = factory-diagnostics ]; then
+            xtensa-esp32s3-elf-nm --defined-only build/aether_orb.elf >build/defined-symbols.txt
+            python ../ci/verify_diagnostics_build.py --build build --source-commit '${{ github.sha }}'
+          fi
+          if [ '${{ matrix.profile }}' = factory-diagnostics ]; then
+            cp build/bench-package/BENCH-ONLY.txt build/NOT-FOR-DEPLOYMENT.txt
+          else
+            printf 'BUILD-ONLY TEST CA. DO NOT FLASH OR DEPLOY. Rebuild with your gateway CA.\n' >build/NOT-FOR-DEPLOYMENT.txt
+          fi
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -90,6 +106,13 @@ jobs:
             firmware/build/NOT-FOR-DEPLOYMENT.txt
             firmware/build/log/
             firmware/build/project_description.json
+            firmware/build/diagnostics-build.json
+      - uses: actions/upload-artifact@v4
+        if: success() && matrix.profile == 'factory-diagnostics'
+        with:
+          name: factory-diagnostics-bench-only-NOT-CUSTOMER-FIRMWARE
+          path: firmware/build/bench-package/
+          if-no-files-found: error
   container:
     runs-on: ubuntu-24.04
     timeout-minutes: 15

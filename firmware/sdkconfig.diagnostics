@@ -1,0 +1,4 @@
+# Apply after sdkconfig.defaults in an isolated build/config directory.
+CONFIG_ORB_FACTORY_DIAGNOSTICS=y
+# CONFIG_ORB_PUBLIC_TTS is not set
+# CONFIG_ORB_CALIBRATION_BOOT is not set

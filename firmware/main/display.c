@@ -84,3 +84,9 @@ esp_err_t orb_display_calibration(void){
     label(28,24,"LEFT 123 / RIGHT ABC",2,WHITE);label(28,108,"TELLER SEES THIS",2,LILAC);
     label(28,192,"TOP / UP ARROW ^",2,WHITE);return flush();
 }
+
+esp_err_t orb_display_pattern(orb_pattern_t pattern) {
+    if (!fb) return ESP_ERR_INVALID_STATE;
+    if (!orb_diag_pattern(fb, WIDTH*HEIGHT, pattern)) return ESP_ERR_INVALID_ARG;
+    return flush(); /* No labels or borders contaminate flat-field measurements. */
+}

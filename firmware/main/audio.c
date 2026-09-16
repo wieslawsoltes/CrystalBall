@@ -1,4 +1,6 @@
 #include "audio.h"
+#include "diagnostics_core.h"
+#include "esp_timer.h"
 #include "core.h"
 #include "pins.h"
 #include "sdkconfig.h"
@@ -65,4 +67,24 @@ esp_err_t orb_audio_play(const uint8_t *pcm,size_t bytes){
     }
     if(e==ESP_OK){memset(stereo,0,sizeof stereo);(void)i2s_channel_write(tx,stereo,sizeof stereo,&sent,500);vTaskDelay(pdMS_TO_TICKS(80));}
     gpio_set_level(PIN_AMP_SD,0);(void)i2s_channel_disable(tx);orb_wipe(stereo,sizeof stereo);return e;
+}
+
+esp_err_t orb_audio_test_tone(void) {
+    if (gpio_get_level(PIN_PTT)) return ESP_ERR_INVALID_STATE;
+    esp_err_t e=i2s_channel_enable(tx);if(e!=ESP_OK)return e;
+    int16_t stereo[256]={0};size_t sent=0;
+    e=i2s_channel_write(tx,stereo,sizeof stereo,&sent,100);
+    if(e==ESP_OK && sent!=sizeof stereo)e=ESP_ERR_TIMEOUT;
+    if(e==ESP_OK)gpio_set_level(PIN_AMP_SD,1);
+    const uint32_t total=24000;uint32_t frame=0;
+    const int64_t deadline=esp_timer_get_time()+1000000;
+    while(e==ESP_OK&&frame<total&&!gpio_get_level(PIN_PTT)&&esp_timer_get_time()<deadline){
+        uint32_t n=total-frame;if(n>128)n=128;
+        for(uint32_t i=0;i<n;i++)stereo[i*2]=stereo[i*2+1]=orb_diag_tone_sample(frame+i,total);
+        sent=0;e=i2s_channel_write(tx,stereo,n*4,&sent,100);
+        if(e==ESP_OK&&sent!=n*4)e=ESP_ERR_TIMEOUT;
+        frame+=n;
+    }
+    gpio_set_level(PIN_AMP_SD,0);(void)i2s_channel_disable(tx);
+    orb_wipe(stereo,sizeof stereo);return e;
 }

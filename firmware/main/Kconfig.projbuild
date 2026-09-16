@@ -1,4 +1,12 @@
 menu "Aether Orb"
+config ORB_FACTORY_DIAGNOSTICS
+    bool "Offline factory diagnostics (NOT customer firmware)"
+    default n
+    help
+        Button-driven optical patterns, low-brightness pixel walk, hold-to-play
+        test tone and digital microphone statistics. No Wi-Fi, gateway CA or
+        credential loading. Remove DevKit from BOTH sockets before flashing.
+
 config ORB_MIRROR_X
     bool "Mirror display horizontally (adjust using optical calibration)"
     default y
@@ -19,9 +27,11 @@ config ORB_RECORD_SECONDS
     default 8
 config ORB_CALIBRATION_BOOT
     bool "Display calibration grid instead of connecting to gateway"
+    depends on !ORB_FACTORY_DIAGNOSTICS
     default n
 config ORB_PUBLIC_TTS
     bool "Public synthesized speech (privacy lost, explicit disclosure required)"
+    depends on !ORB_FACTORY_DIAGNOSTICS
     default n
 config ORB_AUTO_ERASE_SECONDS
     int "Erase response after seconds"

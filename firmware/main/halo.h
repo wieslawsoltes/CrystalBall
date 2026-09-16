@@ -3,3 +3,4 @@
 #include <stdint.h>
 esp_err_t orb_halo_init(void);
 esp_err_t orb_halo_rgb(uint8_t r,uint8_t g,uint8_t b);
+esp_err_t orb_halo_pixel(unsigned index,uint8_t r,uint8_t g,uint8_t b);
