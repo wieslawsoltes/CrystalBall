@@ -1,0 +1,1 @@
+(fp_lib_table (lib (name "Aether") (type "KiCad") (uri "${KIPRJMOD}/Aether.pretty") (options "") (descr "CrystalBall custom carrier land patterns")))

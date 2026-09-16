@@ -1,0 +1,8 @@
+(footprint "R_0805_2012Metric_R4" (version 20221018) (generator aether_orb) (layer "F.Cu")    (attr smd)
+    (fp_text reference "REF**" (at 0 -3.5) (layer "F.SilkS") (effects (font (size 1 1) (thickness .15))))
+    (fp_text value "10k" (at 0 0) (layer "F.Fab") (effects (font (size .8 .8) (thickness .12))))
+    (fp_rect (start -1 -0.65) (end 1 0.65) (stroke (width .12) (type default)) (fill none) (layer "F.Fab"))
+    (fp_rect (start -1.85 -0.95) (end 1.85 0.95) (stroke (width .05) (type default)) (fill none) (layer "F.CrtYd"))
+    (pad "1" smd rect (at -1.0 0) (size 1.2 1.4)  (layers "F.Cu" "F.Paste" "F.Mask") )
+    (pad "2" smd rect (at 1.0 0) (size 1.2 1.4)  (layers "F.Cu" "F.Paste" "F.Mask") )
+  )

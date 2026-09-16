@@ -161,32 +161,39 @@ def validate():
                 note='Independent KiCad parsing, ERC/DRC and fab CAM acceptance remain mandatory.')
 
 def pcb():
+    aliases={p.net:f'unconnected-({c.ref}-{p.net}-Pad{p.number})' for c in PARTS for p in c.pads if p.net.startswith('NC_')}
+    netname=lambda n:aliases.get(n,n)
     out=['(kicad_pcb (version 20221018) (generator aether_orb)',
          '  (general (thickness 1.6)) (paper "A4")',
-         '  (layers (0 "F.Cu" signal) (31 "B.Cu" signal) (36 "B.SilkS" user "b.silkscreen") (37 "F.SilkS" user "f.silkscreen") (38 "B.Mask" user) (39 "F.Mask" user) (40 "Dwgs.User" user) (44 "Edge.Cuts" user) (46 "B.CrtYd" user) (47 "F.CrtYd" user) (48 "B.Fab" user) (49 "F.Fab" user))',
+         '  (layers (0 "F.Cu" signal) (31 "B.Cu" signal) (34 "B.Paste" user) (35 "F.Paste" user) (36 "B.SilkS" user "b.silkscreen") (37 "F.SilkS" user "f.silkscreen") (38 "B.Mask" user) (39 "F.Mask" user) (40 "Dwgs.User" user) (44 "Edge.Cuts" user) (46 "B.CrtYd" user) (47 "F.CrtYd" user) (48 "B.Fab" user) (49 "F.Fab" user))',
          '  (setup (pad_to_mask_clearance 0.05) (solder_mask_min_width 0.10))',
          '  (net 0 "")']
-    for n,i in NETS.items():out.append(f'  (net {i} "{n}")')
+    for n,i in NETS.items():out.append(f'  (net {i} "{netname(n)}")')
     schroot=uid('schematic-root')
     controller_refs={'J1','J2','JP1','TP3'}
     power_refs={'J3','F1','Q1','R1','C1','U1','C2','R5','R6','J7','TP1','TP2','TP4'}
     for c in PARTS:
         sheet='controller' if c.ref in controller_refs else 'power-led' if c.ref in power_refs else 'interfaces'
         path=f'/{schroot}/{uid(sheet+"-instance")}/{uid(c.ref+"-sch")}'
-        out.append(f'  (footprint "Aether:{c.footprint}" (layer "F.Cu") (tstamp {uid(c.ref+"-fp")}) (at {c.x} {c.y}) (path "{path}") (attr {"smd" if all(p.kind=="smd" for p in c.pads) else "through_hole"})')
-        out.append(f'    (fp_text reference "{c.ref}" (at 0 -3.5) (layer "F.SilkS") (effects (font (size 1 1) (thickness .15))))')
+        out.append(f'  (footprint "Aether:{c.footprint}_{c.ref}" (layer "F.Cu") (tstamp {uid(c.ref+"-fp")}) (at {c.x} {c.y}) (path "{path}") (attr {"smd" if all(p.kind=="smd" for p in c.pads) else "through_hole"})')
+        ry=-2.0 if c.ref=='R7' else -3.5
+        out.append(f'    (fp_text reference "{c.ref}" (at 0 {ry}) (layer "F.SilkS") (effects (font (size 1 1) (thickness .15))))')
         out.append(f'    (fp_text value "{c.value}" (at 0 0) (layer "F.Fab") (effects (font (size .8 .8) (thickness .12))))')
         x,y,w,h=c.body
         out.append(f'    (fp_rect (start {x} {y}) (end {x+w} {y+h}) (stroke (width .12) (type default)) (fill none) (layer "F.Fab"))')
-        out.append(f'    (fp_rect (start {x-.25} {y-.25}) (end {x+w+.25} {y+h+.25}) (stroke (width .05) (type default)) (fill none) (layer "F.CrtYd"))')
+        cx=min([x]+[p.x-(p.sx if p.kind=='smd' else p.diameter)/2 for p in c.pads])-.25
+        cy=min([y]+[p.y-(p.sy if p.kind=='smd' else p.diameter)/2 for p in c.pads])-.25
+        ex=max([x+w]+[p.x+(p.sx if p.kind=='smd' else p.diameter)/2 for p in c.pads])+.25
+        ey=max([y+h]+[p.y+(p.sy if p.kind=='smd' else p.diameter)/2 for p in c.pads])+.25
+        out.append(f'    (fp_rect (start {cx} {cy}) (end {ex} {ey}) (stroke (width .05) (type default)) (fill none) (layer "F.CrtYd"))')
         for p in c.pads:
             sz=f'{p.sx} {p.sy}' if p.kind=='smd' else f'{p.diameter} {p.diameter}'
             drill=f'(drill {p.drill})' if p.drill else ''
-            layers='"F.Cu" "F.Mask"' if p.kind=='smd' else '"*.Cu" "*.Mask"'
-            out.append(f'    (pad "{p.number}" {p.kind} {p.shape} (at {p.x} {p.y}) (size {sz}) {drill} (layers {layers}) (net {NETS[p.net]} "{p.net}"))')
+            layers='"F.Cu" "F.Paste" "F.Mask"' if p.kind=='smd' else '"*.Cu" "*.Mask"'
+            out.append(f'    (pad "{p.number}" {p.kind} {p.shape} (at {p.x} {p.y}) (size {sz}) {drill} (layers {layers}) (net {NETS[p.net]} "{netname(p.net)}"))')
         out.append('  )')
     for i,(x,y) in enumerate(HOLES,1):
-        out.append(f'  (footprint "Aether:MountingHole_3.2" (layer "F.Cu") (at {x} {y}) (attr exclude_from_pos_files exclude_from_bom) (fp_text reference "H{i}" (at 0 0) (layer "F.Fab") hide (effects (font (size 1 1) (thickness .15)))) (pad "" np_thru_hole circle (at 0 0) (size 3.2 3.2) (drill 3.2) (layers "*.Cu" "*.Mask")))')
+        out.append(f'  (footprint "Aether:MountingHole_3.2" (layer "F.Cu") (at {x} {y}) (attr board_only exclude_from_pos_files exclude_from_bom) (fp_text reference "H{i}" (at 0 0) (layer "F.Fab") hide (effects (font (size 1 1) (thickness .15)))) (pad "" np_thru_hole circle (at 0 0) (size 3.2 3.2) (drill 3.2) (layers "*.Cu" "*.Mask")))')
     corners=[(0,0),(W,0),(W,H),(0,H),(0,0)]
     for a,b in zip(corners,corners[1:]):out.append(f'  (gr_line (start {a[0]} {a[1]}) (end {b[0]} {b[1]}) (stroke (width .05) (type default)) (layer "Edge.Cuts") (tstamp {uid(str((a,b)))}))')
     for i,t in enumerate(TRACKS):
@@ -197,7 +204,7 @@ def pcb():
       (connect_pads (clearance .2)) (min_thickness .25) (keepout (tracks not_allowed) (vias not_allowed) (pads not_allowed) (copperpour not_allowed) (footprints allowed))
       (fill (thermal_gap .3) (thermal_bridge_width .3))
       (polygon (pts (xy {x0} {y0}) (xy {x1} {y0}) (xy {x1} {y1}) (xy {x0} {y1}))))''')
-    out.append(' (gr_text "AETHER ORB / REV A" (at 69 6) (layer "F.SilkS") (effects (font (size 1.4 1.4) (thickness .2))))')
+    out.append(' (gr_text "AETHER ORB / REV B" (at 69 6) (layer "F.SilkS") (effects (font (size 1.4 1.4) (thickness .2))))')
     out.append(' (gr_text "5V ONLY - PROTOTYPE" (at 69 10) (layer "F.SilkS") (effects (font (size 1 1) (thickness .15))))')
     out.append(')')
     (ROOT/'hardware/aether-carrier.kicad_pcb').write_text('\n'.join(out))
@@ -215,7 +222,7 @@ def gerber():
         aps={}
         for shape_,sx,sy,*_ in flashes:aps.setdefault((shape_,sx,sy),len(aps)+10)
         for w,a,b in lines:aps.setdefault(('C',w,w),len(aps)+10)
-        s=['G04 Aether Orb Rev A; independently CAM-review before ordering*',
+        s=['G04 Aether Orb Rev B; independently CAM-review before ordering*',
            '%FSLAX46Y46*%','%MOMM*%',f'%TF.FileFunction,{function}*%','%TF.FilePolarity,Positive*%','%LPD*%']
         for (sh,sx,sy),a in aps.items():s.append(f'%ADD{a}{sh},{sx:.6f}'+(f'X{sy:.6f}' if sh=='R' else '')+'*%')
         def xy(x,y):return f'X{round(x*1e6)}Y{round((H-y)*1e6)}'
@@ -241,7 +248,7 @@ def gerber():
     export('aether-Edge_Cuts.gbr','Profile,NP',[],[(.05,a,b) for a,b in zip(corners,corners[1:])])
     # Simple silkscreen: component designators with our own stroke glyphs, square pin-1 marker.
     from stroke import text_lines
-    lines=text_lines('AETHER ORB REV A',47,3,1.1)+text_lines('5V ONLY PROTOTYPE',47,7,.8)
+    lines=text_lines('AETHER ORB REV B',47,3,1.1)+text_lines('5V ONLY PROTOTYPE',47,7,.8)
     for c in PARTS:
         lines+=text_lines(c.ref,c.x-1.0,c.y-3.7,.7)
     # Clip silk to mask clearances (CAM positive geometry, then draw surviving line pieces).
@@ -264,12 +271,12 @@ def gerber():
                 if dd==d:s.append(f'X{x:.4f}Y{H-y:.4f}')
         s+=['M30'];(dest/f'aether-{name}.drl').write_text('\n'.join(s)+'\n')
     # No solder paste stencil: all eight-passives and two semiconductors are hand assembled for EVT.
-    (dest/'README.txt').write_text('ENGINEERING FABRICATION CANDIDATE - NOT PRODUCTION RELEASED\n100 x 90 mm, 1.60 mm FR-4, 2 layers, 2 oz (70 um) finished outer copper.\nLead-free HASL or ENIG; green mask both sides; white top legend.\nProfile is nominal finished outline. Drill units mm, decimal format, common origin lower-left.\nPTH holes plated; four 3.20 mm NPTH mounting holes NOT plated. Vias tented.\nNo controlled impedance. Smallest route 0.30 mm, clearance 0.20 mm.\nNo stencil included: Rev A is hand-assembled. No panelization or tooling rails authorized.\nRun independent KiCad DRC/ERC, supplier footprint review and CAM review before releasing even a prototype order.\n')
+    (dest/'README.txt').write_text('ENGINEERING FABRICATION CANDIDATE - NOT PRODUCTION RELEASED\n100 x 90 mm, 1.60 mm FR-4, 2 layers, 2 oz (70 um) finished outer copper.\nLead-free HASL or ENIG; green mask both sides; white top legend.\nProfile is nominal finished outline. Drill units mm, decimal format, common origin lower-left.\nPTH holes plated; four 3.20 mm NPTH mounting holes NOT plated. Vias tented.\nNo controlled impedance. Smallest route 0.30 mm, clearance 0.20 mm.\nNo stencil included: Rev B is hand-assembled. No panelization or tooling rails authorized.\nRun independent KiCad DRC/ERC, supplier footprint review and CAM review before releasing even a prototype order.\n')
 
 def svg():
     s=[f'<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1110" viewBox="-5 -10 110 102">',
        '<rect x="-5" y="-10" width="110" height="102" fill="#111922"/>',
-       '<text x="0" y="-4" fill="#eef6ff" font-family="sans-serif" font-size="3">AETHER ORB · Rev A carrier / component-side view</text>',
+       '<text x="0" y="-4" fill="#eef6ff" font-family="sans-serif" font-size="3">AETHER ORB · Rev B carrier / component-side view</text>',
        f'<rect x="0" y="0" width="{W}" height="{H}" rx="1" fill="#114f48" stroke="#eee" stroke-width=".3"/>']
     x0,y0,x1,y1=RF_KEEPOUT
     s.append(f'<rect x="{x0}" y="{y0}" width="{x1-x0}" height="{y1-y0}" fill="#122b29"/>')

@@ -1,5 +1,5 @@
 (kicad_sch (version 20230121) (generator aether_orb) (uuid ad1a34b2-96a7-5ba9-ac31-2526a6d7ce6c) (paper "A4") (lib_symbols)
-(title_block (title "Aether Orb - Rev A carrier") (date "2026-09-16") (rev "A / ENGINEERING") (company "Aether Orb"))
+(title_block (title "Aether Orb - Rev B carrier") (date "2026-09-16") (rev "B / ENGINEERING") (company "Aether Orb"))
 (sheet (at 40 45) (size 205 27) (stroke (width .254) (type default)) (fill (color 0 0 0 0)) (uuid 601b5815-dced-5207-ab9e-57b098688598)
           (property "Sheetname" "01 / Controller sockets and reserved pins" (at 40 44.2 0) (effects (font (size 1.27 1.27)) (justify left bottom)))
           (property "Sheetfile" "controller.kicad_sch" (at 40 72.8 0) (effects (font (size 1.27 1.27)) (justify left top)))

@@ -1,0 +1,1 @@
+(footprint "MountingHole_3.2" (version 20221018) (generator aether_orb) (layer "F.Cu")  (attr board_only exclude_from_pos_files exclude_from_bom) (fp_text reference "REF**" (at 0 0) (layer "F.Fab") hide (effects (font (size 1 1) (thickness .15)))) (pad "" np_thru_hole circle (at 0 0) (size 3.2 3.2) (drill 3.2) (layers "*.Cu" "*.Mask")))

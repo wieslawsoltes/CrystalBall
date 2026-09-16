@@ -21,3 +21,6 @@ report={'checked':'BREP boolean intersections and exported STL topology','inters
         'note':'Vendor components are envelope proxies. Exact terminal, cable, button, insert and tolerance-stack fit requires first article.'}
 (ROOT/'hardware/reports/mechanical-checks.json').write_text(json.dumps(report,indent=2))
 print('COMPLETE',len(pairs),'intersections',sum(not m['watertight'] for m in meshes),'nonwatertight',flush=True)
+
+if pairs or not meshes or any(not m["watertight"] or not m["winding_consistent"] for m in meshes):
+    raise SystemExit(1)

@@ -31,19 +31,19 @@ def make_sheet(name,title,parts,positions,notes):
     sid=uid(name);sheetinst=uid(name+'-instance')
     defs={c.ref:symbol_definition(c.ref,names(c),c.ref.rstrip('0123456789')) for c in parts}
     s=[f'(kicad_sch (version 20230121) (generator aether_orb) (uuid {sid}) (paper "A3")',
-       f'(title_block (title {q(title)}) (date "2026-09-16") (rev "A - engineering") (company "Aether Orb") (comment 1 "PROTOTYPE; vendor-module internals not reproduced"))',
+       f'(title_block (title {q(title)}) (date "2026-09-16") (rev "B - engineering") (company "Aether Orb") (comment 1 "PROTOTYPE; vendor-module internals not reproduced"))',
        '(lib_symbols '+'\n'.join(defs.values())+')']
     svg=['<svg xmlns="http://www.w3.org/2000/svg" width="1680" height="1188" viewBox="0 0 420 297">',
          '<rect width="420" height="297" fill="#f8fafc"/>',
          f'<text x="16" y="17" font-family="sans-serif" font-size="6" fill="#132538">{html.escape(title)}</text>',
-         '<text x="16" y="25" font-family="sans-serif" font-size="3" fill="#536675">AETHER ORB / REV A · Net labels connect globally across sheets · Engineering prototype</text>']
+         '<text x="16" y="25" font-family="sans-serif" font-size="3" fill="#536675">AETHER ORB / REV B · Net labels connect globally across sheets · Engineering prototype</text>']
     for c in parts:
-        x,y=positions[c.ref];h=max(5.08,(len(c.pads)+1)*2.54)
+        x,y=(round(v/1.27)*1.27 for v in positions[c.ref]);h=max(5.08,(len(c.pads)+1)*2.54)
         # Positions below are symbol origin (top-left of body).
         s.append(f'''(symbol (lib_id "Aether:{c.ref}") (at {x} {y} 0) (unit 1) (in_bom yes) (on_board yes) (dnp no) (uuid {uid(c.ref+'-sch')})
            (property "Reference" {q(c.ref)} (at {x+14} {y-5} 0) (effects (font (size 1.27 1.27))))
            (property "Value" {q(c.value)} (at {x+14} {y-2.5} 0) (effects (font (size 1.05 1.05))))
-           (property "Footprint" {q('Aether:'+c.footprint)} (at {x} {y} 0) (effects (font (size 1.27 1.27)) hide))
+           (property "Footprint" {q('Aether:'+c.footprint+'_'+c.ref)} (at {x} {y} 0) (effects (font (size 1.27 1.27)) hide))
            (property "Datasheet" {q(c.source)} (at {x} {y} 0) (effects (font (size 1.27 1.27)) hide))
            (instances (project "aether-carrier" (path "/{root_id}/{sheetinst}" (reference {q(c.ref)}) (unit 1)))) )''')
         svg.append(f'<rect x="{x}" y="{y}" width="28" height="{h}" rx="1" fill="#e9f0f4" stroke="#23465b" stroke-width=".35"/>')
@@ -70,6 +70,12 @@ def make_sheet(name,title,parts,positions,notes):
 
 def main():
     byref={c.ref:c for c in PARTS}
+    library = ['(kicad_symbol_lib (version 20230121) (generator aether_orb)']
+    for c in PARTS:
+        library.append(symbol_definition(c.ref,names(c),c.ref.rstrip('0123456789')).replace('"Aether:'+c.ref+'"','"'+c.ref+'"',1))
+    library.append(')')
+    (ROOT/'hardware/Aether.kicad_sym').write_text('\n'.join(library))
+    (ROOT/'hardware/sym-lib-table').write_text('(sym_lib_table (lib (name "Aether") (type "KiCad") (uri "${KIPRJMOD}/Aether.kicad_sym") (options "") (descr "CrystalBall carrier symbols")))\n')
     groups=[
       ('controller','01 / Controller sockets and reserved pins',['J1','J2','JP1','TP3'],
        {'J1':92,'J2':210,'JP1':326,'TP3':326},
@@ -88,7 +94,7 @@ def main():
         'J6: Adafruit 3006 MAX98357A. Speaker connects directly to amp +/-. Neither output may connect to ground.',
         'J8/J9 momentary NO to GND. J10 LED anode pin 1, cathode pin 2. R7 is already on the carrier.'])]
     root=[f'(kicad_sch (version 20230121) (generator aether_orb) (uuid {root_id}) (paper "A4") (lib_symbols)',
-          '(title_block (title "Aether Orb - Rev A carrier") (date "2026-09-16") (rev "A / ENGINEERING") (company "Aether Orb"))']
+          '(title_block (title "Aether Orb - Rev B carrier") (date "2026-09-16") (rev "B / ENGINEERING") (company "Aether Orb"))']
     for k,(name,title,refs,xs,notes) in enumerate(groups):
         parts=[byref[r] for r in refs];positions={}
         if name=='controller':positions={'J1':(92,55),'J2':(210,55),'JP1':(326,60),'TP3':(326,105)}
@@ -108,7 +114,7 @@ def main():
     import xml.etree.ElementTree as ET
     r=ET.Element('export',version='D');cs=ET.SubElement(r,'components');ns=ET.SubElement(r,'nets')
     for c in PARTS:
-        comp=ET.SubElement(cs,'comp',ref=c.ref);ET.SubElement(comp,'value').text=c.value;ET.SubElement(comp,'footprint').text='Aether:'+c.footprint
+        comp=ET.SubElement(cs,'comp',ref=c.ref);ET.SubElement(comp,'value').text=c.value;ET.SubElement(comp,'footprint').text='Aether:'+c.footprint+'_'+c.ref
     nets=sorted({p.net for c in PARTS for p in c.pads if not p.net.startswith('NC_')})
     for i,n in enumerate(nets,1):
         net=ET.SubElement(ns,'net',code=str(i),name=n)

@@ -1,4 +1,4 @@
-"""Aether Orb Rev A parametric mechanical design (CadQuery 2.x).
+"""Aether Orb Rev B parametric mechanical design (CadQuery 2.x).
 Millimetres. +Y = operator, -Y = client, +Z = up. Bottom datum Z=0.
 Purchased component solids are envelope proxies, NOT vendor-accurate models.
 The globe and beamsplitter are optical procurement drawings, not FDM parts.
@@ -57,7 +57,7 @@ body=body.cut(hole_y(18,61.5,39,3.2))
 body=body.cut(hole_y(-22,61.5,22,6.4))
 body=body.cut(box(P['usb_slot_w'],16,P['usb_slot_h'],(29,62,32.0)))
 # Bottom-port microphone is mounted upright, against this operator-facing acoustic port.
-body=body.cut(hole_y(-37,61.5,52,2.0))
+body=body.cut(hole_y(-27,61.5,52,2.0))
 # Sled mounting pads and carrier-independent bosses.
 for x in (19,39):
     body=body.union(box(8,6,10,(x,58,24)))
@@ -71,6 +71,9 @@ add('01_base_shell',body,'Black PETG or PA12','FDM/SLS, no optical surfaces',(0.
 bottom=cyl(73.7,3,0).intersect(box(170,170,6,(0,-22,1.5)))
 # Locating rim, with clearance to body.
 rim=ring(70.65,68.8,2.2,3).intersect(box(165,165,12,(0,-23,5)))
+# Reliefs around shell fastener bosses preserve 0.35 mm radial clearance.
+for x,y in BODY_SCREWS:
+    rim=rim.cut(cyl(5.35,3,2.9,x,y))
 bottom=bottom.union(rim)
 for x,y in BODY_SCREWS:
     bottom=holez(bottom,x,y,3.4,-1,7)
@@ -105,7 +108,8 @@ for x in (-38.1,38.1):
 for x in (-40,40):
     for y in (-5,5):deck=holez(deck,x,y,1.7,69,3.2)
 # Speaker cradle: two M3 self-tapping fasteners from below into blind deck holes.
-for x in (-8,40):deck=holez(deck,x,-40,2.5,67.8,3.5)
+for x,y in ((-8,-40),(37,-38)):
+    deck=holez(deck,x,y,2.5,67.8,3.5)
 # Halo power cable route outside globe flange.
 deck=deck.cut(box(5,4,8,(53,0,70)))
 add('03_optical_deck',deck,'Black PETG / PA12','FDM/SLS',(.13,.15,.19),explode=(0,0,45),note='Screen plane nominal Z68.5. Display stand-off length is adjustable using washers; measure actual LCD revision.')
@@ -133,9 +137,13 @@ frame=box(74,84,2,(0,0,0)).cut(box(66,76,5,(0,0,0)))
 # 1.2 mm recessed pocket for 70x80x1 glass; lip gives 2 mm edge support.
 frame=frame.cut(box(70.3,80.3,1.3,(0,0,.45)))
 # Edge hinge eyes; bores lie on the X axis through the frame centre.
-for x in (-36,36):
-    eye=hole_x(x,0,0,8,2).cut(hole_x(x,0,0,3.3,4))
+for x in (-36.4,36.4):
+    eye=hole_x(x,0,0,5,.6).cut(hole_x(x,0,0,3.3,4))
     frame=frame.union(eye)
+# Hard stops create a 1.9 mm compliant upper-pad gap above the glass.
+for x in (-36.15,36.15):
+    for y in (-36,36):
+        frame=frame.union(box(1.7,5,1.9,(x,y,1.95)))
 # Clamp tabs for glass retainer (M2); avoid optical clear aperture.
 for x in (-35.8,35.8):
     for y in (-36,36):frame=holez(frame,x,y,1.7,-1.2,3)
@@ -144,9 +152,9 @@ add('09_mirror_frame',frame,'Matte black PA12 / PETG','FDM/SLS; smooth glass-con
 back=box(74,84,1.2,(0,0,0)).cut(box(68,78,4,(0,0,0)))
 for x in (-35.8,35.8):
     for y in (-36,36):back=holez(back,x,y,2.2,-2,4)
-back=back.translate((0,0,1.7)).rotate((0,0,0),(1,0,0),P['mirror_angle']).translate((0,0,112))
+back=back.translate((0,0,3.5)).rotate((0,0,0),(1,0,0),P['mirror_angle']).translate((0,0,112))
 add('10_mirror_retainer',back,'Matte black PA12 / PETG','FDM/SLS',(.07,.08,.1),explode=(0,10,87))
-mirror=box(70,80,1,(0,0,.4)).rotate((0,0,0),(1,0,0),P['mirror_angle']).translate((0,0,112))
+mirror=box(70,80,1,(0,0,.5)).rotate((0,0,0),(1,0,0),P['mirror_angle']).translate((0,0,112))
 add('11_beamsplitter_OPTICAL',mirror,'70R/30T coated optical glass, rear AR','Optical fabrication - NOT FDM',(.45,.76,.88),explode=(0,5,81),note='70x80x1 mm, visible band, specify usable incidence 45-55 degrees. Coating uniformity, wedge/ghosting and polarization to vendor review.')
 for sign in (-1,1):
     x=40*sign
@@ -171,16 +179,21 @@ sp=ring(22,17,3,35).translate((16,-40,0))
 # Two long tabs to deck underside, with elongated fastener access holes.
 for x in (-8,40):
     leg=box(5,8,30,(x,-40,51));sp=sp.union(leg)
-    sp=sp.union(box(12,10,3,(x,-40,66.5)))
-    sp=holez(sp,x,-40,3.2,64,5)
+    tx,ty=(-8,-40) if x<0 else (37,-38)
+    sp=sp.union(box(8,6,3,(tx,ty,66.5)))
+    sp=holez(sp,tx,ty,3.2,64,5)
+# Relief around the southeast optical-deck support lug (0.5 mm nominal).
+sp=sp.cut(cyl(5.5,12,58.5,63/math.sqrt(2),-63/math.sqrt(2)))
 # Add slim bridges from ring to supporting legs.
 for x in (-6,38):sp=sp.union(box(8,6,3,(x,-40,36.5)))
-add('15_speaker_cradle',sp,'Black PETG / PA12','FDM/SLS',(.1,.13,.17),explode=(18,-15,20),note='40 mm speaker envelope; strap retention. Mount to matching blind deck holes at X=-8/+40, Y=-40 with M3x6 self-tapping screws. Strap through cradle secures speaker; qualify purchased speaker envelope.')
+add('15_speaker_cradle',sp,'Black PETG / PA12','FDM/SLS',(.1,.13,.17),explode=(18,-15,20),note='40 mm speaker envelope; strap retention. Mount to matching blind deck holes at (-8,-40) and (37,-38) with M3x6 self-tapping screws. Strap through cradle secures speaker; qualify purchased speaker envelope.')
 # PD board mounting sled, screw to case only after verifying module USB mouth alignment.
-pd=box(26,34,2,(29,45,30))
-for x in (17,41):pd=pd.union(box(2,34,6,(x,45,32)))
+pd=box(26,31,2,(29,43.5,30))
+for x in (17,41):pd=pd.union(box(2,31,6,(x,43.5,32)))
 for y in (34,57):
     for x in (19,39):pd=holez(pd,x,y,2.5,28,6)
+# Trim rear tray corners to the enclosure's inner radius with 0.4 mm clearance.
+pd=pd.intersect(cyl(70.6,12,27))
 # Two ears form a support that may be screwed to deck-side mounting brackets.
 add('16_pd_module_sled',pd,'Black PETG / PA12','FDM/SLS',(.1,.13,.17),explode=(20,15,15),note='Tray screws at (19/39,57) to case bosses. Foam tape plus cable tie retains PD board; adjust strip thickness to align USB centre Z32.0 with 12x7 case slot. Vendor PCB hole pattern is NOT claimed exact.')
 # Printable fit coupon contains connector slot, screw pilot sizes, and sheet slots.
@@ -203,11 +216,11 @@ speaker=cyl(20,15,38,16,-40).union(cyl(12,5,53,16,-40))
 add('REF_speaker_40mm',speaker,'8 ohm 2W speaker','Envelope proxy',(.08,.08,.09),explode=(18,-15,25))
 # Optional little electronics modules fitted using insulating standoffs / straps.
 amp=box(20,18,2,(42,-10,42));add('REF_amp_module',amp,'Adafruit 3006','Envelope proxy',(.08,.31,.35),explode=(20,0,15))
-mic=box(16.7,2,12.7,(-37,57.7,52));add('REF_mic_module',mic,'Adafruit 3421','Envelope proxy',(.08,.31,.35),explode=(-15,12,15),note='Mount bottom acoustic port facing +Y at (-37,60,52), using a 1.3 mm closed-cell foam gasket to panel. Do not cover port with adhesive. Secure board with nonconductive tie through carrier.')
+mic=box(16.7,2,12.7,(-27,57.7,52));add('REF_mic_module',mic,'Adafruit 3421','Envelope proxy',(.08,.31,.35),explode=(-15,12,15),note='Mount bottom acoustic port facing +Y at (-27,60,52), using a 1.3 mm closed-cell foam gasket to panel. Do not cover port with adhesive. Secure board with nonconductive tie through carrier.')
 
 # A vertical mic clip attaches to the flat panel without extending into the LCD.
-micclip=box(21,1.5,17,(-37,55.5,52)).cut(box(12,5,9,(-37,55.5,52)))
-for x in (-47,-27):micclip=micclip.union(box(2,4.5,17,(x,57,52)))
+micclip=box(21,1.5,17,(-27,55.5,52)).cut(box(12,5,9,(-27,55.5,52)))
+for x in (-37,-17):micclip=micclip.union(box(2,4.5,17,(x,57,52)))
 add('18_microphone_clip',micclip,'Black PETG / PA12','FDM/SLS',(.12,.15,.19),explode=(-12,12,18),note='Foam tape to panel; guide the microphone port to the 2 mm panel bore. Clip supports board edges, not MEMS package. Insulate back side; no conductive screws near microphone pins.')
 # Module tray envelope: exact supplier port overhang is intentionally a fit qualification.
 pdref=box(18,28,1.6,(29,44,32.0)).union(box(9,7,3.2,(29,58,33.0)))
@@ -215,8 +228,8 @@ add('REF_PD_HUSB238',pdref,'Adafruit 5807','Envelope proxy',(.08,.31,.35),explod
 
 
 def export_all():
-    OUT.mkdir(exist_ok=True);(OUT/'stl').mkdir(exist_ok=True);(OUT/'step').mkdir(exist_ok=True)
-    report=[];assembly=cq.Assembly(name='Aether_Orb_RevA')
+    OUT.mkdir(exist_ok=True);(OUT/'stl').mkdir(exist_ok=True);(OUT/'step').mkdir(exist_ok=True);(OUT/'dxf').mkdir(exist_ok=True)
+    report=[];assembly=cq.Assembly(name='Aether_Orb_RevB')
     meshes=[]
     for name,obj,color,exp in ASS:
         if name=='17_fit_coupon':continue
@@ -234,9 +247,16 @@ def export_all():
             print_obj=obj.translate((0,0,-112)).rotate((0,0,0),(1,0,0),-P['mirror_angle'])
         bbp=print_obj.val().BoundingBox()
         print_obj=print_obj.translate((-(bbp.xmin+bbp.xmax)/2,-(bbp.ymin+bbp.ymax)/2,-bbp.zmin))
-        cq.exporters.export(print_obj,str(OUT/'stl'/f'{name}.stl'),tolerance=.12,angularTolerance=.15)
+        cq.exporters.export(print_obj,str(OUT/'stl'/f'{name}.stl'),tolerance=.06,angularTolerance=.10)
+        # Sew coincident periodic-surface vertices only; do not fill missing faces.
+        import trimesh
+        mesh=trimesh.load(OUT/'stl'/f'{name}.stl',force='mesh')
+        mesh.merge_vertices(digits_vertex=5)
+        mesh.update_faces(mesh.nondegenerate_faces())
+        mesh.remove_unreferenced_vertices()
+        mesh.export(OUT/'stl'/f'{name}.stl')
         print(name,row['valid_brep'],row['solid_count'],row['bbox_mm'],flush=True)
-    assembly.save(str(OUT/'Aether_Orb_RevA_Assembly.step'))
+    assembly.save(str(OUT/'Aether_Orb_RevB_Assembly.step'))
     (OUT/'parameters.json').write_text(json.dumps(P,indent=2))
     (OUT/'parts.json').write_text(json.dumps(report,indent=2))
     (ROOT/'preview/assembly-meshes.json').write_text(json.dumps(meshes,separators=(',',':')))

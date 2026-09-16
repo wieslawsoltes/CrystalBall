@@ -1,6 +1,6 @@
 {
   "project": "Aether Orb",
-  "revision": "A",
+  "revision": "B",
   "board_mm": [
     100.0,
     90.0
@@ -595,8 +595,8 @@
       "ref": "J3",
       "value": "5V INPUT",
       "footprint": "Terminal_1x02_P5.08",
-      "x": 68,
-      "y": 78,
+      "x": 72,
+      "y": 82,
       "pads": [
         {
           "number": "1",

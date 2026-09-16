@@ -1,4 +1,4 @@
-"""Aether Orb Rev A: single source for the carrier circuit and interfaces.
+"""Aether Orb Rev B: single source for the carrier circuit and interfaces.
 Units: mm. Board coordinates: x right, y down, viewed from component side.
 This file describes OUR carrier, not the internal circuitry of purchased modules.
 """
@@ -77,7 +77,7 @@ for ref,x,nets in [('J1',14.0,left),('J2',36.86,right)]:
         'Use genuine ESP32-S3-DevKitC-1-N8R8 v1.1. Remove module before USB flashing.',
         'https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32s3/esp32-s3-devkitc-1/user_guide_v1.1.html')
 # External PD module supplies only 5 V. Manual master switch is in its output harness.
-part('J3','5V INPUT','Terminal_1x02_P5.08',68,78,
+part('J3','5V INPUT','Terminal_1x02_P5.08',72,82,
      [Pad('1',0,0,'VIN5',2.8,1.3,shape='rect'),Pad('2',5.08,0,'GND',2.8,1.3)],
      (-2.6,-4,10.3,8),'Phoenix Contact 1729128',
      '5.08 mm 2-position terminal; 5 V only. + pin 1; - pin 2. Verify exact holder body.',
@@ -139,7 +139,7 @@ HOLES=[(4,4),(96,4),(4,86),(96,86)]
 RF_KEEPOUT=(7,0,44,13.5)
 
 def export():
-    data={'project':'Aether Orb','revision':'A','board_mm':[W,H],'pinmap':PINMAP,
+    data={'project':'Aether Orb','revision':'B','board_mm':[W,H],'pinmap':PINMAP,
           'parts':[asdict(p) for p in PARTS], 'holes':HOLES, 'rf_keepout':RF_KEEPOUT,
           'release':'ENGINEERING PROTOTYPE - NOT PRODUCTION RELEASED'}
     (ROOT/'hardware/design.json').write_text(json.dumps(data,indent=2))
