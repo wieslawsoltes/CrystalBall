@@ -1,0 +1,173 @@
+diff --git a/mechanical/model.py b/mechanical/model.py
+--- a/mechanical/model.py
++++ b/mechanical/model.py
+@@ -1 +1 @@
+-"""Aether Orb Rev A parametric mechanical design (CadQuery 2.x).
++"""Aether Orb Rev B parametric mechanical design (CadQuery 2.x).
+@@ -60 +60 @@
+-body=body.cut(hole_y(-37,61.5,52,2.0))
++body=body.cut(hole_y(-27,61.5,52,2.0))
+@@ -73,0 +74,3 @@
++# Reliefs around shell fastener bosses preserve 0.35 mm radial clearance.
++for x,y in BODY_SCREWS:
++    rim=rim.cut(cyl(5.35,3,2.9,x,y))
+@@ -108 +111,2 @@
+-for x in (-8,40):deck=holez(deck,x,-40,2.5,67.8,3.5)
++for x,y in ((-8,-40),(37,-38)):
++    deck=holez(deck,x,y,2.5,67.8,3.5)
+@@ -136,2 +140,2 @@
+-for x in (-36,36):
+-    eye=hole_x(x,0,0,8,2).cut(hole_x(x,0,0,3.3,4))
++for x in (-36.4,36.4):
++    eye=hole_x(x,0,0,5,.6).cut(hole_x(x,0,0,3.3,4))
+@@ -138,0 +143,4 @@
++# Hard stops create a 1.9 mm compliant upper-pad gap above the glass.
++for x in (-36.15,36.15):
++    for y in (-36,36):
++        frame=frame.union(box(1.7,5,1.9,(x,y,1.95)))
+@@ -147 +155 @@
+-back=back.translate((0,0,1.7)).rotate((0,0,0),(1,0,0),P['mirror_angle']).translate((0,0,112))
++back=back.translate((0,0,3.5)).rotate((0,0,0),(1,0,0),P['mirror_angle']).translate((0,0,112))
+@@ -149 +157 @@
+-mirror=box(70,80,1,(0,0,.4)).rotate((0,0,0),(1,0,0),P['mirror_angle']).translate((0,0,112))
++mirror=box(70,80,1,(0,0,.5)).rotate((0,0,0),(1,0,0),P['mirror_angle']).translate((0,0,112))
+@@ -174,2 +182,5 @@
+-    sp=sp.union(box(12,10,3,(x,-40,66.5)))
+-    sp=holez(sp,x,-40,3.2,64,5)
++    tx,ty=(-8,-40) if x<0 else (37,-38)
++    sp=sp.union(box(8,6,3,(tx,ty,66.5)))
++    sp=holez(sp,tx,ty,3.2,64,5)
++# Relief around the southeast optical-deck support lug (0.5 mm nominal).
++sp=sp.cut(cyl(5.5,12,58.5,63/math.sqrt(2),-63/math.sqrt(2)))
+@@ -178 +189 @@
+-add('15_speaker_cradle',sp,'Black PETG / PA12','FDM/SLS',(.1,.13,.17),explode=(18,-15,20),note='40 mm speaker envelope; strap retention. Mount to matching blind deck holes at X=-8/+40, Y=-40 with M3x6 self-tapping screws. Strap through cradle secures speaker; qualify purchased speaker envelope.')
++add('15_speaker_cradle',sp,'Black PETG / PA12','FDM/SLS',(.1,.13,.17),explode=(18,-15,20),note='40 mm speaker envelope; strap retention. Mount to matching blind deck holes at (-8,-40) and (37,-38) with M3x6 self-tapping screws. Strap through cradle secures speaker; qualify purchased speaker envelope.')
+@@ -180,2 +191,2 @@
+-pd=box(26,34,2,(29,45,30))
+-for x in (17,41):pd=pd.union(box(2,34,6,(x,45,32)))
++pd=box(26,31,2,(29,43.5,30))
++for x in (17,41):pd=pd.union(box(2,31,6,(x,43.5,32)))
+@@ -183,0 +195,2 @@
++# Trim rear tray corners to the enclosure's inner radius with 0.4 mm clearance.
++pd=pd.intersect(cyl(70.6,12,27))
+@@ -206 +219 @@
+-mic=box(16.7,2,12.7,(-37,57.7,52));add('REF_mic_module',mic,'Adafruit 3421','Envelope proxy',(.08,.31,.35),explode=(-15,12,15),note='Mount bottom acoustic port facing +Y at (-37,60,52), using a 1.3 mm closed-cell foam gasket to panel. Do not cover port with adhesive. Secure board with nonconductive tie through carrier.')
++mic=box(16.7,2,12.7,(-27,57.7,52));add('REF_mic_module',mic,'Adafruit 3421','Envelope proxy',(.08,.31,.35),explode=(-15,12,15),note='Mount bottom acoustic port facing +Y at (-27,60,52), using a 1.3 mm closed-cell foam gasket to panel. Do not cover port with adhesive. Secure board with nonconductive tie through carrier.')
+@@ -209,2 +222,2 @@
+-micclip=box(21,1.5,17,(-37,55.5,52)).cut(box(12,5,9,(-37,55.5,52)))
+-for x in (-47,-27):micclip=micclip.union(box(2,4.5,17,(x,57,52)))
++micclip=box(21,1.5,17,(-27,55.5,52)).cut(box(12,5,9,(-27,55.5,52)))
++for x in (-37,-17):micclip=micclip.union(box(2,4.5,17,(x,57,52)))
+@@ -218,2 +231,2 @@
+-    OUT.mkdir(exist_ok=True);(OUT/'stl').mkdir(exist_ok=True);(OUT/'step').mkdir(exist_ok=True)
+-    report=[];assembly=cq.Assembly(name='Aether_Orb_RevA')
++    OUT.mkdir(exist_ok=True);(OUT/'stl').mkdir(exist_ok=True);(OUT/'step').mkdir(exist_ok=True);(OUT/'dxf').mkdir(exist_ok=True)
++    report=[];assembly=cq.Assembly(name='Aether_Orb_RevB')
+@@ -237 +250,8 @@
+-        cq.exporters.export(print_obj,str(OUT/'stl'/f'{name}.stl'),tolerance=.12,angularTolerance=.15)
++        cq.exporters.export(print_obj,str(OUT/'stl'/f'{name}.stl'),tolerance=.06,angularTolerance=.10)
++        # Sew coincident periodic-surface vertices only; do not fill missing faces.
++        import trimesh
++        mesh=trimesh.load(OUT/'stl'/f'{name}.stl',force='mesh')
++        mesh.merge_vertices(digits_vertex=5)
++        mesh.update_faces(mesh.nondegenerate_faces())
++        mesh.remove_unreferenced_vertices()
++        mesh.export(OUT/'stl'/f'{name}.stl')
+@@ -239 +259 @@
+-    assembly.save(str(OUT/'Aether_Orb_RevA_Assembly.step'))
++    assembly.save(str(OUT/'Aether_Orb_RevB_Assembly.step'))
+diff --git a/tools/check_mechanical.py b/tools/check_mechanical.py
+--- a/tools/check_mechanical.py
++++ b/tools/check_mechanical.py
+@@ -23,0 +24,3 @@
++
++if pairs or not meshes or any(not m["watertight"] or not m["winding_consistent"] for m in meshes):
++    raise SystemExit(1)
+diff --git a/tools/design.py b/tools/design.py
+--- a/tools/design.py
++++ b/tools/design.py
+@@ -1 +1 @@
+-"""Aether Orb Rev A: single source for the carrier circuit and interfaces.
++"""Aether Orb Rev B: single source for the carrier circuit and interfaces.
+@@ -80 +80 @@
+-part('J3','5V INPUT','Terminal_1x02_P5.08',68,78,
++part('J3','5V INPUT','Terminal_1x02_P5.08',72,82,
+@@ -142 +142 @@
+-    data={'project':'Aether Orb','revision':'A','board_mm':[W,H],'pinmap':PINMAP,
++    data={'project':'Aether Orb','revision':'B','board_mm':[W,H],'pinmap':PINMAP,
+diff --git a/tools/pcb.py b/tools/pcb.py
+--- a/tools/pcb.py
++++ b/tools/pcb.py
+@@ -163,0 +164,2 @@
++    aliases={p.net:f'unconnected-({c.ref}-{p.net}-Pad{p.number})' for c in PARTS for p in c.pads if p.net.startswith('NC_')}
++    netname=lambda n:aliases.get(n,n)
+@@ -166 +168 @@
+-         '  (layers (0 "F.Cu" signal) (31 "B.Cu" signal) (36 "B.SilkS" user "b.silkscreen") (37 "F.SilkS" user "f.silkscreen") (38 "B.Mask" user) (39 "F.Mask" user) (40 "Dwgs.User" user) (44 "Edge.Cuts" user) (46 "B.CrtYd" user) (47 "F.CrtYd" user) (48 "B.Fab" user) (49 "F.Fab" user))',
++         '  (layers (0 "F.Cu" signal) (31 "B.Cu" signal) (34 "B.Paste" user) (35 "F.Paste" user) (36 "B.SilkS" user "b.silkscreen") (37 "F.SilkS" user "f.silkscreen") (38 "B.Mask" user) (39 "F.Mask" user) (40 "Dwgs.User" user) (44 "Edge.Cuts" user) (46 "B.CrtYd" user) (47 "F.CrtYd" user) (48 "B.Fab" user) (49 "F.Fab" user))',
+@@ -169 +171 @@
+-    for n,i in NETS.items():out.append(f'  (net {i} "{n}")')
++    for n,i in NETS.items():out.append(f'  (net {i} "{netname(n)}")')
+@@ -176,2 +178,3 @@
+-        out.append(f'  (footprint "Aether:{c.footprint}" (layer "F.Cu") (tstamp {uid(c.ref+"-fp")}) (at {c.x} {c.y}) (path "{path}") (attr {"smd" if all(p.kind=="smd" for p in c.pads) else "through_hole"})')
+-        out.append(f'    (fp_text reference "{c.ref}" (at 0 -3.5) (layer "F.SilkS") (effects (font (size 1 1) (thickness .15))))')
++        out.append(f'  (footprint "Aether:{c.footprint}_{c.ref}" (layer "F.Cu") (tstamp {uid(c.ref+"-fp")}) (at {c.x} {c.y}) (path "{path}") (attr {"smd" if all(p.kind=="smd" for p in c.pads) else "through_hole"})')
++        ry=-2.0 if c.ref=='R7' else -3.5
++        out.append(f'    (fp_text reference "{c.ref}" (at 0 {ry}) (layer "F.SilkS") (effects (font (size 1 1) (thickness .15))))')
+@@ -181 +184,5 @@
+-        out.append(f'    (fp_rect (start {x-.25} {y-.25}) (end {x+w+.25} {y+h+.25}) (stroke (width .05) (type default)) (fill none) (layer "F.CrtYd"))')
++        cx=min([x]+[p.x-(p.sx if p.kind=='smd' else p.diameter)/2 for p in c.pads])-.25
++        cy=min([y]+[p.y-(p.sy if p.kind=='smd' else p.diameter)/2 for p in c.pads])-.25
++        ex=max([x+w]+[p.x+(p.sx if p.kind=='smd' else p.diameter)/2 for p in c.pads])+.25
++        ey=max([y+h]+[p.y+(p.sy if p.kind=='smd' else p.diameter)/2 for p in c.pads])+.25
++        out.append(f'    (fp_rect (start {cx} {cy}) (end {ex} {ey}) (stroke (width .05) (type default)) (fill none) (layer "F.CrtYd"))')
+@@ -185,2 +192,2 @@
+-            layers='"F.Cu" "F.Mask"' if p.kind=='smd' else '"*.Cu" "*.Mask"'
+-            out.append(f'    (pad "{p.number}" {p.kind} {p.shape} (at {p.x} {p.y}) (size {sz}) {drill} (layers {layers}) (net {NETS[p.net]} "{p.net}"))')
++            layers='"F.Cu" "F.Paste" "F.Mask"' if p.kind=='smd' else '"*.Cu" "*.Mask"'
++            out.append(f'    (pad "{p.number}" {p.kind} {p.shape} (at {p.x} {p.y}) (size {sz}) {drill} (layers {layers}) (net {NETS[p.net]} "{netname(p.net)}"))')
+@@ -189 +196 @@
+-        out.append(f'  (footprint "Aether:MountingHole_3.2" (layer "F.Cu") (at {x} {y}) (attr exclude_from_pos_files exclude_from_bom) (fp_text reference "H{i}" (at 0 0) (layer "F.Fab") hide (effects (font (size 1 1) (thickness .15)))) (pad "" np_thru_hole circle (at 0 0) (size 3.2 3.2) (drill 3.2) (layers "*.Cu" "*.Mask")))')
++        out.append(f'  (footprint "Aether:MountingHole_3.2" (layer "F.Cu") (at {x} {y}) (attr board_only exclude_from_pos_files exclude_from_bom) (fp_text reference "H{i}" (at 0 0) (layer "F.Fab") hide (effects (font (size 1 1) (thickness .15)))) (pad "" np_thru_hole circle (at 0 0) (size 3.2 3.2) (drill 3.2) (layers "*.Cu" "*.Mask")))')
+@@ -200 +207 @@
+-    out.append(' (gr_text "AETHER ORB / REV A" (at 69 6) (layer "F.SilkS") (effects (font (size 1.4 1.4) (thickness .2))))')
++    out.append(' (gr_text "AETHER ORB / REV B" (at 69 6) (layer "F.SilkS") (effects (font (size 1.4 1.4) (thickness .2))))')
+@@ -218 +225 @@
+-        s=['G04 Aether Orb Rev A; independently CAM-review before ordering*',
++        s=['G04 Aether Orb Rev B; independently CAM-review before ordering*',
+@@ -244 +251 @@
+-    lines=text_lines('AETHER ORB REV A',47,3,1.1)+text_lines('5V ONLY PROTOTYPE',47,7,.8)
++    lines=text_lines('AETHER ORB REV B',47,3,1.1)+text_lines('5V ONLY PROTOTYPE',47,7,.8)
+@@ -267 +274 @@
+-    (dest/'README.txt').write_text('ENGINEERING FABRICATION CANDIDATE - NOT PRODUCTION RELEASED\n100 x 90 mm, 1.60 mm FR-4, 2 layers, 2 oz (70 um) finished outer copper.\nLead-free HASL or ENIG; green mask both sides; white top legend.\nProfile is nominal finished outline. Drill units mm, decimal format, common origin lower-left.\nPTH holes plated; four 3.20 mm NPTH mounting holes NOT plated. Vias tented.\nNo controlled impedance. Smallest route 0.30 mm, clearance 0.20 mm.\nNo stencil included: Rev A is hand-assembled. No panelization or tooling rails authorized.\nRun independent KiCad DRC/ERC, supplier footprint review and CAM review before releasing even a prototype order.\n')
++    (dest/'README.txt').write_text('ENGINEERING FABRICATION CANDIDATE - NOT PRODUCTION RELEASED\n100 x 90 mm, 1.60 mm FR-4, 2 layers, 2 oz (70 um) finished outer copper.\nLead-free HASL or ENIG; green mask both sides; white top legend.\nProfile is nominal finished outline. Drill units mm, decimal format, common origin lower-left.\nPTH holes plated; four 3.20 mm NPTH mounting holes NOT plated. Vias tented.\nNo controlled impedance. Smallest route 0.30 mm, clearance 0.20 mm.\nNo stencil included: Rev B is hand-assembled. No panelization or tooling rails authorized.\nRun independent KiCad DRC/ERC, supplier footprint review and CAM review before releasing even a prototype order.\n')
+@@ -272 +279 @@
+-       '<text x="0" y="-4" fill="#eef6ff" font-family="sans-serif" font-size="3">AETHER ORB · Rev A carrier / component-side view</text>',
++       '<text x="0" y="-4" fill="#eef6ff" font-family="sans-serif" font-size="3">AETHER ORB · Rev B carrier / component-side view</text>',
+diff --git a/tools/schematic.py b/tools/schematic.py
+--- a/tools/schematic.py
++++ b/tools/schematic.py
+@@ -34 +34 @@
+-       f'(title_block (title {q(title)}) (date "2026-09-16") (rev "A - engineering") (company "Aether Orb") (comment 1 "PROTOTYPE; vendor-module internals not reproduced"))',
++       f'(title_block (title {q(title)}) (date "2026-09-16") (rev "B - engineering") (company "Aether Orb") (comment 1 "PROTOTYPE; vendor-module internals not reproduced"))',
+@@ -39 +39 @@
+-         '<text x="16" y="25" font-family="sans-serif" font-size="3" fill="#536675">AETHER ORB / REV A · Net labels connect globally across sheets · Engineering prototype</text>']
++         '<text x="16" y="25" font-family="sans-serif" font-size="3" fill="#536675">AETHER ORB / REV B · Net labels connect globally across sheets · Engineering prototype</text>']
+@@ -41 +41 @@
+-        x,y=positions[c.ref];h=max(5.08,(len(c.pads)+1)*2.54)
++        x,y=(round(v/1.27)*1.27 for v in positions[c.ref]);h=max(5.08,(len(c.pads)+1)*2.54)
+@@ -46 +46 @@
+-           (property "Footprint" {q('Aether:'+c.footprint)} (at {x} {y} 0) (effects (font (size 1.27 1.27)) hide))
++           (property "Footprint" {q('Aether:'+c.footprint+'_'+c.ref)} (at {x} {y} 0) (effects (font (size 1.27 1.27)) hide))
+@@ -72,0 +73,6 @@
++    library = ['(kicad_symbol_lib (version 20230121) (generator aether_orb)']
++    for c in PARTS:
++        library.append(symbol_definition(c.ref,names(c),c.ref.rstrip('0123456789')).replace('"Aether:'+c.ref+'"','"'+c.ref+'"',1))
++    library.append(')')
++    (ROOT/'hardware/Aether.kicad_sym').write_text('\n'.join(library))
++    (ROOT/'hardware/sym-lib-table').write_text('(sym_lib_table (lib (name "Aether") (type "KiCad") (uri "${KIPRJMOD}/Aether.kicad_sym") (options "") (descr "CrystalBall carrier symbols")))\n')
+@@ -91 +97 @@
+-          '(title_block (title "Aether Orb - Rev A carrier") (date "2026-09-16") (rev "A / ENGINEERING") (company "Aether Orb"))']
++          '(title_block (title "Aether Orb - Rev B carrier") (date "2026-09-16") (rev "B / ENGINEERING") (company "Aether Orb"))']
+@@ -111 +117 @@
+-        comp=ET.SubElement(cs,'comp',ref=c.ref);ET.SubElement(comp,'value').text=c.value;ET.SubElement(comp,'footprint').text='Aether:'+c.footprint
++        comp=ET.SubElement(cs,'comp',ref=c.ref);ET.SubElement(comp,'value').text=c.value;ET.SubElement(comp,'footprint').text='Aether:'+c.footprint+'_'+c.ref
