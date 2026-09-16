@@ -1,0 +1,58 @@
+name: Runtime hardening changeset
+on:
+  push:
+    branches: [main]
+    paths: ['ci/runtime-edits.json', 'ci/apply_runtime_edits.py', '.github/workflows/runtime-hardening.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: runtime-hardening
+  cancel-in-progress: false
+defaults:
+  run:
+    shell: bash
+jobs:
+  apply:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Apply and verify exact source edits
+        run: python ci/apply_runtime_edits.py
+      - run: python -m pip install './gateway[test]' 'playwright==1.57.0'
+      - name: Validate units before committing sources
+        run: |
+          python -m pytest gateway/tests -q
+          npm --prefix web test
+      - name: Commit verified sources directly to main
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add firmware gateway web provenance/runtime-hardening.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'fix: bound GPU submission, unlock mobile audio and harden private response lifetime'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
+      - run: python -m playwright install --with-deps chromium
+      - name: Browser integration with mocked paid provider
+        run: |
+          mkdir -p verification/browser
+          git rev-parse HEAD >verification/browser/COMMIT.txt
+          PYTHONPATH=gateway python -m uvicorn --app-dir tests mock_gateway:app --host 127.0.0.1 --port 8088 --no-access-log >verification/browser/gateway.log 2>&1 &
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:8088/healthz && break; sleep 1; done
+          python tests/browser.py 2>&1 | tee verification/browser/test.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: runtime-hardening-browser-evidence
+          path: verification/browser/
