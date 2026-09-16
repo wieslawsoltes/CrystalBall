@@ -13,8 +13,11 @@ async def main():
     errors, checks = [], []
     failure = None
     async with async_playwright() as p:
+        # Software adapter selection follows Chromium's webgpu-swiftshader test config.
+        # Only our repository's controlled CI page is loaded with these test flags.
         browser = await p.chromium.launch(executable_path=os.environ.get('CHROMIUM_PATH'), args=[
-            '--enable-unsafe-webgpu', '--use-angle=swiftshader', '--enable-features=Vulkan',
+            '--enable-unsafe-webgpu', '--use-webgpu-adapter=swiftshader',
+            '--use-angle=swiftshader', '--use-vulkan=swiftshader', '--enable-features=Vulkan',
             '--use-fake-device-for-media-stream', '--use-fake-ui-for-media-stream'])
         context = await browser.new_context(viewport={'width':1440,'height':1000},
                                              device_scale_factor=1, permissions=['microphone'])
@@ -23,8 +26,11 @@ async def main():
         page.on('console', lambda message: errors.append(message.text) if message.type == 'error' else None)
         try:
             await page.goto('http://127.0.0.1:8088/?test=1')
-            # Playwright string expressions use eval under CSP; pass a function instead.
-            await page.wait_for_function("() => document.documentElement.dataset.renderer === 'WebGPU'", timeout=45000)
+            await page.wait_for_function("() => !!document.documentElement.dataset.renderer", timeout=45000)
+            kind = await page.locator('html').get_attribute('data-renderer')
+            detail = await page.locator('#renderer-label').get_attribute('title')
+            (OUT/'renderer.json').write_text(json.dumps({'kind':kind,'detail':detail}, indent=2)+'\n')
+            assert kind == 'WebGPU', f'Required WebGPU, got {kind}: {detail}'
             checks.append('WebGPU pipeline created; software adapter in CI')
             await page.screenshot(path=str(OUT/'01-studio.png'), full_page=True)
             await page.locator('#question').fill('What might I discover in a new beginning?')
