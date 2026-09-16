@@ -1,0 +1,26 @@
+name: Complete source snapshot
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/source-snapshot.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  snapshot:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Archive tracked sources only
+        run: |
+          mkdir -p /tmp/crystalball-snapshot
+          git rev-parse HEAD >/tmp/crystalball-snapshot/COMMIT.txt
+          git archive --format=tar HEAD > /tmp/crystalball-snapshot/CrystalBall-source.tar
+          sha256sum /tmp/crystalball-snapshot/CrystalBall-source.tar > /tmp/crystalball-snapshot/SHA256.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: CrystalBall-complete-source
+          path: /tmp/crystalball-snapshot/
+          retention-days: 30
